@@ -1,0 +1,31 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "snippets/head.html" %}
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    {% include "snippets/navbar.html" %}
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            {% include "snippets/topbar.html" %}
+            {% block page_content %}
+
+            {% endblock %}
+        </div>
+    </div>
+  </div>
+
+  {% include "snippets/footer.html" %}
+  <!-- Scroll to top -->
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  {% include "snippets/scripts.html" %}
+  {% block app_scripts %}
+  
+  {% endblock %}
+</body>
+</html>

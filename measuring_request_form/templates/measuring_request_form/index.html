@@ -1,0 +1,539 @@
+{% extends "base_measuring.html" %}
+{% load static %}
+{% block page_content %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex flex-column">
+        <div class="d-sm-flex justify-content-between align-items-center mt-2 mb-3 p-3 border-bottom-dark">
+            <div class="d-sm-flex flex-column">
+                <img src="{% static "img/logo.png" %}" class="logo-measuring">
+                <small>PT. Astra Komponen Indonesia</small>
+            </div>
+            <div>
+                <h3 class="h3">MEASURING / TESTING REQUEST FORM</h3>
+            </div>
+            <div>
+                <table class="custom_table">
+                    <tbody>
+                        <tr>
+                            <td><small>Document No</small></td>
+                            <td><small>FR-LAB.01-009</small></td>
+                        </tr>
+
+                        <tr>
+                            <td><small>Revision</small></td>
+                            <td><small>01</small></td>
+                        </tr>
+
+                        <tr>
+                            <td><small>Effective Start</small></td>
+                            <td><small>23 Juni 2020</small></td>
+                        </tr>
+
+                        <tr>
+                            <td><small>Page</small></td>
+                            <td><small>1 of 1</small></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <form>
+            <div class="form-group row">
+                <div class="col-sm-3">
+                    <select class="select2-single-placeholder9 form-control" name="type_name" id="inputTypeForm">
+                        <option value="">Select</option>
+                        <option value="1" selected>Customer</option>
+                        <option value="2">Supplier</option>
+                    </select>
+                </div>
+            </div>
+            <hr>
+
+            <div class="d-sm-flex justify-content-between">
+                <div>
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="inputPartMeasure" class="col-form-label">Part Name</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control form-control-sm"
+                                placeholder="MIRROR ASSY LH BACK KZRA" readonly>
+                        </div>
+                        <div>
+                            <a href="#" class="btn btn-primary btn-sm" id="search_part">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="inputPartMeasure2" class="col-form-label">Part No</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01"
+                                readonly>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="inputPartMeasure3" class="col-form-label">Type / Model</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input type="text" class="form-control form-control-sm" placeholder="KZRA / Mold" readonly>
+                        </div>
+                    </div>
+
+                    <div id="customer_form">
+                        <div class="d-sm-flex flex-sm-row align-items-center">
+                            <div class="col-sm-5">
+                                <label for="inputPartMeasure4" class="col-form-label">Customer</label>
+                            </div>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="PT. Denso Indonesia" readonly>
+                            </div>
+                        </div>
+
+                        <div class="d-sm-flex flex-sm-row align-items-center">
+                            <div class="col-sm-5">
+                                <label for="inputcustomerAddress" class="col-form-label">Customer Address</label>
+                            </div>
+                            <div class="col-sm-7">
+                                <textarea class="form-control form-control-sm"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="supplier_form">
+                        <div class="d-sm-flex flex-sm-row align-items-center">
+                            <div class="col-sm-5">
+                                <label for="inputSupplier" class="col-form-label">Supplier</label>
+                            </div>
+                            <div class="col-sm-7">
+                                <input type="text" class="form-control form-control-sm"
+                                    placeholder="PT. Berkat Solusi Persada" readonly>
+                            </div>
+                        </div>
+
+                        <div class="d-sm-flex flex-sm-row align-items-center">
+                            <div class="col-sm-5">
+                                <label for="inputsupplierAddress" class="col-form-label">Supplier Address</label>
+                            </div>
+                            <div class="col-sm-7">
+                                <textarea class="form-control form-control-sm"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="inputPartMeasure5" class="col-form-label">Qty of Cavity</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="inputPartMeasure5" type="text" class="form-control form-control-sm input-sm">
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="inputPartMeasure6" class="col-form-label">Qty of Part</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <input id="inputPartMeasure6" type="text" class="form-control form-control-sm input-sm">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-left font-weight-bold">Complementary Documents :</p>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="drawing" name="complementary">
+                        <label class="custom-control-label" for="drawing">Drawing (2D/3D etc)</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="testing" name="complementary">
+                        <label class="custom-control-label" for="testing">Testing Std (HES/SES/DTS etc.)</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="supplier" name="complementary">
+                        <label class="custom-control-label" for="supplier">Supplier Data (Measuring/Testing
+                            Report)</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="others" name="complementary">
+                        <label class="custom-control-label" for="others">Others</label>
+                    </div>
+                    <div id="other_value">
+                        <textarea class="form-control form-control-sm"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-left font-weight-bold">Part Status :</p>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="new_part" name="part_status">
+                        <label class="custom-control-label" for="new_part">New Project / New Part</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="regular_part" name="part_status">
+                        <label class="custom-control-label" for="regular_part">Regular Part</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="periodical" name="part_status">
+                        <label class="custom-control-label" for="periodical">Periodical Part</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="change_material" name="part_status">
+                        <label class="custom-control-label" for="change_material">Change Material</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="other_part_status" name="part_status">
+                        <label class="custom-control-label" for="other_part_status">Others</label>
+                    </div>
+                    <div id="other_value_part_status">
+                        <textarea class="form-control form-control-sm"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="d-sm-flex justify-content-between">
+                <div style="width: 26%;">
+                    <p class="text-left font-weight-bold">Measuring Request :</p>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="all_dimension" name="measuring_request">
+                        <label class="custom-control-label" for="all_dimension">All Dimensions by Drawing</label>
+                    </div>
+
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="critical_points" name="measuring_request">
+                        <label class="custom-control-label" for="critical_points">Critical Points Only</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="dimension" name="measuring_request">
+                        <label class="custom-control-label" for="dimension">Dimension by Request</label>
+                    </div>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" id="other_measuring" name="measuring_request">
+                        <label class="custom-control-label" for="other_measuring">Others</label>
+                    </div>
+                    <div id="other_value_measuring">
+                        <textarea class="form-control form-control-sm"></textarea>
+                    </div>
+                </div>
+
+                <div>
+                    <p class="text-left font-weight-bold">Testing Request :</p>
+                    <div class="d-sm-flex justify-content-between">
+                        <div class="mr-4">
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="salt_spray" name="testing_request">
+                                <label class="custom-control-label" for="salt_spray">Salt Spray Test</label>
+                            </div>
+        
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="cass_test" name="testing_request">
+                                <label class="custom-control-label" for="cass_test">Cass Test</label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="distortion_test" name="testing_request">
+                                <label class="custom-control-label" for="distortion_test">Distortion Test</label>
+                            </div>
+                            
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="painting_test" name="testing_request">
+                                <label class="custom-control-label" for="painting_test">Painting Test</label>
+                            </div>
+                            
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="impact_test" name="testing_request">
+                                <label class="custom-control-label" for="impact_test">Impact Test</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="tensile_test" name="testing_request">
+                                <label class="custom-control-label" for="tensile_test">Tensile Test</label>
+                            </div>
+        
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="hardness_test" name="testing_request">
+                                <label class="custom-control-label" for="hardness_test">Hardness Test</label>
+                            </div>
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="bending_test" name="testing_request">
+                                <label class="custom-control-label" for="bending_test">Bending Test</label>
+                            </div>
+
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="other_testing" name="testing_request">
+                                <label class="custom-control-label" for="other_testing">Others</label>
+                            </div>
+                            <div id="other_value_testing">
+                                <textarea class="form-control form-control-sm" cols="12"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div>
+                    <p class="text-left font-weight-bold">Note :</p>
+                    <div>
+                        <textarea class="form-control form-control-sm" cols="22"></textarea>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="d-sm-flex justify-content-between mb-5">
+                <div>
+                    <table class="custom_table" style="width: 100%;">
+                        <tr>
+                            <td colspan="2"><p class="font-weight-bolder text-center m-auto">Applicant</p></td>
+                        </tr>
+                        <tr style="height: 85px;">
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                           <td>
+                               <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Your name" name="staff_name">
+                                    </div>
+                                    
+                                </div>
+                           </td>
+                           <td>
+                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control form-control-sm"
+                                            placeholder="Your name" name="spv_name">
+                                    </div>
+                                </div>
+                           </td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                     <div class="col-sm-12">
+                                         <input type="text" class="form-control form-control-sm"
+                                             placeholder="Dept name" name="staff_dept_name" readonly>
+                                     </div>
+                                 </div>
+                            </td>
+                            <td>
+                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                     <div class="col-sm-12">
+                                         <input type="text" class="form-control form-control-sm"
+                                             placeholder="Dept name" name="spv_dept_name" readonly>
+                                     </div>
+                                 </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <p class="font-weight-bolder text-center m-auto">Staff</p>
+                            </td>
+                            <td>
+                                <p class="font-weight-bolder text-center m-auto">Supervisor</p>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="ml-4 mr-4">
+                    <table class="custom_table" style="width: 100%;">
+                        <tr>
+                            <td colspan="2"><p class="font-weight-bolder text-center m-auto">Recipient</p></td>
+                        </tr>
+                        <tr style="height: 85px;">
+                            <td>
+
+                            </td>
+                            <td>
+
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                     <div class="col-sm-12">
+                                         <input type="text" class="form-control form-control-sm"
+                                             placeholder="Your name" name="staff_lab_name">
+                                     </div>
+                                     
+                                 </div>
+                            </td>
+                            <td>
+                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                     <div class="col-sm-12">
+                                         <input type="text" class="form-control form-control-sm"
+                                             placeholder="Your name" name="spv_lab_name">
+                                     </div>
+                                 </div>
+                            </td> 
+                         </tr>
+                         <tr>
+                             <td>
+                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                      <div class="col-sm-12">
+                                          <input type="text" class="form-control form-control-sm"
+                                              placeholder="Dept name" name="staff_dept_qa_name" value="QA" readonly>
+                                      </div>
+                                  </div>
+                             </td>
+                             <td>
+                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                      <div class="col-sm-12">
+                                          <input type="text" class="form-control form-control-sm"
+                                              placeholder="Dept name" name="spv_dept_qa_name" value="QA" readonly>
+                                      </div>
+                                  </div>
+                             </td>
+                         </tr>
+                         <tr>
+                             <td>
+                                 <p class="font-weight-bolder text-center m-auto">Lab. Staff</p>
+                             </td>
+                             <td>
+                                 <p class="font-weight-bolder text-center m-auto">Lab. Supervisor</p>
+                             </td>
+                         </tr>
+                    </table>
+                </div>
+
+                <div>
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="inputReceivingMeasure" class="col-form-label">Receiving Date</label>
+                        </div>
+                        <div class="col-sm-7" id="simple-date2">
+                            <div class="input-group input-group-sm date">
+                                <input type="text" name="receiving_date" class="form-control" placeholder="01/06/2020" id="receiving_date">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="receiving_time" class="col-form-label">Time</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <div class="input-group clockpicker" id="time_receiving">
+                                <input type="text" class="form-control form-control-sm input-sm" value="12:30" id="receiving_time">                     
+                                <div class="input-group-append">
+                                  <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                </div>                      
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex flex-sm-row align-items-center">
+                        <div class="col-sm-5">
+                            <label for="shift" class="col-form-label">Shift</label>
+                        </div>
+                        <div class="col-sm-7">
+                            <select class="select2-single-placeholder11 form-control" name="shift" id="shift">
+                                <option value="">Select a Shift</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                                <option value="4">4</option>
+                                <option value="5">5</option>
+                                <option value="6">6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <hr />
+                    <p class="text-left font-weight-bold">Estimated Testing Time (SST & CASS Test Only)**</p>
+                    <div class="d-sm-flex flex-sm-row justify-content-between">
+                        <div class="d-sm-flex flex-sm-row">
+                            <div class="col-sm-5">
+                                <label for="testing_start" class="col-form-label">Testing Start</label>
+                            </div>
+                            <div class="col-sm-7" id="testing_start">
+                                <div class="input-group input-group-sm date">
+                                    <input type="text" name="test_start" class="form-control" placeholder="01/06/2020" id="start_testing">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-sm-flex flex-sm-row">
+                            <div class="col-sm-4">
+                                <label for="time_testing_start" class="col-form-label">Time</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="input-group clockpicker" id="time_testing_start">
+                                    <input type="text" name="time_testing_start" class="form-control form-control-sm input-sm" value="12:30" id="time_start_testing">                     
+                                    <div class="input-group-append">
+                                      <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    </div>                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="d-sm-flex flex-sm-row justify-content-between">
+                        <div class="d-sm-flex flex-sm-row">
+                            <div class="col-sm-5">                            
+                                <label for="testing_end" class="col-form-label">Testing End&nbsp;&nbsp;</label>
+                            </div>
+                            <div class="col-sm-7" id="testing_end">
+                                <div class="input-group input-group-sm date">
+                                    <input type="text" name="testing_end" class="form-control" placeholder="01/06/2020" id="end_testing">
+                                    <div class="input-group-prepend">
+                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-sm-flex flex-sm-row">
+                            <div class="col-sm-4">
+                                <label for="time_end" class="col-form-label">Time</label>
+                            </div>
+                            <div class="col-sm-8">
+                                <div class="input-group clockpicker" id="time_end">
+                                    <input type="text" name="time_end" class="form-control form-control-sm input-sm" value="12:30" id="time_end_testing">                     
+                                    <div class="input-group-append">
+                                      <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    </div>                      
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr />
+            <div class="d-sm-flex justify-content-center mb-5">
+                <a href="#" class="btn btn-primary btn-icon-split btn-sm">
+                    <span class="icon text-white-50">
+                      <i class="fa fa-paper-plane"></i>
+                    </span>
+                    <span class="text">Request Now</span>
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
+
+{% block scripts_form_measuring %}
+<script src="{% static "js/measuring_form.js" %}"></script>
+<script src="{% static "vendor/clock-picker/clockpicker.js" %}"></script>
+{% endblock %}

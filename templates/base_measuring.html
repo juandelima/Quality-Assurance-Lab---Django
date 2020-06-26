@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "snippets/head.html" %}
+</head>
+<body id="page-top">
+  <div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column">
+        <div id="content">
+            {% block page_content %}
+
+            {% endblock %}
+        </div>
+    </div>
+  </div>
+  <a class="scroll-to-top rounded" href="#page-top">
+    <i class="fas fa-angle-up"></i>
+  </a>
+  {% include "snippets/scripts.html" %}
+  {% block scripts_form_measuring %}
+    
+  {% endblock %}
+</body>
+</html>
