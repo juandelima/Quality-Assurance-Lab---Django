@@ -1,8 +1,8 @@
 .logo_style {
-    width: 55px;
-    height: 20px;
-    background-position: center;
-    background-size: cover;
+  width: 55px;
+  height: 20px;
+  background-position: center;
+  background-size: cover;
 }
 
 .select2-selection { 
@@ -15,9 +15,9 @@
 }
 
 .logo-measuring {
-    width: 175px !important;
-    height: 45px !important;
-    background-size: 175px 45px;
+  width: 175px !important;
+  height: 45px !important;
+  background-size: 175px 45px;
 }
 
 .custom_table, .custom_table > tbody,  .custom_table > tbody > tr > td{
@@ -34,4 +34,48 @@
 
 .border-bottom-dark {
   border-bottom: 1.5px solid #5a5c69!important;
+}
+
+/* created by juan valerian delima */
+.loading1 {
+  width: 16%;
+  height: 25px;
+  background-color: #ccc;
+  border-radius: 2px;
+  background-image: linear-gradient(90deg, #ddd 0px, #e8e8e8 100px, #ddd 200px);
+  background-size: 1170px;
+  animation: shine-skeleton_spp 0.70s infinite linear;
+}
+
+@keyframes shine-skeleton_spp {
+  100% {
+      background-position: 1170px;
+  }
+}
+
+.custom-shirink-small {
+  width: 5% !important;
+}
+.custom-shirink {
+  width: 65% !important;
+}
+
+.custom-shirink2 {
+  width: 35% !important;
+}
+
+.custom-shirink3 {
+  width: 22% !important;
+}
+
+.custom-shirink4 {
+  width: 38% !important;
+}
+
+.custom-shirink-info {
+  width: 16% !important;
+} 
+
+.custom-shirink-search {
+  width: 24% !important;
 }

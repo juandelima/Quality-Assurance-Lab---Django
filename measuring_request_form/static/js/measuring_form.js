@@ -1,4 +1,7 @@
 $(document).ready(function () {
+
+    $('#dataParts').DataTable();
+
     $('#inputPartMeasure5').TouchSpin({
         min: 0,
         max: 100,                

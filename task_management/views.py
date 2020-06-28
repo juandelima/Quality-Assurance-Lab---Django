@@ -1,8 +1,5 @@
 from django.shortcuts import render
-from django.core import serializers
 from django.http import JsonResponse
-from django.contrib.sites.shortcuts import get_current_site
-
 from task_management.models import Customer, DataPart
 # Create your views here.
 
