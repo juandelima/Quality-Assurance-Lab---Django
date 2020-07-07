@@ -1,0 +1,37 @@
+{% extends "base_login.html" %}
+{% load static %}
+
+{% block page_content %}
+<div class="row justify-content-center">
+    <div class="col-xl-10 col-lg-12 col-md-9">
+        <div class="card shadow-sm my-5">
+            <div class="card-body p-0">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <div class="login-form">
+                            <div class="text-center">
+                                <h1 class="h4 text-gray-900 mb-4">QA LAB - Login</h1>
+                            </div>
+                            <form class="user">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="inputUsername" aria-describedby="inputUsername" placeholder="Enter Username">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                                </div>
+                                <div class="form-group">
+                                    <a href="{% url 'index' %}" class="btn btn-primary btn-block">Login</a>
+                                </div>
+                            </form>
+                            <hr>
+                            <div class="text-center">
+                                <a class="font-weight-bold small" href="{% url 'measuring-request-form' %}">Measuring Request Form?</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -52,97 +52,106 @@
 
             <div class="d-sm-flex justify-content-between">
                 <div>
+                    <input type="hidden" name="id_part" class="form-control form-control-sm" id="id_part"
+                                placeholder="MIRROR ASSY LH BACK KZRA">
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <label for="inputPartMeasure" class="col-form-label">Part Name</label>
                         </div>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control form-control-sm"
-                                placeholder="MIRROR ASSY LH BACK KZRA" readonly>
+                        <div class="col-sm-9">
+                            <input type="text" name="part_name" class="form-control form-control-sm" id="part_name"
+                                placeholder="MIRROR ASSY LH BACK KZRA">
                         </div>
-                        <div>
+                        <div id="customer_search">
                             <a href="#" class="btn btn-primary btn-sm" id="search_part">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                        <div id="supplier_search">
+                            <a href="#" class="btn btn-primary btn-sm" id="search_material">
                                 <i class="fa fa-search"></i>
                             </a>
                         </div>
                     </div>
 
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <label for="inputPartMeasure2" class="col-form-label">Part No</label>
                         </div>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01"
-                                readonly>
+                        <div class="col-sm-9">
+                            <input type="text" name="part_no" id="part_no" class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01"
+                            >
                         </div>
                     </div>
-
-                    <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
-                            <label for="inputPartMeasure3" class="col-form-label">Type / Model</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <input type="text" class="form-control form-control-sm" placeholder="KZRA / Mold" readonly>
+                    
+                    <div id="modelOrType">
+                        <div class="d-sm-flex flex-sm-row align-items-center">
+                            <div class="col-sm-4">
+                                <label for="inputPartMeasure3" class="col-form-label">Type / Model</label>
+                            </div>
+                            <div class="col-sm-9">
+                                <input type="text" name="type" id="type" class="form-control form-control-sm" placeholder="KZRA / Mold">
+                            </div>
                         </div>
                     </div>
 
                     <div id="customer_form">
                         <div class="d-sm-flex flex-sm-row align-items-center">
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 <label for="inputPartMeasure4" class="col-form-label">Customer</label>
                             </div>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control form-control-sm"
-                                    placeholder="PT. Denso Indonesia" readonly>
+                            <div class="col-sm-9">
+                                <input name="customer" id="customer" type="text" class="form-control form-control-sm"
+                                    placeholder="PT. Denso Indonesia">
                             </div>
                         </div>
 
                         <div class="d-sm-flex flex-sm-row align-items-center">
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 <label for="inputcustomerAddress" class="col-form-label">Customer Address</label>
                             </div>
-                            <div class="col-sm-7">
-                                <textarea class="form-control form-control-sm"></textarea>
+                            <div class="col-sm-9">
+                                <textarea name="customer_address" id="customer_address" class="form-control form-control-sm"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div id="supplier_form">
                         <div class="d-sm-flex flex-sm-row align-items-center">
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 <label for="inputSupplier" class="col-form-label">Supplier</label>
                             </div>
-                            <div class="col-sm-7">
-                                <input type="text" class="form-control form-control-sm"
-                                    placeholder="PT. Berkat Solusi Persada" readonly>
+                            <div class="col-sm-9">
+                                <input type="text" name="supplier" id="supplier" class="form-control form-control-sm"
+                                    placeholder="PT. Berkat Solusi Persada">
                             </div>
                         </div>
 
                         <div class="d-sm-flex flex-sm-row align-items-center">
-                            <div class="col-sm-5">
+                            <div class="col-sm-4">
                                 <label for="inputsupplierAddress" class="col-form-label">Supplier Address</label>
                             </div>
-                            <div class="col-sm-7">
-                                <textarea class="form-control form-control-sm"></textarea>
+                            <div class="col-sm-9">
+                                <textarea name="supplier_address" id="supplier_address" class="form-control form-control-sm"></textarea>
                             </div>
                         </div>
                     </div>
 
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <label for="inputPartMeasure5" class="col-form-label">Qty of Cavity</label>
                         </div>
-                        <div class="col-sm-7">
-                            <input id="inputPartMeasure5" type="text" class="form-control form-control-sm input-sm">
+                        <div class="col-sm-9">
+                            <input id="inputPartMeasure5" name="qty_of_cavity" id="qty_of_cavity" id="" type="text" class="form-control form-control-sm input-sm">
                         </div>
                     </div>
 
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
+                        <div class="col-sm-4">
                             <label for="inputPartMeasure6" class="col-form-label">Qty of Part</label>
                         </div>
-                        <div class="col-sm-7">
-                            <input id="inputPartMeasure6" type="text" class="form-control form-control-sm input-sm">
+                        <div class="col-sm-9">
+                            <input id="inputPartMeasure6" name="qty_of_part" id="qty_of_part" type="text" class="form-control form-control-sm input-sm">
                         </div>
                     </div>
                 </div>
@@ -159,9 +168,8 @@
                         <label class="custom-control-label" for="testing">Testing Std (HES/SES/DTS etc.)</label>
                     </div>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="supplier" name="complementary">
-                        <label class="custom-control-label" for="supplier">Supplier Data (Measuring/Testing
-                            Report)</label>
+                        <input type="checkbox" class="custom-control-input" id="supplier_complementary" name="complementary">
+                        <label class="custom-control-label" for="supplier_complementary">Supplier Data (Measuring/Testing Report)</label>
                     </div>
                     <div class="custom-control custom-checkbox">
                         <input type="checkbox" class="custom-control-input" id="others" name="complementary">
@@ -304,21 +312,23 @@
 
                             </td>
                         </tr>
+
                         <tr>
                            <td>
                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Your name" name="staff_name">
+                                        <select class="select2-single-placeholder12 form-control" name="staff_name" id="staff_name">
+                                            <option value="">Search your name</option>
+                                        </select>
                                     </div>
-                                    
                                 </div>
                            </td>
                            <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <input type="text" class="form-control form-control-sm"
-                                            placeholder="Your name" name="spv_name">
+                                        <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name">
+                                            <option value="">Search your name</option>
+                                        </select>
                                     </div>
                                 </div>
                            </td> 
@@ -327,8 +337,8 @@
                             <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                      <div class="col-sm-12">
-                                         <input type="text" class="form-control form-control-sm"
-                                             placeholder="Dept name" name="staff_dept_name" readonly>
+                                         <input type="text" class="form-control form-control-sm small"
+                                             placeholder="Dept name" id="staff_dept_name" name="staff_dept_name" readonly>
                                      </div>
                                  </div>
                             </td>
@@ -336,7 +346,7 @@
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                      <div class="col-sm-12">
                                          <input type="text" class="form-control form-control-sm"
-                                             placeholder="Dept name" name="spv_dept_name" readonly>
+                                             placeholder="Dept name" id="spv_dept_name" name="spv_dept_name" readonly>
                                      </div>
                                  </div>
                             </td>
@@ -367,21 +377,22 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                     <div class="col-sm-12">
-                                         <input type="text" class="form-control form-control-sm"
-                                             placeholder="Your name" name="staff_lab_name">
-                                     </div>
-                                     
-                                 </div>
+                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                    <div class="col-sm-12">
+                                        <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name">
+                                            <option value="">Search your name</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </td>
                             <td>
-                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                     <div class="col-sm-12">
-                                         <input type="text" class="form-control form-control-sm"
-                                             placeholder="Your name" name="spv_lab_name">
-                                     </div>
-                                 </div>
+                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                    <div class="col-sm-12">
+                                        <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
+                                            <option value="">Search your name</option>
+                                        </select>
+                                    </div>
+                                </div>
                             </td> 
                          </tr>
                          <tr>
@@ -389,7 +400,7 @@
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                       <div class="col-sm-12">
                                           <input type="text" class="form-control form-control-sm"
-                                              placeholder="Dept name" name="staff_dept_qa_name" value="QA" readonly>
+                                              placeholder="Dept name" name="staff_dept_qa_name" value="QUALITY ASSURANCE" readonly>
                                       </div>
                                   </div>
                              </td>
@@ -397,7 +408,7 @@
                                   <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                       <div class="col-sm-12">
                                           <input type="text" class="form-control form-control-sm"
-                                              placeholder="Dept name" name="spv_dept_qa_name" value="QA" readonly>
+                                              placeholder="Dept name" name="spv_dept_qa_name" value="QUALITY ASSURANCE" readonly>
                                       </div>
                                   </div>
                              </td>
@@ -536,4 +547,6 @@
 <script src="{% static "js/measuring_form.js" %}"></script>
 <script src="{% static "vendor/clock-picker/clockpicker.js" %}"></script>
 <script src="{% static "js/measuring_dataPart.js" %}"></script>
+<script src="{% static "js/applicant.js" %}"></script>
+<script src="{% static "js/recipient.js" %}"></script>
 {% endblock %}

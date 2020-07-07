@@ -1,4 +1,5 @@
 class TaskManagement {
+
     getDataPart(id_customer = "", nama_part = "") {
         const dataPart = () => {
             fetch(`datapart/`)
@@ -18,13 +19,29 @@ class TaskManagement {
                 alert(error);
             });
         };
-
         dataPart();
+    }
+
+    getDataMaterial(id_supplier) {
+        const dataMaterial = () => {
+            fetch(`datamaterial/`)
+            .then(response => {
+                return response.json();
+            })
+            .then(data => {
+                this.renderDataMaterial(data, id_supplier);
+            })
+            .catch(error => {
+                alert(error);
+            });
+        }
+        dataMaterial();
     }
 
     main() {
         document.addEventListener("DOMContentLoaded", () => {
             let customer = document.getElementById("inputCustomer");
+            let supplier = document.getElementById("inputSupplierModal");
             let selectPart = document.getElementById("inputPart");
             document.getElementById("inputPart").disabled = true;
             customer.onchange = (e) => {
@@ -37,7 +54,18 @@ class TaskManagement {
                     selectPart[0] = new Option("", "", true);
                     document.getElementById("inputPart").disabled = true;
                 }
-                
+            }
+
+            supplier.onchange = (e) => {
+                let id_supplier = e.target.value;
+                if(id_supplier !== "") {
+                    document.getElementById("inputPart").disabled = false;
+                    this.getDataMaterial(id_supplier);
+                } else {
+                    selectPart.innerHTML = "";
+                    selectPart[0] = new Option("", "", true);
+                    document.getElementById("inputPart").disabled = true;
+                }
             }
 
             selectPart.onchange = (e) => {
@@ -60,7 +88,7 @@ class TaskManagement {
         let id_customer = dataParts.id_customer;
         inputPart.innerHTML = "";
         inputPart[0] = new Option("", "");
-        namaPart.forEach(function(data, index) {
+        namaPart.forEach((data, index) => {
             if(customer_id == id_customer[index]) {
                 inputPart[index+1] = new Option(data, id_part[index]);
             }
@@ -79,6 +107,19 @@ class TaskManagement {
                 break;
             }
         }
+    }
+
+    renderDataMaterial(dataMaterials, id_supplier) {
+        const inputPart = document.getElementById("inputPart");
+        let code_vendor = dataMaterials.code_vendor;
+        let material_name = dataMaterials.material_name;
+        inputPart.innerHTML = "";
+        inputPart[0] = new Option("", "");
+        material_name.forEach((data, index) => {
+            if(id_supplier === code_vendor[index]) {
+                inputPart[index+1] = new Option(data, code_vendor[index]);
+            }
+        });
     }
 }
 

@@ -67,6 +67,11 @@ $(document).ready(function () {
         width: '100%'
       });
 
+      $('.select2-single-placeholder12').select2({
+        placeholder: "Search your name",
+        allowClear: true,
+      });
+
       $('#simple-date1 .input-group-sm.date').datepicker({
         format: 'dd/mm/yyyy',
         todayBtn: 'linked',

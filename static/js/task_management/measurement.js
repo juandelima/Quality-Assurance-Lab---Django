@@ -5,11 +5,17 @@ $(document).ready(function () {
     $("#customer").click(function() {
         $("#supplier_label").css("display", "none");
         $("#customer_label").css("display", "block");
+        $("#type").css("display", "block");
+        $("#inputPart").html("");
+        $("#inputPart").prop("disabled", true);
     });
 
     $("#suplier").click(function() {
         $("#supplier_label").css("display", "block");
         $("#customer_label").css("display", "none");
+        $("#type").css("display", "none");
+        $("#inputPart").html("");
+        $("#inputPart").prop("disabled", true);
     });
 
     $("#standart2_1").click(function() {

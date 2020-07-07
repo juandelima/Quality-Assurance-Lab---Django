@@ -1,6 +1,7 @@
 $(document).ready(function () {
-
+    
     $('#dataParts').DataTable();
+    $("#dataMaterials").DataTable();
 
     $('#inputPartMeasure5').TouchSpin({
         min: 0,
@@ -19,6 +20,7 @@ $(document).ready(function () {
         initval: 0
     });
 
+    $("#supplier_search").css("display", "none");
     $("#supplier_form").css("display", "none");
     $("#other_value").css("display", "none");
     $("#other_value_part_status").css("display", "none");
@@ -28,12 +30,18 @@ $(document).ready(function () {
     $("#inputTypeForm").change(function(e) {
         let value = $(e.target).val();
         if(value == "1") {
+            $("#supplier_search").css("display", "none");
+            $("#customer_search").css("display", "block");
             $("#customer_form").css("display", "block");
             $("#supplier_form").css("display", "none");
+            $("#modelOrType").css("display", "block");
         } else {
             if(value == "2") {
+                $("#supplier_search").css("display", "block");
+                $("#customer_search").css("display", "none");
                 $("#customer_form").css("display", "none");
                 $("#supplier_form").css("display", "block");
+                $("#modelOrType").css("display", "none");
             }
         }
     });

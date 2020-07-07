@@ -1,0 +1,17 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "snippets/head.html" %}
+</head>
+<body class="bg-gradient-login">
+    <div class="container-login">
+        {% block page_content %}
+
+        {% endblock %}
+    </div>
+{% include "snippets/scripts.html" %}
+{% block app_scripts %}
+{% endblock %}
+</body>
+</html>

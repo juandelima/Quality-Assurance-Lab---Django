@@ -4,4 +4,5 @@ from . import views
 urlpatterns = [
     path("", views.index, name="task-management"),
     path("datapart/", views.datapart, name="data-part"),
+    path("datamaterial/", views.datamaterial, name="data-material")
 ]
