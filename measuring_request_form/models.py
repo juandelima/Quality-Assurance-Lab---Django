@@ -55,3 +55,7 @@ class Employee(models.Model):
     class Meta:
         db_table = 'employees'
         managed = False
+
+
+class MeasuringForm(models.Model):
+    pass

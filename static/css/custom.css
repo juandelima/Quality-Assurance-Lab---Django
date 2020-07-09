@@ -79,3 +79,14 @@
 .custom-shirink-search {
   width: 24% !important;
 }
+
+.signature-pad--body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.signature-pad--body canvas{
+  border: 1px solid #222831;
+  margin: 0 auto;
+}

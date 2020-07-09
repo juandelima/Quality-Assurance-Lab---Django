@@ -305,10 +305,12 @@
                             <td colspan="2"><p class="font-weight-bolder text-center m-auto">Applicant</p></td>
                         </tr>
                         <tr style="height: 85px;">
-                            <td>
+                            <input type="hidden" name="signature_staff" id="signature_staff"/>
+                            <input type="hidden" name="signature_spv" id="signature_spv"/>
+                            <td id="signature-staff">
 
                             </td>
-                            <td>
+                            <td id="signature-spv">
 
                             </td>
                         </tr>
@@ -368,10 +370,12 @@
                             <td colspan="2"><p class="font-weight-bolder text-center m-auto">Recipient</p></td>
                         </tr>
                         <tr style="height: 85px;">
-                            <td>
+                            <input type="hidden" name="signature_staff_lab" id="signature_staff_lab"/>
+                            <input type="hidden" name="signature_spv_lab" id="signature_spv_lab"/>
+                            <td id="signature-staff-lab">
 
                             </td>
-                            <td>
+                            <td id="signature-spv-lab">
 
                             </td>
                         </tr>
@@ -549,4 +553,6 @@
 <script src="{% static "js/measuring_dataPart.js" %}"></script>
 <script src="{% static "js/applicant.js" %}"></script>
 <script src="{% static "js/recipient.js" %}"></script>
+<script src="{% static "js/signature_pad.umd.js" %}"></script>
+<script src="{% static "js/signature.js" %}"></script>
 {% endblock %}
