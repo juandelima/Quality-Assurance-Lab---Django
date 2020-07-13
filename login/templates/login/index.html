@@ -13,14 +13,27 @@
                                 <h1 class="h4 text-gray-900 mb-4">QA LAB - Login</h1>
                             </div>
                             <form class="user">
+                                <div class="alert alert-danger" role="alert" id="info-login"> 
+                                </div>
+                                {% csrf_token %}
                                 <div class="form-group">
-                                    <input type="text" class="form-control" id="inputUsername" aria-describedby="inputUsername" placeholder="Enter Username">
+                                    <input type="text" name="username" class="form-control" id="inputUsername" aria-describedby="inputUsername" placeholder="Enter Username">
                                 </div>
                                 <div class="form-group">
-                                    <input type="password" class="form-control" id="InputPassword" placeholder="Password">
+                                    <input type="password" name="password" class="form-control" id="inputPassword" placeholder="Password" autocomplete="true">
                                 </div>
                                 <div class="form-group">
-                                    <a href="{% url 'index' %}" class="btn btn-primary btn-block">Login</a>
+                                    <div id="button_login">
+                                        <button class="btn btn-primary btn-block d-sm-flex justify-content-center" id="btn_login">
+                                            Login
+                                        </button>
+                                    </div>
+
+                                    <div id="btn_loading">
+                                        <button class="btn btn-primary btn-block d-sm-flex justify-content-center" type="button" disabled>
+                                            <span class="spinner-grow spinner-grow-sm" role="status" aria-hidden="true"></span>
+                                        </button>
+                                    </div>
                                 </div>
                             </form>
                             <hr>
@@ -34,4 +47,8 @@
         </div>
     </div>
 </div>
+{% endblock %}
+
+{% block app_scripts %}
+<script src="{% static 'js/auth.js' %}"></script>
 {% endblock %}
