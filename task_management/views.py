@@ -1,17 +1,20 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import JsonResponse
 from task_management.models import *
 # Create your views here.
 def index(request):
-    customer = Customer.objects.all()
-    vendor = Vendor.objects.all()
-    context = {
-        'title': 'Task Management',
-        'activeClassTask': 'active',
-        'customers': customer,
-        'vendors': vendor,
-    }
-    return render(request, 'task_management/index.html', context)
+    if request.session.has_key('username'):
+        customer = Customer.objects.all()
+        vendor = Vendor.objects.all()
+        context = {
+            'title': 'Task Management',
+            'activeClassTask': 'active',
+            'customers': customer,
+            'vendors': vendor,
+        }
+        return render(request, 'task_management/index.html', context)
+    else:
+        return redirect('login-form')
 
 
 def datapart(request):
@@ -35,7 +38,6 @@ def datapart(request):
     data_part['type_part'] = type_part
     data_part['id_customer'] = id_customer
     return JsonResponse(data_part, safe = False)
-
 
 def datamaterial(request):
     datamaterial = Material.objects.all()
