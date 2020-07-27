@@ -42,7 +42,7 @@ class DataPart {
                 this.renderData(data);
                 this.hideSkeletonLoading();
                 this.showMainTable();
-            }, 2000);
+            }, 500);
         })
         .catch(error => {
             alert(error);
@@ -60,7 +60,7 @@ class DataPart {
                 this.renderDataMaterial(data);
                 this.hideSkeletonLoading2();
                 this.showMainTableMaterials();
-            }, 2000);
+            }, 500);
         })
         .catch(error => {
             alert(error);
@@ -118,6 +118,7 @@ class DataPart {
             $("#dataMaterials tbody").on('click', '.btn-pilih-material', function() {
                 let getId = $(this).attr('id');
                 let data_material = group_by_material_code[getId];
+                document.getElementById("id_part").value = data_material[0];
                 document.getElementById("part_no").value = data_material[0];
                 document.getElementById("part_name").value = data_material[1];
                 document.getElementById("supplier").value = data_material[2];

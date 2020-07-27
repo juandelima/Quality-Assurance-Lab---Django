@@ -1,3 +1,4 @@
+from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 # Create your models here.
@@ -45,7 +46,6 @@ class Departemen(models.Model):
         db_table = 'departemen'
         managed = False
 
-
 class Employee(models.Model):
     id_employee = models.IntegerField(primary_key = True)
     nama = models.CharField(max_length=125)
@@ -58,4 +58,31 @@ class Employee(models.Model):
 
 
 class MeasuringForm(models.Model):
-    pass
+    id_request = models.CharField(max_length=12, primary_key = True)
+    id_part = models.CharField(max_length=20)
+    address = models.TextField()
+    qty_cavity = models.IntegerField()
+    qty_part = models.IntegerField()
+    complementary_documents = ArrayField(models.CharField(max_length=200), blank=True)
+    part_status = ArrayField(models.CharField(max_length=200), blank=True)
+    measuring_request = ArrayField(models.CharField(max_length=200), blank=True)
+    testing_request = ArrayField(models.CharField(max_length=200), blank=True)
+    note = models.TextField()
+    id_applicant_staff = models.IntegerField()
+    id_applicant_spv = models.IntegerField()
+    id_recipient_lab_staff = models.IntegerField()
+    id_recipient_lab_spv = models.IntegerField()
+    receiving_date = models.DateField(auto_now=False, auto_now_add=False)
+    receiving_time = models.TimeField(auto_now=False, auto_now_add=False)
+    shift = models.IntegerField()
+    testing_start_date = models.DateField(auto_now=False, auto_now_add=False)
+    testing_start_time = models.TimeField(auto_now=False, auto_now_add=False)
+    testing_end_date = models.DateField(auto_now=False, auto_now_add=False)
+    testing_end_time = models.TimeField(auto_now=False, auto_now_add=False)
+    applicant_staff_signature = models.TextField()
+    applicant_spv_signature = models.TextField()
+    recipient_staff_signature = models.TextField()
+    recipient_spv_signature = models.TextField()
+    class Meta:
+        db_table = 'measuring_request_form'
+        managed = False

@@ -42,79 +42,61 @@
             <div class="alert alert-success alert-dismissible" role="alert" id="info-measuring">  
             </div>
             {% csrf_token %}
-            <div class="form-group row">
-                <div class="col-sm-3">
-                    <select class="select2-single-placeholder9 form-control" name="type_name" id="inputTypeForm">
-                        <option value="">Select</option>
-                        <option value="1" selected>Customer</option>
-                        <option value="2">Supplier</option>
-                    </select>
-                </div>
-            </div>
             <hr>
-
+            <input type="hidden" id="id_request" name="id_request" value="{{measuring_form.id_request}}"/>
             <div class="d-sm-flex justify-content-between">
                 <div>
                     <input type="hidden" name="id_part" class="form-control form-control-sm" id="id_part">
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <label for="part_name" class="col-form-label">Part Name</label>
                         </div>
-                        <div class="col-sm-9">
+                        <div class="col-sm-12">
                             <input type="text" name="part_name" class="form-control form-control-sm" id="part_name"
-                                placeholder="MIRROR ASSY LH BACK KZRA">
-                        </div>
-                        <div id="customer_search">
-                            <a href="#" class="btn btn-primary btn-sm" id="search_part">
-                                <i class="fa fa-search"></i>
-                            </a>
-                        </div>
-                        <div id="supplier_search">
-                            <a href="#" class="btn btn-primary btn-sm" id="search_material">
-                                <i class="fa fa-search"></i>
-                            </a>
+                                placeholder="MIRROR ASSY LH BACK KZRA" value="{{nama_part}}" readonly>
                         </div>
                     </div>
 
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <label for="part_no" class="col-form-label">Part No</label>
                         </div>
-                        <div class="col-sm-9">
-                            <input type="text" name="part_no" id="part_no" class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01"
-                            >
+                        <div class="col-sm-12">
+                            <input type="text" name="part_no" id="part_no" class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01" value="{{part_no}}" readonly>
                         </div>
                     </div>
                     
+                    {% if type_model != None %}
                     <div id="modelOrType">
                         <div class="d-sm-flex flex-sm-row align-items-center">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <label for="type" class="col-form-label">Type / Model</label>
                             </div>
-                            <div class="col-sm-9">
-                                <input type="text" name="type" id="type" class="form-control form-control-sm" placeholder="KZRA / Mold">
+                            <div class="col-sm-12">
+                                <input type="text" name="type" id="type" class="form-control form-control-sm" placeholder="KZRA / Mold" value="{{type_model}}" readonly>
                             </div>
                         </div>
                     </div>
-
+                    {% endif %}
+                    
                     <div id="customer_form">
                         <div class="d-sm-flex flex-sm-row align-items-center">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <label for="customer" class="col-form-label">Customer</label>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-12">
                                 <input name="customer" id="customer" type="text" class="form-control form-control-sm"
-                                    placeholder="PT. Denso Indonesia">
+                                    placeholder="PT. Denso Indonesia" value="{{supplier}}" readonly>
                             </div>
                         </div>
                     </div>
 
                     <div id="supplier_form">
                         <div class="d-sm-flex flex-sm-row align-items-center">
-                            <div class="col-sm-4">
+                            <div class="col-sm-5">
                                 <label for="supplier" class="col-form-label">Supplier</label>
                             </div>
-                            <div class="col-sm-9">
+                            <div class="col-sm-12">
                                 <input type="text" name="supplier" id="supplier" class="form-control form-control-sm"
                                     placeholder="PT. Berkat Solusi Persada">
                             </div>
@@ -122,171 +104,66 @@
                     </div>
                     
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <label for="address" class="col-form-label">Address</label>
                         </div>
-                        <div class="col-sm-9">
-                            <textarea name="address" id="address" class="form-control form-control-sm"></textarea>
+                        <div class="col-sm-12">
+                            <textarea name="address" id="address" class="form-control form-control-sm">{{measuring_form.address}}</textarea>
                         </div>
                     </div>
 
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <label for="qty_of_cavity" class="col-form-label">Qty of Cavity</label>
                         </div>
-                        <div class="col-sm-9">
-                            <input name="qty_of_cavity" id="qty_of_cavity" id="" type="text" class="form-control form-control-sm input-sm">
+                        <div class="col-sm-12">
+                            <input name="qty_of_cavity" value="{{measuring_form.qty_cavity}}" type="text" class="form-control form-control-sm input-sm" readonly>
                         </div>
                     </div>
 
                     <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-4">
+                        <div class="col-sm-5">
                             <label for="qty_of_part" class="col-form-label">Qty of Part</label>
                         </div>
-                        <div class="col-sm-9">
-                            <input name="qty_of_part" id="qty_of_part" type="text" class="form-control form-control-sm input-sm">
+                        <div class="col-sm-12">
+                            <input name="qty_of_part" value="{{measuring_form.qty_part}}" type="text" class="form-control form-control-sm input-sm" readonly>
                         </div>
                     </div>
                 </div>
 
                 <div>
                     <p class="text-left font-weight-bold">Complementary Documents :</p>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="drawing" name="complementary1">
-                        <label class="custom-control-label" for="drawing">Drawing (2D/3D etc)</label>
-                    </div>
-
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="testing" name="complementary2">
-                        <label class="custom-control-label" for="testing">Testing Std (HES/SES/DTS etc.)</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="supplier_complementary" name="complementary3">
-                        <label class="custom-control-label" for="supplier_complementary">Supplier Data (Measuring/Testing Report)</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="others">
-                        <label class="custom-control-label" for="others">Others</label>
-                    </div>
-                    <div id="other_value">
-                        <textarea class="form-control form-control-sm" name="complementary4" id="other_complementary"></textarea>
-                    </div>
+                    {% for complementary_documents in measuring_form.complementary_documents%}
+                        <p class="fa fa-check"> {{complementary_documents}}</p><br/>
+                    {% endfor %}
                 </div>
 
                 <div>
                     <p class="text-left font-weight-bold">Part Status :</p>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="new_part" name="part_status1">
-                        <label class="custom-control-label" for="new_part">New Project / New Part</label>
-                    </div>
-
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="regular_part" name="part_status2">
-                        <label class="custom-control-label" for="regular_part">Regular Part</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="periodical" name="part_status3">
-                        <label class="custom-control-label" for="periodical">Periodical Part</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="change_material" name="part_status4">
-                        <label class="custom-control-label" for="change_material">Change Material</label>
-                    </div>
-
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="other_part_status">
-                        <label class="custom-control-label" for="other_part_status">Others</label>
-                    </div>
-                    <div id="other_value_part_status">
-                        <textarea class="form-control form-control-sm" name="part_status5" id="others_part_status"></textarea>
-                    </div>
+                    {% for part_status in measuring_form.part_status%}
+                        <p class="fa fa-check"> {{part_status}}</p><br/>
+                    {% endfor %}
                 </div>
             </div>
             <hr />
             <div class="d-sm-flex justify-content-between">
                 <div style="width: 26%;">
                     <p class="text-left font-weight-bold">Measuring Request :</p>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="all_dimension" name="measuring_request1">
-                        <label class="custom-control-label" for="all_dimension">All Dimensions by Drawing</label>
-                    </div>
-
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="critical_points" name="measuring_request2">
-                        <label class="custom-control-label" for="critical_points">Critical Points Only</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="dimension" name="measuring_request3">
-                        <label class="custom-control-label" for="dimension">Dimension by Request</label>
-                    </div>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input" id="other_measuring">
-                        <label class="custom-control-label" for="other_measuring">Others</label>
-                    </div>
-                    <div id="other_value_measuring">
-                        <textarea class="form-control form-control-sm" name="measuring_request4" id="others_measuring"></textarea>
-                    </div>
+                    {% for measuring_request in measuring_form.measuring_request%}
+                        <p class="fa fa-check"> {{measuring_request}}</p><br/>
+                    {% endfor %}
                 </div>
 
                 <div>
                     <p class="text-left font-weight-bold">Testing Request :</p>
-                    <div class="d-sm-flex justify-content-between">
-                        <div class="mr-4">
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="salt_spray" name="testing_request1">
-                                <label class="custom-control-label" for="salt_spray">Salt Spray Test</label>
-                            </div>
-        
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="cass_test" name="testing_request2">
-                                <label class="custom-control-label" for="cass_test">Cass Test</label>
-                            </div>
-
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="distortion_test" name="testing_request3">
-                                <label class="custom-control-label" for="distortion_test">Distortion Test</label>
-                            </div>
-                            
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="painting_test" name="testing_request4">
-                                <label class="custom-control-label" for="painting_test">Painting Test</label>
-                            </div>
-                            
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="impact_test" name="testing_request5">
-                                <label class="custom-control-label" for="impact_test">Impact Test</label>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="tensile_test" name="testing_request6">
-                                <label class="custom-control-label" for="tensile_test">Tensile Test</label>
-                            </div>
-        
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="hardness_test" name="testing_request7">
-                                <label class="custom-control-label" for="hardness_test">Hardness Test</label>
-                            </div>
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="bending_test" name="testing_request8">
-                                <label class="custom-control-label" for="bending_test">Bending Test</label>
-                            </div>
-
-                            <div class="custom-control custom-checkbox">
-                                <input type="checkbox" class="custom-control-input" id="other_testing">
-                                <label class="custom-control-label" for="other_testing">Others</label>
-                            </div>
-                            <div id="other_value_testing">
-                                <textarea class="form-control form-control-sm" id="others_testing" cols="12" name="testing_request9"></textarea>
-                            </div>
-                        </div>
-                    </div>
+                    {% for testing_request in measuring_form.testing_request%}
+                        <p class="fa fa-check"> {{testing_request}}</p><br/>
+                    {% endfor %}
                 </div>
                 <div>
                     <p class="text-left font-weight-bold">Note :</p>
                     <div>
-                        <textarea class="form-control form-control-sm" cols="22" name="note" id="note_measuring"></textarea>
+                        <textarea class="form-control form-control-sm" cols="22" name="note" id="note_measuring" value="{{measuring_form.note}}" readonly>{{measuring_form.note}}</textarea>
                     </div>
                 </div>
             </div>
@@ -300,30 +177,56 @@
                         <tr style="height: 85px;">
                             <input type="hidden" name="signature_staff" id="signature_staff"/>
                             <input type="hidden" name="signature_spv" id="signature_spv"/>
-                            <td id="signature-staff">
+                            {% if measuring_form.applicant_staff_signature != "" %}
+                                <td id="signature-staff-not-empty" class="disabled">
+                                    <img class="disabled" src="{{measuring_form.applicant_staff_signature}}" height="75" width="150">
+                                </td>
+                            {% else %}
+                                <td id="signature-staff">
+                                
+                                </td>
+                            {% endif %}
 
-                            </td>
-                            <td id="signature-spv">
+                            {% if measuring_form.applicant_spv_signature != "" %}
+                                <td id="signature-spv-not-empty">
+                                    <img class="disabled" src="{{measuring_form.applicant_spv_signature}}" height="75" width="150">
+                                </td>
+                            {% else %}
+                                 <td id="signature-spv">
 
-                            </td>
+                                 </td>
+                            {% endif %}
                         </tr>
 
                         <tr>
                            <td>
                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="staff_name" id="staff_name">
-                                            <option value="">Search your name</option>
-                                        </select>
+                                        {% if getStaff != None %}
+                                            <select class="select2-single-placeholder12 form-control" name="staff_name" id="staff_name" disabled>
+                                                <option value="{{getStaff.nama}}">{{getStaff.nama}}</option>
+                                            </select>
+
+                                        {% else %}
+                                            <select class="select2-single-placeholder12 form-control" name="staff_name" id="staff_name">
+                                                <option value=""></option>
+                                            </select>
+                                        {% endif %}
                                     </div>
                                 </div>
                            </td>
                            <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name">
-                                            <option value="">Search your name</option>
-                                        </select>
+                                        {% if getSpv != None %}
+                                            <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name" disabled>
+                                                <option value="{{getSpv.nama}}">{{getSpv.nama}}</option>
+                                            </select>
+                                        {% else %}
+                                            <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name">
+                                                <option value=""></option>
+                                            </select>
+                                        {% endif %}
                                     </div>
                                 </div>
                            </td> 
@@ -332,16 +235,29 @@
                             <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                      <div class="col-sm-12">
-                                         <input type="text" class="form-control form-control-sm small"
+                                        {% if getStaffDept != None %}
+                                            <input type="text" class="form-control form-control-sm small"
+                                             placeholder="Dept name" id="staff_dept_name" value="{{getStaffDept.dept_name}}" readonly>
+
+                                        {% else %}
+                                            <input type="text" class="form-control form-control-sm small"
                                              placeholder="Dept name" id="staff_dept_name" readonly>
+                                        {% endif %}
+                                         
                                      </div>
                                  </div>
                             </td>
                             <td>
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                      <div class="col-sm-12">
-                                         <input type="text" class="form-control form-control-sm"
+                                        {% if getSpvDept != None %}
+                                            <input type="text" class="form-control form-control-sm"
+                                             placeholder="Dept name" id="spv_dept_name" value="{{getSpvDept.dept_name}}" readonly>
+                                        {% else %}
+                                            <input type="text" class="form-control form-control-sm small"
                                              placeholder="Dept name" id="spv_dept_name" readonly>
+                                        {% endif %}
+                                         
                                      </div>
                                  </div>
                             </td>
@@ -365,29 +281,56 @@
                         <tr style="height: 85px;">
                             <input type="hidden" name="signature_staff_lab" id="signature_staff_lab"/>
                             <input type="hidden" name="signature_spv_lab" id="signature_spv_lab"/>
-                            <td id="signature-staff-lab">
+                            {% if measuring_form.recipient_staff_signature != "" %}
+                                <td id="signature-staff-lab-not-none">
+                                    <img class="disable" src="{{measuring_form.recipient_staff_signature}}" height="75" width="150">
+                                </td>
+                            {% else %}
+                                <td id="signature-staff-lab">
 
-                            </td>
-                            <td id="signature-spv-lab">
+                                </td>
+                            {% endif %}
+                            
+                            {% if measuring_form.recipient_spv_signature != "" %}
+                                <td id="signature-spv-lab-not-none">
+                                    <img class="disable" src="{{measuring_form.recipient_spv_signature}}" height="75" width="150">
+                                </td>
+                            {% else %}
+                                <td id="signature-spv-lab">
 
-                            </td>
+                                </td>
+                            {% endif %}
+                            
                         </tr>
                         <tr>
                             <td>
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name">
-                                            <option value="">Search your name</option>
-                                        </select>
+                                        {% if getLabStaff != None %}
+                                            <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name_not_none">
+                                                <option value="{{getLabStaff.nama}}">{{getLabStaff.nama}}</option>
+                                            </select>
+                                        {% else %}
+                                            <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name">
+                                                <option value="">Search your name</option>
+                                            </select>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </td>
                             <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
-                                            <option value="">Search your name</option>
-                                        </select>
+                                        {% if getLabSpv != None %}
+                                            <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name_not_none">
+                                                <option value="{{getLabSpv.nama}}">{{getLabSpv.nama}}</option>
+                                            </select>
+
+                                        {% else %}
+                                            <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
+                                                <option value="">Search your name</option>
+                                            </select>
+                                        {% endif %}
                                     </div>
                                 </div>
                             </td> 
@@ -426,9 +369,9 @@
                         <div class="col-sm-5">
                             <label for="receiving_date" class="col-form-label">Receiving Date</label>
                         </div>
-                        <div class="col-sm-7" id="simple-date2">
+                        <div class="col-sm-7">
                             <div class="input-group input-group-sm date">
-                                <input type="text" name="receiving_date" class="form-control" placeholder="01/06/2020" id="receiving_date" required>
+                                <input type="text" name="receiving_date" class="form-control" placeholder="01/06/2020" value="{{measuring_form.receiving_date}}" id="receiving_date" required readonly>
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                 </div>
@@ -441,8 +384,8 @@
                             <label for="receiving_time" class="col-form-label">Time</label>
                         </div>
                         <div class="col-sm-7">
-                            <div class="input-group clockpicker" id="time_receiving">
-                                <input type="text" name="receiving_time" class="form-control form-control-sm input-sm" placeholder="12:30" id="receiving_time" required>                     
+                            <div class="input-group clockpicker">
+                                <input type="text" name="receiving_time" class="form-control form-control-sm input-sm" value="{{measuring_form.receiving_time}}" placeholder="12:30" id="receiving_time" required readonly>                     
                                 <div class="input-group-append">
                                   <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                 </div>                      
@@ -455,14 +398,8 @@
                             <label for="shift" class="col-form-label">Shift</label>
                         </div>
                         <div class="col-sm-7">
-                            <select class="select2-single-placeholder11 form-control" name="shift" id="shift" required>
-                                <option value="">Select a Shift</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
+                            <select class="select2-single-placeholder11 form-control" name="shift" id="shift" required disabled>
+                                <option value="{{measuring_form.shift}}">{{measuring_form.shift}}</option>
                             </select>
                         </div>
                     </div>
@@ -548,9 +485,9 @@
 <script src="{% static "js/measuring_form.js" %}"></script>
 <script src="{% static "vendor/clock-picker/clockpicker.js" %}"></script>
 <script src="{% static "js/measuring_dataPart.js" %}"></script>
-<script src="{% static "js/applicant.js" %}"></script>
-<script src="{% static "js/recipient.js" %}"></script>
+<script src="{% static "js/applicant_edit.js" %}"></script>
+<script src="{% static "js/recipient_edit.js" %}"></script>
 <script src="{% static "js/signature_pad.umd.js" %}"></script>
 <script src="{% static "js/signature.js" %}"></script>
-<script src="{% static "js/saveMeasuringForm.js" %}"></script> 
+<script src="{% static "js/updateMeasuringForm.js" %}"></script> 
 {% endblock %}

@@ -1,0 +1,80 @@
+{% load static %}
+{% load inlinecss %}
+{% inlinecss "css/email.css" %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    </head>
+    <body>
+        <header>
+            <h4>Measuring Request Form - {{nama_part}}</h4>
+        </header>
+        <div class="info-measuring">
+            <p>Dear Supervisor, <br/>
+                The following material data will be measured in a quality assurance laboratory
+            </p>
+            <div style="overflow-x:auto;">
+                <table>
+                    <tr>    
+                        <th>Nama Part</th>
+                        <td>{{nama_part}}</td>
+                    </tr>
+                    <tr>
+                        <th>Customer / Supplier</th>
+                        <td>{{supplier}}</td>
+                    </tr>
+                    <tr>
+                        <th>Qty of Cavity</th>
+                        <td>{{qty_cavity}}</td>
+                    </tr>
+                    <tr>
+                        <th>Qty of Part</th>
+                        <td>{{qty_part}}</td>
+                    </tr>
+                    <tr>
+                        <th>Complementary Documents</th>
+                        <td>{{complementary_documents}}</td>
+                    </tr>
+                    <tr>
+                        <th>Part Status</th>
+                        <td>{{part_status}}</td>
+                    </tr>
+                    <tr>
+                        <th>Measuring Request</th>
+                        <td>{{measuring_request}}</td>
+                    </tr>
+                    <tr>
+                        <th>Testing Request</th>
+                        <td>{{testing_request}}</td>
+                    </tr>
+                    <tr>
+                        <th>Note</th>
+                        <td>{{note}}</td>
+                    </tr>
+                    <tr>
+                        <th>Receiving Date</th>
+                        <td>{{receiving_date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Receiving Time</th>
+                        <td>{{receiving_time}}</td>
+                    </tr>
+                    <tr>
+                        <th>Shift</th>
+                        <td>{{shift}}</td>
+                    </tr>
+                </table>
+            </div>
+
+            <p>
+                Please do a digital signature so that the lab staff can process it.
+            </p>
+            <a href="http://127.0.0.1:8000/measuring-request-form/{{id_request}}" class="button3">Click here</a>
+        </div>
+    </body>
+</html>
+{% endinlinecss %}

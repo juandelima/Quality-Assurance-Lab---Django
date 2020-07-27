@@ -70,8 +70,7 @@ class Auth {
             },
 
             error: (xhr, status, error) => {
-                let err = eval("(" + xhr.responseText + ")");
-                this.infoLogin.innerText = err.Message;
+                this.infoLogin.innerText = xhr.responseText;
             }
         }); 
     }

@@ -72,12 +72,16 @@ $(document).ready(function () {
         allowClear: true,
       });
 
+      $('.select2-single-placeholder13').select2({
+        placeholder: "Search Email",
+        allowClear: true,
+        width: '100%'
+      });
+
       $('#simple-date1 .input-group-sm.date').datepicker({
         format: 'dd/mm/yyyy',
         todayBtn: 'linked',
         todayHighlight: true,
         autoclose: true        
       });
-
-      
 });

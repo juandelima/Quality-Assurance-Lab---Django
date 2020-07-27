@@ -1,0 +1,42 @@
+<div class="modal fade" id="modalEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalEmail" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h6 class="modal-title" id="exampleModalEmail">Search Email</h6>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-sm-3">
+                        <label for="shift" class="col-form-label">Request to</label>
+                     </div>
+                    <div class="col-sm-9">
+                        <select class="select2-single-placeholder13 form-control" name="email" id="email">
+                            <option value="">Search email</option>
+                            <option value="juanvaleriandelima9@gmail.com">juanvaleriandelima9@gmail.com</option>
+                            <option value="eko.pujiyanto@aski.component.astra.co.id">eko.pujiyanto@aski.component.astra.co.id</option>
+                            <option value="linovri.pratama@aski.component.astra.co.id">linovri.pratama@aski.component.astra.co.id</option>
+                            <option value="novriarmeza@gmail.com">novriarmeza@gmail.com</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">Close</button>
+                <div id="main-button-request">
+                    <button type="button" id="send_request" class="btn btn-primary btn-sm">Send</button>
+                </div>
+                <div id="button-load">
+                    <button class="btn btn-primary btn-sm" type="button" disabled>
+                        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                        <span>Sending...</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

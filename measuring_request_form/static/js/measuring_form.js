@@ -3,7 +3,7 @@ $(document).ready(function () {
     $('#dataParts').DataTable();
     $("#dataMaterials").DataTable();
 
-    $('#inputPartMeasure5').TouchSpin({
+    $('#qty_of_cavity').TouchSpin({
         min: 0,
         max: 100,                
         boostat: 5,
@@ -11,7 +11,7 @@ $(document).ready(function () {
         initval: 0
     });
 
-    $('#inputPartMeasure6').TouchSpin({
+    $('#qty_of_part').TouchSpin({
         postfix: "/ Cavity",
         min: 0,
         max: 100,                
@@ -35,6 +35,7 @@ $(document).ready(function () {
             $("#customer_form").css("display", "block");
             $("#supplier_form").css("display", "none");
             $("#modelOrType").css("display", "block");
+            
         } else {
             if(value == "2") {
                 $("#supplier_search").css("display", "block");
@@ -43,39 +44,6 @@ $(document).ready(function () {
                 $("#supplier_form").css("display", "block");
                 $("#modelOrType").css("display", "none");
             }
-        }
-    });
-
-    $("#others").change(function() {
-        if($(this).is(':checked')) {
-            $("#other_value").css("display", "block");
-        } else {
-            $("#other_value").css("display", "none");
-        }
-    });
-
-
-    $("#other_part_status").change(function() {
-        if($(this).is(':checked')) {
-            $("#other_value_part_status").css("display", "block");
-        } else {
-            $("#other_value_part_status").css("display", "none");
-        }
-    });
-
-    $("#other_measuring").change(function() {
-        if($(this).is(':checked')) {
-            $("#other_value_measuring").css("display", "block");
-        } else {
-            $("#other_value_measuring").css("display", "none");
-        }
-    });
-
-    $("#other_testing").change(function() {
-        if($(this).is(':checked')) {
-            $("#other_value_testing").css("display", "block");
-        } else {
-            $("#other_value_testing").css("display", "none");
         }
     });
 
@@ -118,4 +86,218 @@ $(document).ready(function () {
         align: 'top',
         autoclose: true
     });
+
+    function complementaryDocuments() {
+        const drawing = $("#drawing");
+        const testing = $("#testing");
+        const supplier_complementary = $("#supplier_complementary");
+        const others = $("#others");
+        drawing.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Drawing (2D/3D etc)");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        testing.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Testing Std (HES/SES/DTS etc.)");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        supplier_complementary.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Supplier Data (Measuring/Testing Report)");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        others.change(function() {
+            if($(this).is(':checked')) {
+                $("#other_value").css("display", "block");
+            } else {
+                $("#other_value").css("display", "none");
+            }
+        });
+    }
+
+    function partStatus() {
+        const new_part = $("#new_part");
+        const regular_part = $("#regular_part");
+        const periodical = $("#periodical");
+        const change_material = $("#change_material");
+        const other_part_status = $("#other_part_status");
+        
+        new_part.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("New Project / New Part");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        regular_part.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Regular Part");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        periodical.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Periodical Part");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        change_material.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Change Material");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        other_part_status.change(function() {
+            if($(this).is(':checked')) {
+                $("#other_value_part_status").css("display", "block");
+            } else {
+                $("#other_value_part_status").css("display", "none");
+            }
+        });
+    }
+
+    function measuringRequest() {
+        const dimensionsByDrawing = $("#all_dimension");
+        const critical_points = $("#critical_points");
+        const dimension = $("#dimension");
+        const other_measuring = $("#other_measuring");
+
+        dimensionsByDrawing.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("All Dimensions by Drawing");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        critical_points.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Critical Points Only");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        dimension.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Dimension by Request");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        other_measuring.change(function() {
+            if($(this).is(':checked')) {
+                $("#other_value_measuring").css("display", "block");
+            } else {
+                $("#other_value_measuring").css("display", "none");
+            }
+        });
+    }
+
+    function testingRequest() {
+        const salt_spray = $("#salt_spray");
+        const cass_test = $("#cass_test");
+        const distortion_test = $("#distortion_test");
+        const painting_test = $("#painting_test");
+        const impact_test = $("#impact_test");
+        const tensile_test = $("#tensile_test");
+        const hardness_test = $("#hardness_test");
+        const bending_test = $("#bending_test");
+        const other_testing = $("#other_testing");
+        
+        salt_spray.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Salt Spray Test");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        cass_test.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Cass Test");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        distortion_test.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Distortion Test");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        painting_test.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Painting Test");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        impact_test.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Impact Test");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        tensile_test.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Tensile Test");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        hardness_test.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Hardness Test");
+            } else {
+                $(this).val("");
+            }
+        });
+        
+        bending_test.change(function() {
+            if($(this).is(':checked')) {
+                $(this).val("Bending Test");
+            } else {
+                $(this).val("");
+            }
+        });
+
+        other_testing.change(function() {
+            if($(this).is(':checked')) {
+                $("#other_value_testing").css("display", "block");
+            } else {
+                $("#other_value_testing").css("display", "none");
+            }
+        });
+    }
+
+    complementaryDocuments();
+    partStatus();
+    measuringRequest();
+    testingRequest();
 });
