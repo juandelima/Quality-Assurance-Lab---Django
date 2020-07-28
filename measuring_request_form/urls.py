@@ -10,5 +10,6 @@ urlpatterns = [
     path("save-measuring-request-form/", views.saveRequestMeasuringForm, name="save-measuring"),
     path("view-email/", views.viewEmail, name="view-email"),
     path("<str:id>/", views.addSignature, name="edit-measuring"),
-    path("update-measuring-request-form/<str:id>/", views.updateMeasuring, name="update-measuring"),
+    path("update-measuring-request-form-spv/<str:id>/", views.updateMeasuringFromSpv, name="update-measuring-from-spv"),
+    path("update-measuring-request-form-staff-lab/<str:id>/", views.updateMeasuringFromStaffLab, name="update-measuring-from-staff-lab"),
 ]

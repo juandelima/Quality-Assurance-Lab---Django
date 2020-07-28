@@ -58,9 +58,9 @@ class MeasuringRequestForm {
                 e.preventDefault();
                 if(start_testing.value == "" && time_start_testing.value == "" && end_testing.value == "" && time_end_testing.value == "") {
                     start_testing.value = "01/01/2001";
-                    time_start_testing.value = "00:00";
+                    time_start_testing.value = "12:00";
                     end_testing.value = "01/01/2001";
-                    time_end_testing.value = "00:00";
+                    time_end_testing.value = "12:00";
                 }
 
                 if(signature_staff.value == "" || staff_name.value == "" || receiving_date.value == "" || receiving_time.value == "" || email.value == "") {
@@ -189,7 +189,7 @@ class MeasuringRequestForm {
 
                     setTimeout(() => {
                         successResponse();
-                    }, 1500);
+                    }, 500);
                 },
 
                 complete: () => {

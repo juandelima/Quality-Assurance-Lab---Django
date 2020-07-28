@@ -264,7 +264,6 @@ def saveRequestMeasuringForm(request):
         if others_testing != "":
             testing_request.append(others_testing)
 
-
         if measuringForm:
             lastRecord = MeasuringForm.objects.latest('id_request')
             id_request = lastRecord.id_request
@@ -448,6 +447,27 @@ def addSignature(request, id):
             if result.code_vendor == i.code_vendor:
                 supplier = i.vendor_name
                 break
+    
+    is_start_date_null = False
+    is_end_date_null = False
+    is_start_time_null = False
+    is_end_time_null = False
+    testing_start_date = str(findByIdMeasuring.testing_start_date)
+    testing_start_time = str(findByIdMeasuring.testing_start_time)
+    testing_end_date = str(findByIdMeasuring.testing_end_date)
+    testing_end_time = str(findByIdMeasuring.testing_end_time)
+
+    if testing_start_date == "2001-01-01":
+        is_start_date_null = True
+
+    if testing_start_time == "12:00:00+00:00":
+        is_start_time_null = True
+
+    if testing_end_date == "2001-01-01":
+        is_end_date_null = True
+
+    if testing_end_time == "12:00:00+00:00":
+        is_end_time_null = True
 
     context = {
         'title': 'Measuring Request Form',
@@ -461,13 +481,17 @@ def addSignature(request, id):
         'getLabStaff': getLabStaff,
         'getLabSpv': getLabSpv,
         'getStaffDept': getStaffDept,
-        'getSpvDept': getSpvDept
+        'getSpvDept': getSpvDept,
+        'is_start_date_null': is_start_date_null,
+        'is_end_date_null': is_end_date_null,
+        'is_start_time_null': is_start_time_null,
+        'is_end_time_null': is_end_time_null
     }
     
     return render(request, 'measuring_request_form/edit.html', context)
     
 
-def updateMeasuring(request, id):
+def updateMeasuringFromSpv(request, id):
     if request.method == 'POST':
         id_request = request.POST['id_requestField']
         signature_spv = request.POST['signature_spvField']
@@ -479,6 +503,36 @@ def updateMeasuring(request, id):
             findMeasuringById.applicant_spv_signature = signature_spv
             findMeasuringById.save()
             spvEmail(email, id_request)
+            return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
+        except ObjectDoesNotExist:
+            raise Http404
+
+def updateMeasuringFromStaffLab(request, id):
+    if request.method == 'POST':
+        id_request = request.POST['id_requestField']
+        signature_staff_lab = request.POST['signature_staff_labField']
+        email = request.POST['emailField']
+        staff_lab_name = request.POST['staff_lab_nameField']
+        start_testing = request.POST['start_testingField']
+        time_start_testing = request.POST['time_start_testingField']
+        end_testing = request.POST['end_testingField']
+        time_end_testing = request.POST['time_end_testingField']
+        start_testing = start_testing.split("/")
+        start_testing.reverse()
+        start_testing = "-".join(start_testing)
+        end_testing = end_testing.split("/")
+        end_testing.reverse()
+        end_testing = "-".join(end_testing)
+        try:
+            findMeasuringById = MeasuringForm.objects.get(id_request__exact=id_request)
+            findMeasuringById.id_recipient_lab_staff = staff_lab_name
+            findMeasuringById.testing_start_date = start_testing
+            findMeasuringById.testing_start_time = time_start_testing
+            findMeasuringById.testing_end_date = end_testing
+            findMeasuringById.testing_end_time = time_end_testing
+            findMeasuringById.recipient_staff_signature = signature_staff_lab
+            findMeasuringById.save()
+            staffLabEmail(email, id_request)
             return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
         except ObjectDoesNotExist:
             raise Http404
@@ -606,6 +660,75 @@ def spvEmail(to, id_request):
     email.content_subtype = "html"
     email.send()
 
+def staffLabEmail(to, id_request):
+    findMeasuringById = MeasuringForm.objects.get(id_request__exact=id_request)
+    getAllDataPart = DataPart.objects.all()
+    getAllMaterial = Material.objects.all()
+    getCustomer = Customer.objects.all()
+    getVendor = Vendor.objects.all()
+    getEmployees = Employee.objects.get(id_employee__exact=findMeasuringById.id_applicant_staff)
+    getDept = Departemen.objects.get(dept_code__exact=getEmployees.dept_code)
+    uniqName = None
+    for i in getAllDataPart:
+        if findMeasuringById.id_part == str(i.id_part):
+            result = DataPart.objects.get(id_part__exact=findMeasuringById.id_part)
+            nama_part = result.nama_part
+            uniqName = 'Part'
+            break
+    
+    for i in getAllMaterial:
+        if findMeasuringById.id_part == i.material_code:
+            result = Material.objects.get(material_code__exact=findMeasuringById.id_part)
+            nama_part = result.material_name
+            uniqName = 'Material'
+            break
+
+    if uniqName == 'Part':
+        for i in getCustomer:
+            if result.id_customer == i.id_customer:
+                supplier = i.nama_customer
+                break
+    else:
+        for i in getVendor:
+            if result.code_vendor == i.code_vendor:
+                supplier = i.vendor_name
+                break
+
+    context = {
+        'nama_part': nama_part,
+        'supplier': supplier,
+        'qty_cavity': findMeasuringById.qty_cavity,
+        'qty_part': findMeasuringById.qty_part,
+        'complementary_documents': ", ".join(findMeasuringById.complementary_documents),
+        'part_status': ", ".join(findMeasuringById.part_status),
+        'measuring_request': ", ".join(findMeasuringById.measuring_request),
+        'testing_request': ", ".join(findMeasuringById.testing_request),
+        'note': findMeasuringById.note,
+        'receiving_date': findMeasuringById.receiving_date,
+        'receiving_time': findMeasuringById.receiving_time,
+        'shift': findMeasuringById.shift,
+        'testing_start_date': findMeasuringById.testing_start_date,
+        'testing_start_time': findMeasuringById.testing_start_time,
+        'testing_end_date': findMeasuringById.testing_end_date,
+        'testing_end_time': findMeasuringById.testing_end_time,
+        'id_request': id_request,
+    }
+
+    htmlTemplate = "email/request_form_email_from_staff_lab.html"
+    html_message = render_to_string(htmlTemplate, context)
+    email = EmailMessage(
+        f'Quality Assurance Lab - Measuring Request Form {nama_part}',
+        html_message,
+        settings.EMAIL_HOST_USER,
+        [to]
+    )
+    email.content_subtype = "html"
+    email.send()
+
+
+def spvLabEmail(to, id_request):
+    pass
+    
 def insertEmployees(request):
     departemen = Departemen.objects.all()
     with open('C:\QA-Lab Apps\datakaryawan.csv') as csvfile:
