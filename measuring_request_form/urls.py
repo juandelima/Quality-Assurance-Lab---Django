@@ -12,4 +12,6 @@ urlpatterns = [
     path("<str:id>/", views.addSignature, name="edit-measuring"),
     path("update-measuring-request-form-spv/<str:id>/", views.updateMeasuringFromSpv, name="update-measuring-from-spv"),
     path("update-measuring-request-form-staff-lab/<str:id>/", views.updateMeasuringFromStaffLab, name="update-measuring-from-staff-lab"),
+    path("update-measuring-request-form-spv-lab/<str:id>/", views.updateMeasuringFromSpvLab, name="update-measuring-from-spv-lab"),
+    path("create-notif/", views.createNotification, name="create-notification"),
 ]

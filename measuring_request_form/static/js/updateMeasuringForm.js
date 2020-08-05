@@ -58,7 +58,7 @@ class UpdateMeasuringForm {
                         }
                         this.updateDataFromStaffLab(dataTestLabFromStaffLab);
                     }
-                } else if (id_recipient_lab_spv.value === "-1") {
+                } else if(id_recipient_lab_spv.value === "-1") {
                     if(signature_spv_lab.value == "" || spv_lab_name.value == "") {
                         alert("Tidak dapat di proses. Silahkan cek kembali data inputan kamu yaa :)");
                     } else {
@@ -66,8 +66,11 @@ class UpdateMeasuringForm {
                             csrfField: csrfmiddlewaretoken.value,
                             id_requestField: id_request.value,
                             signature_spv_labField: signature_spv_lab.value,
+                            emailField: email.value,
                             spv_lab_nameField: spv_lab_name.value
                         }
+
+                        this.updateDataFromSpvLab(dataTestLabFromSpvLab)
                     }
                 }
             };
@@ -161,10 +164,46 @@ class UpdateMeasuringForm {
         });
     }
 
-    updateDataFromSpvLab() {
-        // aing bosen euy
+    updateDataFromSpvLab(dataTestLabFromSpvLab) {
+        $(document).ready(() => {
+            $.ajax({
+                type: "POST",
+                url: `/measuring-request-form/update-measuring-request-form-spv-lab/${dataTestLabFromSpvLab.id_requestField}/`,
+                data: {
+                    csrfmiddlewaretoken: dataTestLabFromSpvLab.csrfField,
+                    id_requestField: dataTestLabFromSpvLab.id_requestField,
+                    signature_spv_labField: dataTestLabFromSpvLab.signature_spv_labField,
+                    emailField: dataTestLabFromSpvLab.emailField,
+                    spv_lab_nameField: dataTestLabFromSpvLab.spv_lab_nameField,
+                },
+
+                beforeSend: () => {
+                    document.getElementById("main-button-request").style.display = "none";
+                    document.getElementById("button-load").style.display = "block";
+                },
+
+                success: (response) => {
+                    function successResponse() {
+                        if(response['message'] == 'Success') {
+                            document.getElementById("button-load").style.display = "none";
+                            document.getElementById("main-button-request").style.display = "block";
+                            $("#modalEmail").modal("hide");
+                            document.getElementById("info-measuring").style.display = "block";
+                            document.getElementById("info-measuring").innerText = "Request Measuring Berhasil di Kirim.";
+                        }
+                    }
+
+                    setTimeout(() => {
+                        successResponse();
+                    }, 500);
+                },
+
+                error: (xhr, status, error) => {
+                    alert(xhr.responseText);
+                }
+            });
+        });
     }
-    
 }
 
 const updateMeasuring = new UpdateMeasuringForm();

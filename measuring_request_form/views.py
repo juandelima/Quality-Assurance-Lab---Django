@@ -1,4 +1,5 @@
 from measuring_request_form.models import *
+from dashboard.models import Notification
 from django.core.mail import *
 from django.shortcuts import render
 from django.conf import settings
@@ -108,6 +109,7 @@ def getEmployees(request):
     employees = {}
     id_employee = []
     nama = []
+    email = []
     dept = []
     for i in departemen:
         mappingDepartment[i.dept_code] = i.dept_name
@@ -115,11 +117,13 @@ def getEmployees(request):
     for i in employee:
         id_employee.append(i.id_employee)
         nama.append(i.nama)
+        email.append(i.email)
         dept.append(mappingDepartment[i.dept_code])
 
     employees['id_employee'] = id_employee
     employees['nama'] = nama
     employees['dept'] = dept
+    employees['email'] = email
 
     return JsonResponse(employees, safe = False)
 
@@ -537,6 +541,45 @@ def updateMeasuringFromStaffLab(request, id):
         except ObjectDoesNotExist:
             raise Http404
 
+def updateMeasuringFromSpvLab(request, id):
+    if request.method == 'POST':
+        id_request = request.POST['id_requestField']
+        signature_spv_lab = request.POST['signature_spv_labField']
+        email = request.POST['emailField']
+        spv_lab_name = request.POST['spv_lab_nameField']
+        try:
+            getAllDataPart = DataPart.objects.all()
+            getAllMaterial = Material.objects.all()
+            findMeasuringById = MeasuringForm.objects.get(id_request__exact=id_request)
+            findMeasuringById.id_recipient_lab_spv = spv_lab_name
+            findMeasuringById.recipient_spv_signature = signature_spv_lab
+            get_lab_spv = Employee.objects.get(id_employee__exact=findMeasuringById.id_recipient_lab_spv)
+            for i in getAllDataPart:
+                if findMeasuringById.id_part == str(i.id_part):
+                    result = DataPart.objects.get(id_part__exact=findMeasuringById.id_part)
+                    nama_part = result.nama_part
+                    break
+    
+            for i in getAllMaterial:
+                if findMeasuringById.id_part == i.material_code:
+                    result = Material.objects.get(material_code__exact=findMeasuringById.id_part)
+                    nama_part = result.material_name
+                    break
+
+            findMeasuringById.save()
+
+            response_data = {}
+            response_data['message'] = "Success"
+            nama_spv_lab = get_lab_spv.nama
+            nama_part = nama_part
+            info_notif = f'{nama_spv_lab} Menyetujui Measuring Request Form Untuk Part {nama_part}.'
+            createNotification(id_request, info_notif)
+            # spvLabEmail(email, id_request)
+            return HttpResponse(json.dumps(response_data), content_type="application/json")
+        except ObjectDoesNotExist:
+            raise Http404
+
+
 def staffEmail(to):
     getLastRecord = MeasuringForm.objects.all().last()
     getAllDataPart = DataPart.objects.all()
@@ -727,8 +770,97 @@ def staffLabEmail(to, id_request):
 
 
 def spvLabEmail(to, id_request):
-    pass
+    findMeasuringById = MeasuringForm.objects.get(id_request__exact=id_request)
+    getAllDataPart = DataPart.objects.all()
+    getAllMaterial = Material.objects.all()
+    getCustomer = Customer.objects.all()
+    getVendor = Vendor.objects.all()
+    get_applicant_staff = Employee.objects.get(id_employee__exact=findMeasuringById.id_applicant_staff)
+    get_applicant_spv = Employee.objects.get(id_employee__exact=findMeasuringById.id_applicant_spv)
+    uniqName = None
+    for i in getAllDataPart:
+        if findMeasuringById.id_part == str(i.id_part):
+            result = DataPart.objects.get(id_part__exact=findMeasuringById.id_part)
+            nama_part = result.nama_part
+            uniqName = 'Part'
+            break
     
+    for i in getAllMaterial:
+        if findMeasuringById.id_part == i.material_code:
+            result = Material.objects.get(material_code__exact=findMeasuringById.id_part)
+            nama_part = result.material_name
+            uniqName = 'Material'
+            break
+
+    if uniqName == 'Part':
+        for i in getCustomer:
+            if result.id_customer == i.id_customer:
+                supplier = i.nama_customer
+                break
+    else:
+        for i in getVendor:
+            if result.code_vendor == i.code_vendor:
+                supplier = i.vendor_name
+                break
+
+    context = {
+        'nama_part': nama_part,
+        'supplier': supplier,
+        'qty_cavity': findMeasuringById.qty_cavity,
+        'qty_part': findMeasuringById.qty_part,
+        'complementary_documents': ", ".join(findMeasuringById.complementary_documents),
+        'part_status': ", ".join(findMeasuringById.part_status),
+        'measuring_request': ", ".join(findMeasuringById.measuring_request),
+        'testing_request': ", ".join(findMeasuringById.testing_request),
+        'note': findMeasuringById.note,
+        'receiving_date': findMeasuringById.receiving_date,
+        'receiving_time': findMeasuringById.receiving_time,
+        'shift': findMeasuringById.shift,
+        'testing_start_date': findMeasuringById.testing_start_date,
+        'testing_start_time': findMeasuringById.testing_start_time,
+        'testing_end_date': findMeasuringById.testing_end_date,
+        'testing_end_time': findMeasuringById.testing_end_time,
+        'id_request': id_request,
+    }
+
+    htmlTemplate = "email/request_form_email_from_spv_lab.html"
+    html_message = render_to_string(htmlTemplate, context)
+    print(get_applicant_staff.email)
+    print(get_applicant_spv.email)
+    email = EmailMessage(
+        f'Quality Assurance Lab - Measuring Request Form {nama_part}',
+        html_message,
+        settings.EMAIL_HOST_USER,
+        [to, get_applicant_staff.email, get_applicant_spv.email]
+    )
+    email.content_subtype = "html"
+    email.send()
+
+def createNotification(id_request_form, info_notif):
+    notification = Notification.objects.all().exists()
+    if notification:
+        lastRecord = Notification.objects.latest('id_notif')
+        id_notif = lastRecord.id_notif + 1
+        id_request_form = id_request_form
+        is_read = False
+        info_notif = info_notif
+    else:
+        id_notif = 1
+        id_request_form = id_request_form
+        is_read = False
+        
+        info_notif = info_notif
+
+    try:
+        Notification.objects.create(
+            id_notif = id_notif,
+            id_request_form = id_request_form,
+            is_read = is_read,
+            info_notif = info_notif
+        )
+    except ObjectDoesNotExist:
+        raise Http404
+
 def insertEmployees(request):
     departemen = Departemen.objects.all()
     with open('C:\QA-Lab Apps\datakaryawan.csv') as csvfile:

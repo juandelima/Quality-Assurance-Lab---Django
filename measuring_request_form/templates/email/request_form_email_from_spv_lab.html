@@ -1,0 +1,91 @@
+{% load static %}
+{% load inlinecss %}
+{% inlinecss "css/email.css" %}
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <meta name="description" content="">
+        <meta name="author" content="">
+    </head>
+    <body>
+        <header>
+            <h4>Measuring Request Form - {{nama_part}}</h4>
+        </header>
+        <div class="info-measuring">
+            <p>Congratulations, <br/>
+                The measurement request has been approved, along with the data part data that will be processed
+            </p>
+            <div style="overflow-x:auto;">
+                <table>
+                    <tr>    
+                        <th>Nama Part</th>
+                        <td>{{nama_part}}</td>
+                    </tr>
+                    <tr>
+                        <th>Customer / Supplier</th>
+                        <td>{{supplier}}</td>
+                    </tr>
+                    <tr>
+                        <th>Qty of Cavity</th>
+                        <td>{{qty_cavity}}</td>
+                    </tr>
+                    <tr>
+                        <th>Qty of Part</th>
+                        <td>{{qty_part}}</td>
+                    </tr>
+                    <tr>
+                        <th>Complementary Documents</th>
+                        <td>{{complementary_documents}}</td>
+                    </tr>
+                    <tr>
+                        <th>Part Status</th>
+                        <td>{{part_status}}</td>
+                    </tr>
+                    <tr>
+                        <th>Measuring Request</th>
+                        <td>{{measuring_request}}</td>
+                    </tr>
+                    <tr>
+                        <th>Testing Request</th>
+                        <td>{{testing_request}}</td>
+                    </tr>
+                    <tr>
+                        <th>Note</th>
+                        <td>{{note}}</td>
+                    </tr>
+                    <tr>
+                        <th>Receiving Date</th>
+                        <td>{{receiving_date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Receiving Time</th>
+                        <td>{{receiving_time}}</td>
+                    </tr>
+                    <tr>
+                        <th>Shift</th>
+                        <td>{{shift}}</td>
+                    </tr>
+                    <tr>
+                        <th>Testing Start</th>
+                        <td>{{testing_start_date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Time</th>
+                        <td>{{testing_start_time}}</td>
+                    </tr>
+                    <tr>
+                        <th>Testing End</th>
+                        <td>{{testing_end_date}}</td>
+                    </tr>
+                    <tr>
+                        <th>Time</th>
+                        <td>{{testing_end_time}}</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
+{% endinlinecss %}

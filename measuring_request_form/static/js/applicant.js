@@ -4,6 +4,7 @@ class Applicant {
         this.id_employee = null;
         this.nama = null;
         this.dept = null;
+        this.email = null;
         this.len = null;
     }
 
@@ -34,6 +35,7 @@ class Applicant {
             this.id_employee = data.id_employee;
             this.nama = data.nama;
             this.dept = data.dept;
+            this.email = data.email;
             this.len = data.dept.length;
             this.renderData();
         })
@@ -45,13 +47,16 @@ class Applicant {
     renderData() {
         const staff_name = document.getElementById("staff_name");
         const spv_name = document.getElementById("spv_name");
-        let id_employee = this.id_employee;
-        let nama = this.nama;
+        const id_employee = this.id_employee;
+        const nama = this.nama;
+        const email = this.email;
         staff_name.innerHTML = "";
         spv_name.innerHTML = "";
         nama.forEach((name, index) => {
-            staff_name[index+1] = new Option(name, id_employee[index]);
-            spv_name[index+1] = new Option(name, id_employee[index]);
+            if(email[index] !== null) {
+                staff_name[index+1] = new Option(name, id_employee[index]);
+                spv_name[index+1] = new Option(name, id_employee[index]);
+            }
         });
     }
 

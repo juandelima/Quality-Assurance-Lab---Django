@@ -150,7 +150,7 @@
             </div>
             <hr />
             <div class="d-sm-flex justify-content-between">
-                <div style="width: 26%;">
+                <div style="width: 15%;">
                     <p class="text-left font-weight-bold">Measuring Request :</p>
                     {% for measuring_request in measuring_form.measuring_request%}
                         <p class="fa fa-check"> {{measuring_request}}</p><br/>
@@ -513,12 +513,22 @@
             </div>
             <hr />
             <div class="d-sm-flex justify-content-center mb-5">
-                <a href="#" class="btn btn-primary btn-icon-split btn-sm" id="search_email">
-                    <span class="icon text-white-50">
-                      <i class="fa fa-paper-plane"></i>
-                    </span>
-                    <span class="text">Request Now</span>
-                </a>
+                {% if measuring_form.recipient_staff_signature != "" %}
+                    <a href="#" class="btn btn-primary btn-icon-split btn-sm" id="search_email">
+                        <span class="icon text-white-50">
+                        <i class="fa fa-paper-plane"></i>
+                        </span>
+                        <span class="text">Approve Now</span>
+                    </a>
+
+                {% else %}
+                    <a href="#" class="btn btn-primary btn-icon-split btn-sm" id="search_email">
+                        <span class="icon text-white-50">
+                        <i class="fa fa-paper-plane"></i>
+                        </span>
+                        <span class="text">Request Now</span>
+                    </a>
+                {% endif %}
             </div>
         </form>
     </div>

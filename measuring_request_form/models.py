@@ -52,6 +52,7 @@ class Employee(models.Model):
     nrp = models.CharField(max_length=10)
     jabatan = models.CharField(max_length=45)
     dept_code = models.CharField(max_length=7)
+    email = models.CharField(max_length=125)
     class Meta:
         db_table = 'employees'
         managed = False
