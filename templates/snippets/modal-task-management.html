@@ -1,0 +1,60 @@
+<div class="modal fade animated--grow-in" id="create_new_task" tabindex="-1" role="dialog" aria-labelledby="taskModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="taskModalLabel">Create New Task</h5>
+                <button type="button" class="close close__modal" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body">
+                <div id="skeleton_new_task">
+                    <div class="form-group row">
+                        <label for="customer" class="col-sm-4 col-form-label">Customer/Supplier</label>
+                        <div class="col-sm-8">
+                            <div class="info_task_loading"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row" id="simple-date1">
+                        <label for="simpleDataInput" class="col-sm-4 col-form-label">Received Date</label>
+                        <div class="col-sm-8">
+                            <div class="info_task_loading"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="part_name" class="col-sm-4 col-form-label">Part Name</label>
+                        <div class="col-sm-8">
+                            <div class="info_task_loading"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="pic_operator" class="col-sm-4 col-form-label">Pic Operator</label>
+                        <div class="col-sm-8">
+                            <div class="info_task_loading"></div>
+                        </div>
+                    </div>
+
+                    <div class="form-group row">
+                        <label for="inputNote" class="col-sm-4 col-form-label">Note</label>
+                        <div class="col-sm-8">
+                            <div class="info_task_loading note"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="new_task_management">
+                    
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-outline-primary btn-sm close__modal" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary btn-sm">Save changes</button>
+            </div>
+        </div>
+    </div>
+</div>

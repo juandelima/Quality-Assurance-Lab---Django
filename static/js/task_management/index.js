@@ -78,7 +78,7 @@ $(document).ready(function () {
         width: '100%'
       });
 
-      $('#simple-date1 .input-group-sm.date').datepicker({
+      $('#simple-date3 .input-group-sm.date').datepicker({
         format: 'dd/mm/yyyy',
         todayBtn: 'linked',
         todayHighlight: true,

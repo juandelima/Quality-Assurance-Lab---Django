@@ -109,7 +109,7 @@
 
 .created_at_notif_loading {
   width: 120px;
-  height: 10px;
+  height: 12px;
   background-color: #E7E7E7;
   background-image: linear-gradient( 90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 80% );
   background-size: 300px;
@@ -120,7 +120,43 @@
 
 .info_notif_loading {
   width: 200px;
-  height: 13px;
+  height: 12px;
+  background-color: #E7E7E7;
+  background-image: linear-gradient( 90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 80% );
+  background-size: 400px;
+  animation: info_rect__skeleton 0.90s infinite linear;
+  -webkit-animation: info_rect__skeleton 0.90s infinite linear;
+}
+
+.info_task_loading {
+  width: 100%;
+  height: 25px;
+  background-color: #E7E7E7;
+  background-image: linear-gradient( 90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 80% );
+  background-size: 400px;
+  animation: info_rect__skeleton 0.90s infinite linear;
+  -webkit-animation: info_rect__skeleton 0.90s infinite linear;
+}
+
+.note {
+  height: 90px !important;
+}
+
+
+.created_at_notif_loading__modal {
+  width: 180px;
+  height: 12px;
+  background-color: #E7E7E7;
+  background-image: linear-gradient( 90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 80% );
+  background-size: 300px;
+  animation: rect__skeleton 0.90s infinite linear;
+  -webkit-animation: rect__skeleton 0.90s infinite linear;
+  margin-bottom: 5px;
+}
+
+.info_notif_loading__modal {
+  width: 280px;
+  height: 12px;
   background-color: #E7E7E7;
   background-image: linear-gradient( 90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.5) 60%, rgba(255, 255, 255, 0) 80% );
   background-size: 400px;
@@ -131,9 +167,20 @@
 #no_notif {
   display: none;
 }
+
+#no_notif_modal {
+  display: none;
+}
+
+.notif-modal-header {
+  background-color: #3f51b5 !important;
+  border: 0px !important;
+  color: #fff !important;
+}
+
 @keyframes radius__skeleton {
   100% {
-      background-position: 150px;
+    background-position: 150px;
   }
 }
 

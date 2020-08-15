@@ -13,6 +13,14 @@
             {% include "snippets/topbar.html" %}
             {% block page_content %}
             {% endblock %}
+
+            {% block 'modal_notif' %}
+              {% include "snippets/modal-all-notif.html" %}
+            {% endblock  %}
+
+            {% block modal_new_task %}
+              {% include "snippets/modal-task-management.html" %}
+            {% endblock %}
         </div>
     </div>
   </div>

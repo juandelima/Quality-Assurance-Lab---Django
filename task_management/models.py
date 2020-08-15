@@ -30,3 +30,13 @@ class DataPart(models.Model):
     class Meta:
         db_table = 'data_part'
         managed = False
+
+class TaskManagement(models.Model):
+    id_task = models.IntegerField(primary_key=True)
+    id_part = models.CharField(max_length=20)
+    id_employee = models.IntegerField(primary_key=False)
+    received_date = models.DateField(auto_now=False, auto_now_add=False)
+    note = models.TextField()
+    class Meta:
+        db_table = 'task_management'
+        managed = False

@@ -1,5 +1,4 @@
 class TaskManagement {
-
     getDataPart(id_customer = "", nama_part = "") {
         const dataPart = () => {
             fetch(`datapart/`)
@@ -77,7 +76,6 @@ class TaskManagement {
                     type_part.value = "";
                 }
             }
-            
         });
     }
 

@@ -848,7 +848,6 @@ def createNotification(id_request_form, info_notif):
         id_notif = 1
         id_request_form = id_request_form
         is_read = False
-        
         info_notif = info_notif
 
     try:
