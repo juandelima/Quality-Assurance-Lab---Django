@@ -11,6 +11,11 @@
     <div id="content-wrapper" class="d-flex flex-column">
         <div id="content">
             {% include "snippets/topbar.html" %}
+            
+            {% block toast_success_saving_task %}
+              {% include "snippets/toast_success_save_task.html" %}
+            {% endblock %}
+
             {% block page_content %}
             {% endblock %}
 

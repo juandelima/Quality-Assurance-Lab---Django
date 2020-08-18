@@ -1,123 +1,88 @@
 class TaskManagement {
-    getDataPart(id_customer = "", nama_part = "") {
-        const dataPart = () => {
-            fetch(`datapart/`)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                if(id_customer !== "") {
-                    this.renderDataPart(data, id_customer);
-                } else {
-                    if(nama_part !== "") {
-                        this.renderType(data, nama_part);
-                    }
-                }
-            })
-            .catch(error => {
-                alert(error);
-            });
-        };
-        dataPart();
-    }
-
-    getDataMaterial(id_supplier) {
-        const dataMaterial = () => {
-            fetch(`datamaterial/`)
-            .then(response => {
-                return response.json();
-            })
-            .then(data => {
-                this.renderDataMaterial(data, id_supplier);
-            })
-            .catch(error => {
-                alert(error);
-            });
-        }
-        dataMaterial();
-    }
-
     main() {
-        document.addEventListener("DOMContentLoaded", () => {
-            let customer = document.getElementById("inputCustomer");
-            let supplier = document.getElementById("inputSupplierModal");
-            let selectPart = document.getElementById("inputPart");
-            document.getElementById("inputPart").disabled = true;
-            customer.onchange = (e) => {
-                let id_customer = e.target.value;
-                if(id_customer !== "") {
-                    document.getElementById("inputPart").disabled = false;
-                    this.getDataPart(id_customer);
-                } else {
-                    selectPart.innerHTML = "";
-                    selectPart[0] = new Option("", "", true);
-                    document.getElementById("inputPart").disabled = true;
-                }
-            }
+       $(document).ready(() => {
+           const save_task_management = document.getElementById("save_task_management");
+           this.hide_load_button(); 
+           save_task_management.onclick = () => {
+               document.getElementsByName("csrfmiddlewaretoken")[0].setAttribute("id", "csrf_new_task");
+               const csrfmiddlewaretoken = document.getElementById("csrf_new_task");
+               const received_date = document.getElementById("received_date");
+               const id_part = document.getElementById("id_part");
+               const pic_operator = document.getElementById("pic_operator");
+               const inputNote = document.getElementById("inputNote");
+               const data = {
+                   csrfField: csrfmiddlewaretoken.value,
+                   received_dateField: received_date.value,
+                   id_partField: id_part.value,
+                   pic_operatorField: pic_operator.value,
+                   inputNoteField: inputNote.value
+               };
+               if(data.received_dateField === "" || data.pic_operatorField === "") {
+                   alert("Received Date dan Pic Operator tidak boleh kosong!");
+               } else {
+                   this.save(data);
+               }
+           };
+       });    
+    }
+    
+    save(data) {
+       $.ajax({
+           type: "POST",
+           url: `/task-management/save-task-management/`,
+           data: {
+               csrfmiddlewaretoken: data.csrfField,
+               id_part: data.id_partField,
+               id_employee: data.pic_operatorField,
+               received_date: data.received_dateField,
+               note: data.inputNoteField
+           },
+           beforeSend: () => {
+               this.hide_btn_task();
+               this.show_load_button();
+           },
 
-            supplier.onchange = (e) => {
-                let id_supplier = e.target.value;
-                if(id_supplier !== "") {
-                    document.getElementById("inputPart").disabled = false;
-                    this.getDataMaterial(id_supplier);
-                } else {
-                    selectPart.innerHTML = "";
-                    selectPart[0] = new Option("", "", true);
-                    document.getElementById("inputPart").disabled = true;
+           success: (response) => {
+                if(response['message'] == 'Success') {
+                    setTimeout(() => {
+                        $("#create_new_task").modal("hide");
+                        this.show_toast();
+                        this.show_btn_task();
+                        this.hide_load_button(); 
+                    }, 1000);
+                    
                 }
-            }
+           },
 
-            selectPart.onchange = (e) => {
-                const type_part = document.getElementById("type_model");
-                let nama_part = selectPart.options[selectPart.selectedIndex].text;
-                if(nama_part !== "") {
-                    this.getDataPart("", nama_part);
-                } else {
-                    type_part.value = "";
-                }
-            }
-        });
+           error: (xhr, status, error) => {
+               alert(xhr.responseText);
+           },
+       });
     }
 
-    renderDataPart(dataParts, customer_id) {
-        const inputPart = document.getElementById("inputPart");
-        let id_part = dataParts.id_part;
-        let namaPart = dataParts.nama_part;
-        let id_customer = dataParts.id_customer;
-        inputPart.innerHTML = "";
-        inputPart[0] = new Option("", "");
-        namaPart.forEach((data, index) => {
-            if(customer_id == id_customer[index]) {
-                inputPart[index+1] = new Option(data, id_part[index]);
-            }
-        });
+
+    show_toast() {
+        let x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(() => { 
+            x.className = x.className.replace("show", ""); 
+        }, 5000);
     }
 
-    renderType(dataParts, nama_part) {
-        const type_part = document.getElementById("type_model");
-        let typePart = dataParts.type_part;
-        let lenTypePart = typePart.length;
-        let id_customer = dataParts.id_customer;
-        let customer = document.getElementById("inputCustomer").value;
-        for(let i = 0; i < lenTypePart; i++) {
-            if(nama_part.includes(typePart[i]) && customer == id_customer[i]) {
-                type_part.value = typePart[i];
-                break;
-            }
-        }
+    hide_load_button() {
+        return document.getElementById("button__load").style.display = "none";
     }
 
-    renderDataMaterial(dataMaterials, id_supplier) {
-        const inputPart = document.getElementById("inputPart");
-        let code_vendor = dataMaterials.code_vendor;
-        let material_name = dataMaterials.material_name;
-        inputPart.innerHTML = "";
-        inputPart[0] = new Option("", "");
-        material_name.forEach((data, index) => {
-            if(id_supplier === code_vendor[index]) {
-                inputPart[index+1] = new Option(data, code_vendor[index]);
-            }
-        });
+    show_load_button() {
+        return document.getElementById("button__load").style.display = "block";
+    }
+
+    hide_btn_task() {
+        return document.getElementById("main_btn_save_task_management").style.display = "none";
+    }
+
+    show_btn_task() {
+        return document.getElementById("main_btn_save_task_management").style.display = "block";
     }
 }
 

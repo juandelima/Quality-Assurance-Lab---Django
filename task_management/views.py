@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
-from django.http import JsonResponse
+from django.http import *
+from django.core.exceptions import ObjectDoesNotExist
 from task_management.models import *
+import json
+
 # Create your views here.
 def index(request):
     if request.session.has_key('username'):
@@ -50,4 +53,41 @@ def datamaterial(request):
         
     data_material['material_name'] = material_name
     data_material['code_vendor'] = code_vendor
-    return JsonResponse(data_material, safe = False) 
+    return JsonResponse(data_material, safe = False)
+
+
+def save_task_management(request):
+    if request.method == 'POST':
+        cekTask = TaskManagement.objects.all().exists()
+        id_part = request.POST['id_part']
+        id_employee = request.POST['id_employee']
+        received_date = request.POST['received_date']
+        note = request.POST['note']
+        implode_received_date = received_date.split("/")
+        implode_received_date.reverse()
+        received_date = "-".join(implode_received_date)
+        try:
+            if cekTask:
+                lastRecord = TaskManagement.objects.latest('id_task')
+                id_task = lastRecord.id_task + 1
+                id_part = id_part
+                id_employee = id_employee
+                received_date = received_date
+                note = note
+            else:
+                id_task = 1
+                id_part = id_part
+                id_employee = id_employee
+                received_date = received_date
+                note = note
+    
+            TaskManagement.objects.create(
+                id_task = id_task,
+                id_part = id_part,
+                id_employee = id_employee,
+                received_date = received_date,
+                note = note
+            )
+            return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
+        except ObjectDoesNotExist:
+            raise Http404

@@ -6,8 +6,12 @@
 </head>
 <body id="page-top">
   <div id="wrapper">
-    <div id="content-wrapper" class="d-flex flex-column">
+    <div id="content-wrapper" class="d-flex flex-column" style="background-color: #ffffff;">
         <div id="content">
+            {% block toast_success_send_request %}
+              {% include "snippets/toast_success_request.html" %}
+            {% endblock %}
+
             {% block page_content %}
 
             {% endblock %}

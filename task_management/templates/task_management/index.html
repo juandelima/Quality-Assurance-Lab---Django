@@ -16,13 +16,6 @@
             <div class="card mb-4">
                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
                     <h6 class="m-0 font-weight-bold text-primary">Task Management</h6>
-                    <a href="#" class="btn btn-primary btn-sm btn-icon-split" data-toggle="modal"
-                        data-target="#create_new" id="#btn_create">
-                        <span class="icon text-white-50">
-                            <i class="fa fa-plus"></i>
-                        </span>
-                        <span class="text">Create New</span>
-                    </a>
                 </div>
 
                 <div class="table-responsive p-3">
@@ -337,125 +330,6 @@
             </div>
         </div>
     </div>
-
-    <div class="modal fade" id="create_new" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-        aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Create New Task</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <fieldset class="form-group">
-                            <div class="row">
-                                <legend class="col-form-label col-sm-4 pt-0">Request Type</legend>
-                                <div class="col-sm-4">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="customer" name="type" class="custom-control-input"
-                                            checked>
-                                        <label class="custom-control-label" for="customer">Customer</label>
-                                    </div>
-                                </div>
-
-                                <div class="col-sm-4">
-                                    <div class="custom-control custom-radio">
-                                        <input type="radio" id="suplier" name="type" class="custom-control-input">
-                                        <label class="custom-control-label" for="suplier">Supplier</label>
-                                    </div>
-                                </div>
-                            </div>
-                        </fieldset>
-
-                        <div id="customer_label">
-                            <div class="form-group row">
-                                <label for="inputCustomer" class="col-sm-4 col-form-label">Customer Name</label>
-                                <div class="col-sm-8">
-                                    <select class="select2-single-placeholder form-control" name="customer_name"
-                                        id="inputCustomer">
-                                        <option value="">Select</option>
-                                        {% for customer in customers %}
-                                            <option value="{{customer.id_customer}}">{{customer.nama_customer}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div id="supplier_label">
-                            <div class="form-group row">
-                                <label for="inputSupplierModal" class="col-sm-4 col-form-label">Supplier Name</label>
-                                <div class="col-sm-8">
-                                    <select class="select2-single-placeholder8 form-control" name="supplier_name"
-                                        id="inputSupplierModal">
-                                        <option value="">Select</option>
-                                        {% for vendor in vendors %}
-                                            <option value="{{vendor.code_vendor}}">{{vendor.vendor_name}}</option>
-                                        {% endfor %}
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row" id="simple-date3">
-                            <label for="simpleDataInput" class="col-sm-4 col-form-label">Received Date</label>
-                            <div class="col-sm-8">
-                                <div class="input-group input-group-sm date">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                    </div>
-                                    <input type="text" name="received_date" class="form-control" placeholder="01/06/2020" id="simpleDataInput">
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="inputPart" class="col-sm-4 col-form-label">Part Name</label>
-                            <div class="col-sm-8">
-                                <select class="select2-single-placeholder2 form-control" name="part_name"
-                                    id="inputPart">                                
-                                </select>
-                            </div>
-                        </div>
-                        
-                        <div id="type">
-                            <div class="form-group row">
-                                <label for="inputType" class="col-sm-4 col-form-label">Type / Model</label>
-                                <div class="col-sm-8">
-                                    <input type="text" name="type" class="form-control form-control-sm" placeholder="428F" id="type_model" readonly>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="inputPic" class="col-sm-4 col-form-label">Pic Operator</label>
-                            <div class="col-sm-8">
-                                <select class="select2-single-placeholder4 form-control" name="type_name" id="inputPic">
-                                    <option value="">Select</option>
-                                    <option value="Matthew Pratama">Matthew Pratama</option>
-                                    <option value="Praz">Praz</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group row">
-                            <label for="inputNote" class="col-sm-4 col-form-label">Note</label>
-                            <div class="col-sm-8">
-                                <textarea class="form-control" id="inputNote" rows="3"></textarea>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-outline-primary btn-sm" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary btn-sm">Save changes</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -547,8 +421,4 @@
 </div>
 
 </div>
-{% endblock %}
-
-{% block app_scripts %}
-<script src="{% static 'js/task_management.js' %}"></script>
 {% endblock %}

@@ -220,13 +220,13 @@ class Notifications {
             </div>
 
             <div class="form-group row" id="simple-date1">
-                <label for="simpleDataInput" class="col-sm-4 col-form-label">Received Date</label>
+                <label for="received_date" class="col-sm-4 col-form-label">Received Date</label>
                 <div class="col-sm-8">
                     <div class="input-group input-group-sm date">
                         <div class="input-group-prepend">
                             <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                         </div>
-                        <input type="text" name="received_date" class="form-control" placeholder="01/06/2020" id="simpleDataInput">
+                        <input type="text" name="received_date" class="form-control" placeholder="01/06/2020" id="received_date">
                     </div>
                 </div>
             </div>
@@ -244,8 +244,6 @@ class Notifications {
                 <div class="col-sm-8">
                     <select class="select2-single-pic form-control" name="pic_operator" id="pic_operator">
                         <option value="">Select</option>
-                        <option value="Matthew Pratama">Matthew Pratama</option>
-                        <option value="Praz">Praz</option>
                     </select>
                 </div>
             </div>
@@ -272,6 +270,31 @@ class Notifications {
             allowClear: true,
             width: '100%'
         });
+    }
+
+    getEmployees() {
+        fetch(`/measuring-request-form/applicantsandrecipients`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            this.renderDataPic(data);
+        })
+        .catch(error => {
+            alert(error);
+        });
+    }
+
+    renderDataPic(data) {
+        const pic_operator = document.getElementById("pic_operator");
+        const id_employee = data.id_employee;
+        const nama = data.nama;
+        const email = data.email;
+        nama.forEach((name, index) => {
+            if(email[index] !== null) {
+                pic_operator[index+1] = new Option(name, id_employee[index]);
+            }
+        }); 
     }
 
     clickNotif() {
@@ -302,6 +325,7 @@ class Notifications {
                         this.hide_skeleton_new_task();
                         this.show_task_management();
                         this.widgets();
+                        this.getEmployees();
                     }, 1000);
                 })
                 .catch(error => {
@@ -317,6 +341,7 @@ class Notifications {
             });
         });
     }
+
 
     showAllNotif() {
         $(document).ready(() => {

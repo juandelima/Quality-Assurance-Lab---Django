@@ -1,7 +1,6 @@
 class UpdateMeasuringForm {
     main() {
         $(document).ready(() => {
-            document.getElementById("info-measuring").style.display = "none";
             document.getElementById("button-load").style.display = "none";
             const csrfmiddlewaretoken = document.getElementsByTagName("input")[0];
             const id_request = document.getElementById("id_request");
@@ -25,7 +24,7 @@ class UpdateMeasuringForm {
                 e.preventDefault();
                 $("#modalEmail").modal("show");
             };
-
+            
             send_request.onclick = (e) => {
                 e.preventDefault();
                 if(id_applicant_spv.value === "-1") {
@@ -78,7 +77,7 @@ class UpdateMeasuringForm {
     }
 
     updateDataFromSpv(dataTestLabFromSpv) {
-        $(document).ready(function() {
+        $(document).ready(() => {
             $.ajax({
                 type: "POST",
                 url: `/measuring-request-form/update-measuring-request-form-spv/${dataTestLabFromSpv.id_requestField}/`,
@@ -101,13 +100,12 @@ class UpdateMeasuringForm {
                             document.getElementById("button-load").style.display = "none";
                             document.getElementById("main-button-request").style.display = "block";
                             $("#modalEmail").modal("hide");
-                            document.getElementById("info-measuring").style.display = "block";
-                            document.getElementById("info-measuring").innerText = "Request Measuring Berhasil di Kirim.";
                         }
                     }
 
                     setTimeout(() => {
                         successResponse();
+                        this.show_toast();
                     }, 500);
                 },
 
@@ -120,7 +118,7 @@ class UpdateMeasuringForm {
     }
 
     updateDataFromStaffLab(dataTestLabFromStaffLab) {
-        $(document).ready(function() {
+        $(document).ready(() => {
             $.ajax({
                 type: "POST",
                 url: `/measuring-request-form/update-measuring-request-form-staff-lab/${dataTestLabFromStaffLab.id_requestField}/`,
@@ -147,13 +145,12 @@ class UpdateMeasuringForm {
                             document.getElementById("button-load").style.display = "none";
                             document.getElementById("main-button-request").style.display = "block";
                             $("#modalEmail").modal("hide");
-                            document.getElementById("info-measuring").style.display = "block";
-                            document.getElementById("info-measuring").innerText = "Request Measuring Berhasil di Kirim.";
                         }
                     }
 
                     setTimeout(() => {
                         successResponse();
+                        this.show_toast();
                     }, 500);
                 },
 
@@ -188,13 +185,12 @@ class UpdateMeasuringForm {
                             document.getElementById("button-load").style.display = "none";
                             document.getElementById("main-button-request").style.display = "block";
                             $("#modalEmail").modal("hide");
-                            document.getElementById("info-measuring").style.display = "block";
-                            document.getElementById("info-measuring").innerText = "Request Measuring Berhasil di Kirim.";
                         }
                     }
 
                     setTimeout(() => {
                         successResponse();
+                        this.show_toast();
                     }, 500);
                 },
 
@@ -203,6 +199,14 @@ class UpdateMeasuringForm {
                 }
             });
         });
+    }
+
+    show_toast() {
+        let x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(() => { 
+            x.className = x.className.replace("show", ""); 
+        }, 8000);
     }
 }
 

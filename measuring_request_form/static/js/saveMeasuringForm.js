@@ -1,7 +1,6 @@
 class MeasuringRequestForm {
     main() {
         $(document).ready(() => {
-            document.getElementById("info-measuring").style.display = "none";
             document.getElementById("button-load").style.display = "none";
             const csrfmiddlewaretoken = document.getElementsByTagName("input")[0];
             const id_part = document.getElementById("id_part");
@@ -120,7 +119,7 @@ class MeasuringRequestForm {
     }
 
     sendDataForm(dataTestLab) {
-        $(document).ready(function() {
+        $(document).ready(() => {
             $.ajax({
                 type: "POST",
                 url: "save-measuring-request-form/",
@@ -182,13 +181,12 @@ class MeasuringRequestForm {
                             $("#modalEmail").modal("hide");
                             document.getElementById("button-load").style.display = "none";
                             document.getElementById("main-button-request").style.display = "block";
-                            document.getElementById("info-measuring").style.display = "block";
-                            document.getElementById("info-measuring").innerText = "Request Measuring Berhasil di Kirim.";
                         }
                     }
 
                     setTimeout(() => {
                         successResponse();
+                        this.show_toast();
                     }, 500);
                 },
 
@@ -255,6 +253,14 @@ class MeasuringRequestForm {
                 },
             });
         });
+    }
+
+    show_toast() {
+        let x = document.getElementById("toast")
+        x.className = "show";
+        setTimeout(() => { 
+            x.className = x.className.replace("show", ""); 
+        }, 8000);
     }
 }
 

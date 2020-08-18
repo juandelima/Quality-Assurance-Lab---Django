@@ -173,7 +173,7 @@ def saveRequestMeasuringForm(request):
         end_testing = request.POST['end_testingField']
         time_end_testing = request.POST['time_end_testingField']
         email = request.POST['emailField']
-
+        
         implodeReceiving_date = receiving_date.split("/")
         implodeReceiving_date.reverse()
         newReceiving_date = "-".join(implodeReceiving_date)

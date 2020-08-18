@@ -37,6 +37,7 @@ class TaskManagement(models.Model):
     id_employee = models.IntegerField(primary_key=False)
     received_date = models.DateField(auto_now=False, auto_now_add=False)
     note = models.TextField()
+    created_at = models.DateTimeField(auto_now=True, auto_now_add=False)
     class Meta:
         db_table = 'task_management'
         managed = False
