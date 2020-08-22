@@ -5,10 +5,12 @@ class Notifications {
         this.no_notif = document.getElementById("no_notif");
         this.no_notif_modal = document.getElementById("no_notif_modal");
         this.count_notif = 0;
+        this.count_task = 0;
         this.hasClicked = false;
         this.hasClickedModal = false;
         this.hasNewRecord = false;
         this.hasNewRecordModal = false;
+        this.hasNewRecordTask = false;
     }
 
     main() {
@@ -21,6 +23,12 @@ class Notifications {
                     this.showSkeletonNotif();
                     this.hasNewRecord = false;
                 }
+
+                if(this.hasClicked) {
+                    this.countTask();
+                    this.hasClicked = false;
+                }
+
                 this.infoNotif();
                 this.hasClicked = true;
             };
@@ -28,6 +36,19 @@ class Notifications {
             setInterval(() => {
                 this.countNotif() 
             }, 1000);
+        });
+    }
+
+    countTask() {
+        fetch(`/count_task/`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            this.countDataTask(data);
+        })
+        .catch(error => {
+            alert(error);
         });
     }
 
@@ -77,6 +98,35 @@ class Notifications {
     }
 
 
+    countDataTask(data) {
+        if(data['message'] == "Success") {
+            if(this.count_task !== data['count_task']) {
+                if(this.hasClicked) {
+                    if(data['count_task'] > 0) {
+                        this.hasNewRecord = true;
+                    }
+                    this.notifications_info.innerHTML = '';
+                    this.showSkeletonNotif();
+                    this.infoNotif();
+                    this.haveNotif();
+                    this.hasClicked = false;
+                }
+
+                if(this.hasClickedModal) {
+                    if(data['count_task'] > 0) {
+                        this.hasNewRecordModal = true;
+                    }
+                    this.notifications_info_modal.innerHTML = '';
+                    this.showSkeletonNotifModal();
+                    this.showAllInfoNotif();
+                    this.haveNotifModal();
+                    this.hasClickedModal = false;
+                }
+                this.count_task = data['count_task'];
+            }
+        }
+    }
+
     renderCountData(data) {
         const count_notif_el = document.getElementById("count_notif");
         let counting;
@@ -120,13 +170,20 @@ class Notifications {
     }
 
     renderDataInfoNotif(data) {
-        const created_at = data['created_at'];
-        const info_notif = data['info_notif'];
-        const id_request = data['id_request'];
-        let count = 0;
         this.notifications_info.innerHTML = '';
+        const info_notif = data['info_notif'];
+        const created_at = data['created_at'];
+        const id_request = data['id_request'];
+        const has_fill_task = data['has_fill_task'];
+        let indicator_is_read = '';
+        let count = 0;
         info_notif.forEach((info, index) => {
             if(index <= 2) {
+                if(has_fill_task[index] === false) {
+                    indicator_is_read = 'dot';
+                } else {
+                    indicator_is_read = '';
+                }
                 this.notifications_info.innerHTML += `
                     <a class="dropdown-item d-flex align-items-center new_task" href="#" id="new_task_${id_request[index]}">
                         <div class="mr-3">
@@ -135,21 +192,25 @@ class Notifications {
                             </div>
                         </div>
                         <div>
-                            <div class="small text-gray-500">${created_at[index]}</div>
+                            <div class="d-flex justify-content-between align-items-center">
+                                <div class="small text-gray-500">${created_at[index]}</div>
+                                <div class="${indicator_is_read}"></div>
+                            </div>
                             <span class="font-weight-bold">
                                 ${info}
                             </span>
                         </div>
                     </a>
-                `;
+                `;               
             }
             count += 1;
         });
 
+        
         this.notifications_info.innerHTML += `
             <a class="dropdown-item text-center small text-gray-500" href="" id="show_all_notif">Show All Notifications</a>
         `;
-
+            
         const show_all_notif = document.getElementById("show_all_notif");
         show_all_notif.onclick = (e) => {
             if(this.hasNewRecordModal) {
@@ -159,6 +220,7 @@ class Notifications {
                 this.hasNewRecordModal = false;
             }
             this.showAllInfoNotif();
+            this.countTask();
             this.hasClickedModal = true;
         };
 
@@ -169,18 +231,25 @@ class Notifications {
         }
 
         this.showAllNotif();
-        
+            
         this.clickNotif();
+        
     }
-
 
     renderDataInfoNotifModal(data) {
         const created_at = data['created_at'];
         const info_notif = data['info_notif'];
         const id_request = data['id_request'];
+        const has_fill_task = data['has_fill_task'];
         this.notifications_info_modal.innerHTML = '';
+        let indicator_is_read = '';
         let count = 0;
         info_notif.forEach((info, index) => {
+            if(has_fill_task[index] === false) {
+                indicator_is_read = 'dot';
+            } else {
+                indicator_is_read = '';
+            }
             this.notifications_info_modal.innerHTML += `
                 <a class="dropdown-item d-flex align-items-center new_task" href="#" id="new_task_${id_request[index]}" style="white-space: normal;">
                     <div class="mr-3">
@@ -189,7 +258,10 @@ class Notifications {
                         </div>
                     </div>
                     <div>
-                        <div class="small text-gray-500">${created_at[index]}</div>
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="small text-gray-500">${created_at[index]}</div>
+                            <div class="${indicator_is_read}"></div>
+                        </div>
                         <span class="font-weight-bold">
                             ${info}
                         </span>
@@ -208,10 +280,91 @@ class Notifications {
         this.clickNotif();
     }
 
+
     renderDataDetailNotif(data) {
         const new_task_management = document.getElementById("new_task_management");
+        let pic_operator;
+        let received_date;
+        let note;
+        if(data['pic_operator'] !== null) {
+            document.getElementById("save_task_management").style.display = "none";
+            pic_operator = `
+                <div class="form-group row">
+                    <label for="pic_operator" class="col-sm-4 col-form-label">Pic Operator</label>
+                    <div class="col-sm-8">
+                        <select class="select2-single-pic form-control" name="pic_operator" id="pic_operator" disabled>
+                            <option value="${data['pic_operator']}">${data['pic_operator']}</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+        } else {
+            document.getElementById("save_task_management").style.display = "block";
+            pic_operator = `
+                <div class="form-group row">
+                    <label for="pic_operator" class="col-sm-4 col-form-label">Pic Operator</label>
+                    <div class="col-sm-8">
+                        <select class="select2-single-pic form-control" name="pic_operator" id="pic_operator">
+                            <option value="">Select</option>
+                        </select>
+                    </div>
+                </div>
+            `;
+        }
+
+        if(data['received_date'] !== null) {
+            received_date = `
+                <div class="form-group row" id="simple-date1">
+                    <label for="received_date" class="col-sm-4 col-form-label">Received Date</label>
+                    <div class="col-sm-8">
+                        <div class="input-group input-group-sm date">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            </div>
+                            <input type="text" name="received_date" class="form-control" placeholder="01/06/2020" value="${data['received_date']}" id="received_date" disabled>
+                        </div>
+                    </div>
+                </div>
+            `
+        } else {
+            received_date = `
+                <div class="form-group row" id="simple-date1">
+                    <label for="received_date" class="col-sm-4 col-form-label">Received Date</label>
+                    <div class="col-sm-8">
+                        <div class="input-group input-group-sm date">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                            </div>
+                            <input type="text" name="received_date" class="form-control" placeholder="01/06/2020" id="received_date">
+                        </div>
+                    </div>
+                </div>
+            `
+        }
+
+        if(data['note'] !== null) {
+            note = `
+                <div class="form-group row">
+                    <label for="inputNote" class="col-sm-4 col-form-label">Note</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" name="note" id="inputNote" rows="3" disabled>${data['note']}</textarea>
+                    </div>
+                </div>
+            `;
+        } else {
+            note = `
+                <div class="form-group row">
+                    <label for="inputNote" class="col-sm-4 col-form-label">Note</label>
+                    <div class="col-sm-8">
+                        <textarea class="form-control" name="note" id="inputNote" rows="3"></textarea>
+                    </div>
+                </div>
+            `;
+        }
+
         new_task_management.innerHTML = '';
         new_task_management.innerHTML += `
+        <input type="hidden" name="id_request_form" class="form-control form-control-sm" id="id_request_form" value="${data['id_request_form']}" readonly>
             <div class="form-group row">
                 <label for="customer" class="col-sm-4 col-form-label">Customer/Supplier</label>
                 <div class="col-sm-8">
@@ -219,17 +372,7 @@ class Notifications {
                 </div>
             </div>
 
-            <div class="form-group row" id="simple-date1">
-                <label for="received_date" class="col-sm-4 col-form-label">Received Date</label>
-                <div class="col-sm-8">
-                    <div class="input-group input-group-sm date">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                        </div>
-                        <input type="text" name="received_date" class="form-control" placeholder="01/06/2020" id="received_date">
-                    </div>
-                </div>
-            </div>
+            ${received_date}
 
             <div class="form-group row">
                 <input type="hidden" name="id_part" class="form-control form-control-sm" id="id_part" value="${data['id_part']}" readonly>
@@ -239,21 +382,9 @@ class Notifications {
                 </div>
             </div>
 
-            <div class="form-group row">
-                <label for="pic_operator" class="col-sm-4 col-form-label">Pic Operator</label>
-                <div class="col-sm-8">
-                    <select class="select2-single-pic form-control" name="pic_operator" id="pic_operator">
-                        <option value="">Select</option>
-                    </select>
-                </div>
-            </div>
+            ${pic_operator}
 
-            <div class="form-group row">
-                <label for="inputNote" class="col-sm-4 col-form-label">Note</label>
-                <div class="col-sm-8">
-                    <textarea class="form-control" name="note" id="inputNote" rows="3"></textarea>
-                </div>
-            </div>
+            ${note}
         `;
     }
 
@@ -283,7 +414,7 @@ class Notifications {
         .catch(error => {
             alert(error);
         });
-    }
+    } 
 
     renderDataPic(data) {
         const pic_operator = document.getElementById("pic_operator");

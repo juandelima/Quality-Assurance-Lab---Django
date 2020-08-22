@@ -31,7 +31,8 @@ dataSource: {
     "data": chartData
     }
 };
+
 FusionCharts.ready(function(){
-var fusioncharts = new FusionCharts(chartConfig);
-fusioncharts.render();
+    var fusioncharts = new FusionCharts(chartConfig);
+    fusioncharts.render();
 });

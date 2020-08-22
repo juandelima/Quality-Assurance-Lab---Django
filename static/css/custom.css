@@ -43,6 +43,14 @@
   border-bottom: 1.5px solid #5a5c69!important;
 }
 
+.dot {
+  height: 8px;
+  width: 8px;
+  background-color: #338cff;
+  border-radius: 50%;
+  display: inline-block;
+}
+
 /* created by juan valerian delima */
 .loading1 {
   width: 16%;

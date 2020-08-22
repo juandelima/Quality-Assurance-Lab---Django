@@ -10,12 +10,14 @@ class TaskManagement {
                const id_part = document.getElementById("id_part");
                const pic_operator = document.getElementById("pic_operator");
                const inputNote = document.getElementById("inputNote");
+               const id_request_form = document.getElementById("id_request_form");
                const data = {
                    csrfField: csrfmiddlewaretoken.value,
                    received_dateField: received_date.value,
                    id_partField: id_part.value,
                    pic_operatorField: pic_operator.value,
-                   inputNoteField: inputNote.value
+                   inputNoteField: inputNote.value,
+                   id_request_formField: id_request_form.value,
                };
                if(data.received_dateField === "" || data.pic_operatorField === "") {
                    alert("Received Date dan Pic Operator tidak boleh kosong!");
@@ -35,7 +37,8 @@ class TaskManagement {
                id_part: data.id_partField,
                id_employee: data.pic_operatorField,
                received_date: data.received_dateField,
-               note: data.inputNoteField
+               note: data.inputNoteField,
+               id_request_form: data.id_request_formField
            },
            beforeSend: () => {
                this.hide_btn_task();

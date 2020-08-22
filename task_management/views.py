@@ -63,6 +63,7 @@ def save_task_management(request):
         id_employee = request.POST['id_employee']
         received_date = request.POST['received_date']
         note = request.POST['note']
+        id_request_form = request.POST['id_request_form']
         implode_received_date = received_date.split("/")
         implode_received_date.reverse()
         received_date = "-".join(implode_received_date)
@@ -74,19 +75,22 @@ def save_task_management(request):
                 id_employee = id_employee
                 received_date = received_date
                 note = note
+                id_request_form = id_request_form
             else:
                 id_task = 1
                 id_part = id_part
                 id_employee = id_employee
                 received_date = received_date
                 note = note
-    
+                id_request_form = id_request_form
+
             TaskManagement.objects.create(
                 id_task = id_task,
                 id_part = id_part,
                 id_employee = id_employee,
                 received_date = received_date,
-                note = note
+                note = note,
+                id_request = id_request_form
             )
             return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
         except ObjectDoesNotExist:
