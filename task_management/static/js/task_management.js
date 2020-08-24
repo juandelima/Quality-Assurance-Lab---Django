@@ -2,6 +2,7 @@ class TaskManagement {
     main() {
        $(document).ready(() => {
            const save_task_management = document.getElementById("save_task_management");
+           this.render_data();
            this.hide_load_button(); 
            save_task_management.onclick = () => {
                document.getElementsByName("csrfmiddlewaretoken")[0].setAttribute("id", "csrf_new_task");
@@ -51,9 +52,9 @@ class TaskManagement {
                         $("#create_new_task").modal("hide");
                         this.show_toast();
                         this.show_btn_task();
-                        this.hide_load_button(); 
+                        this.hide_load_button();
+                        this.render_data();
                     }, 1000);
-                    
                 }
            },
 
@@ -63,6 +64,46 @@ class TaskManagement {
        });
     }
 
+    render_data() {
+        $('#dataTableTask').DataTable({
+            ajax: {
+                "url": "/task-management/get-task-management/",
+                "type": "GET"
+            },
+            destroy: true,
+            processing: true,
+            deferRender: true,
+            columns: [
+               {
+                   data: 'alert',
+               },
+               {
+                   data: 'part_name'
+               },
+               {
+                   data: 'request_form'
+               },
+               {
+                   data: 'pic'
+               },
+               {
+                   data: 'task',
+               },
+               {
+                   data: 'inspected'
+               },
+               {
+                   data: 'checked'
+               },
+               {
+                   data: 'approved'
+               },
+               {
+                   data: 'created_at'
+               } 
+            ]
+        });
+    }
 
     show_toast() {
         let x = document.getElementById("toast")

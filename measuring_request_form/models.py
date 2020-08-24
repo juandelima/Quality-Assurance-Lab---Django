@@ -38,7 +38,6 @@ class DataPart(models.Model):
         db_table = 'data_part' 
         managed = False
 
-
 class Departemen(models.Model):
     dept_code = models.CharField(max_length=7, primary_key = True)
     dept_name = models.CharField(max_length=30)

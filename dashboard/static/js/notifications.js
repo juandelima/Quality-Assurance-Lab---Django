@@ -23,12 +23,7 @@ class Notifications {
                     this.showSkeletonNotif();
                     this.hasNewRecord = false;
                 }
-
-                if(this.hasClicked) {
-                    this.countTask();
-                    this.hasClicked = false;
-                }
-
+                this.countTask();
                 this.infoNotif();
                 this.hasClicked = true;
             };
@@ -48,7 +43,7 @@ class Notifications {
             this.countDataTask(data);
         })
         .catch(error => {
-            alert(error);
+            console.log(error);
         });
     }
 
@@ -61,7 +56,7 @@ class Notifications {
             this.renderCountData(data);
         })
         .catch(error => {
-            alert(error);
+            console.log(error);
         });
     }
 
@@ -77,7 +72,7 @@ class Notifications {
             }, 1000);
         })
         .catch(error => {
-            alert(error);
+            console.log(error);
         });
     }
 

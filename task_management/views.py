@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from django.http import *
 from django.core.exceptions import ObjectDoesNotExist
 from task_management.models import *
+from measuring_request_form.models import *
+from datetime import datetime
 import json
 
 # Create your views here.
@@ -95,3 +97,46 @@ def save_task_management(request):
             return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
         except ObjectDoesNotExist:
             raise Http404
+
+def get_task_management(request):
+    response_data = {}
+    response_data["data"] = []
+    try:
+        get_task_management = TaskManagement.objects.all().order_by('-id_task')
+        for i in get_task_management:
+            cekPart = DataPart.objects.filter(id_part=i.id_part).exists()
+            employee = Employee.objects.get(id_employee__exact=i.id_employee)
+            if cekPart:
+                data_part = DataPart.objects.get(id_part__exact=i.id_part)
+                customer = Customer.objects.get(id_customer__exact=data_part.id_customer)
+                nama_part = data_part.nama_part
+                customer_name = customer.nama_customer
+            else:
+                data_part = Material.objects.get(material_code__exact=i.id_part)
+                vendor = Vendor.objects.get(code_vendor__exact=data_part.code_vendor)
+                nama_part = data_part.material_name
+                customer_name = vendor.vendor_name
+            data = {
+                'id_task': i.id_task,
+                'alert': '<i class="fa fa-circle text-success"></i>',
+                'part_name': nama_part,
+                'request_form': customer_name,
+                'pic': employee.nama,
+                'task': f'<a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#general_information_{i.id_task}" id="#modalScroll_{i.id_task}"> Action</a>',
+                'inspected': '-',
+                'checked': '-',
+                'approved': '-',
+                'created_at': convert_date(i.created_at)
+            }
+            
+            response_data["data"].append(data)
+        return JsonResponse(response_data, safe = False)
+    except ObjectDoesNotExist:
+        raise Http404
+
+
+def convert_date(created_at):
+    split_date = str(created_at).split('-')
+    split_date[2] = split_date[2].split(' ')[0]
+    x = datetime(int(split_date[0]), int(split_date[1]), int(split_date[2]))
+    return x.strftime("%d-%B-%Y")

@@ -1,6 +1,5 @@
 $(document).ready(function () {
-    $('#dataTable').DataTable(); // ID From dataTable
-
+      // ID From dataTable
       $('.select2-single-placeholder').select2({
         placeholder: "Select a Customer",
         allowClear: true,
