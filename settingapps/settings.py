@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'dashboard',
     'task_management',
     'measuring_request_form',
+    'measuring_request',
 ]
 
 MIDDLEWARE = [

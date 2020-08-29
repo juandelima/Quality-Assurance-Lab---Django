@@ -158,20 +158,14 @@ def saveRequestMeasuringForm(request):
         others_testing = request.POST['others_testingField']
         note_measuring = request.POST['note_measuringField']
         signature_staff = request.POST['signature_staffField']
-        signature_spv = request.POST['signature_spvField']
         staff_name = request.POST['staff_nameField']
-        spv_name = request.POST['spv_nameField']
-        signature_staff_lab = request.POST['signature_staff_labField']
-        signature_spv_lab = request.POST['signature_spv_labField']
-        staff_lab_name = request.POST['staff_lab_nameField']
-        spv_lab_name = request.POST['spv_lab_nameField']
-        receiving_date = request.POST['receiving_dateField']
-        receiving_time = request.POST['receiving_timeField']
-        shift = request.POST['shiftField']
-        start_testing = request.POST['start_testingField']
-        time_start_testing = request.POST['time_start_testingField']
-        end_testing = request.POST['end_testingField']
-        time_end_testing = request.POST['time_end_testingField']
+        receiving_date = '01/01/2001'
+        receiving_time = '12:00'
+        shift = 0
+        start_testing = '01/01/2001'
+        time_start_testing = '12:00'
+        end_testing = '01/01/2001'
+        time_end_testing = '12:00'
         email = request.POST['emailField']
         
         implodeReceiving_date = receiving_date.split("/")
@@ -192,15 +186,6 @@ def saveRequestMeasuringForm(request):
         testing_request = []
         if staff_name == "":
             staff_name = -1
-
-        if spv_name == "":
-            spv_name = -1
-
-        if staff_lab_name == "":
-            staff_lab_name = -1
-
-        if spv_lab_name == "":
-            spv_lab_name = -1
 
         if drawing != "" and drawing != "on":
             complementary_documents.append(drawing)
@@ -291,9 +276,9 @@ def saveRequestMeasuringForm(request):
                 testing_request = testing_request,
                 note = note_measuring,
                 id_applicant_staff = staff_name,
-                id_applicant_spv = spv_name,
-                id_recipient_lab_staff = staff_lab_name,
-                id_recipient_lab_spv = spv_lab_name,
+                id_applicant_spv = -1,
+                id_recipient_lab_staff = -1,
+                id_recipient_lab_spv = -1,
                 receiving_date = newReceiving_date,
                 receiving_time = receiving_time,
                 shift = int(shift),
@@ -301,10 +286,7 @@ def saveRequestMeasuringForm(request):
                 testing_start_time = time_start_testing,
                 testing_end_date = newEnd_testing,
                 testing_end_time = time_end_testing,
-                applicant_staff_signature = signature_staff,
-                applicant_spv_signature = signature_spv,
-                recipient_staff_signature = signature_staff_lab,
-                recipient_spv_signature = signature_spv_lab
+                applicant_staff_signature = signature_staff
             )
         else:
             MeasuringForm.objects.create(
@@ -319,9 +301,9 @@ def saveRequestMeasuringForm(request):
                 testing_request = testing_request,
                 note = note_measuring,
                 id_applicant_staff = staff_name,
-                id_applicant_spv = spv_name,
-                id_recipient_lab_staff = staff_lab_name,
-                id_recipient_lab_spv = spv_lab_name,
+                id_applicant_spv = -1,
+                id_recipient_lab_staff = -1,
+                id_recipient_lab_spv = -1,
                 receiving_date = newReceiving_date,
                 receiving_time = receiving_time,
                 shift = int(shift),
@@ -329,10 +311,7 @@ def saveRequestMeasuringForm(request):
                 testing_start_time = time_start_testing,
                 testing_end_date = newEnd_testing,
                 testing_end_time = time_end_testing,
-                applicant_staff_signature = signature_staff,
-                applicant_spv_signature = signature_spv,
-                recipient_staff_signature = signature_staff_lab,
-                recipient_spv_signature = signature_spv_lab
+                applicant_staff_signature = signature_staff
             )
 
         staffEmail(email)
@@ -412,7 +391,7 @@ def addSignature(request, id):
     else:
         getSpv = None
         getSpvDept = None
-
+    print(getSpv == None)
     if findByIdMeasuring.id_recipient_lab_staff != -1:
         getLabStaff = Employee.objects.get(id_employee__exact=findByIdMeasuring.id_recipient_lab_staff)
     else:
@@ -452,14 +431,24 @@ def addSignature(request, id):
                 supplier = i.vendor_name
                 break
     
+    is_received_date = False
+    is_received_time = False
     is_start_date_null = False
     is_end_date_null = False
     is_start_time_null = False
     is_end_time_null = False
+    receiving_date = str(findByIdMeasuring.receiving_date)
+    receiving_time = str(findByIdMeasuring.receiving_time)
     testing_start_date = str(findByIdMeasuring.testing_start_date)
     testing_start_time = str(findByIdMeasuring.testing_start_time)
     testing_end_date = str(findByIdMeasuring.testing_end_date)
     testing_end_time = str(findByIdMeasuring.testing_end_time)
+
+    if receiving_date == "2001-01-01":
+        is_received_date = True
+
+    if receiving_time == "12:00:00+00:00":
+        is_received_time = True
 
     if testing_start_date == "2001-01-01":
         is_start_date_null = True
@@ -486,6 +475,8 @@ def addSignature(request, id):
         'getLabSpv': getLabSpv,
         'getStaffDept': getStaffDept,
         'getSpvDept': getSpvDept,
+        'is_received_date': is_received_date,
+        'is_received_time': is_received_time,
         'is_start_date_null': is_start_date_null,
         'is_end_date_null': is_end_date_null,
         'is_start_time_null': is_start_time_null,
@@ -517,10 +508,16 @@ def updateMeasuringFromStaffLab(request, id):
         signature_staff_lab = request.POST['signature_staff_labField']
         email = request.POST['emailField']
         staff_lab_name = request.POST['staff_lab_nameField']
+        received_date = request.POST['receiving_dateField']
+        received_time = request.POST['receiving_timeField']
+        shift = request.POST['shiftField']
         start_testing = request.POST['start_testingField']
         time_start_testing = request.POST['time_start_testingField']
         end_testing = request.POST['end_testingField']
         time_end_testing = request.POST['time_end_testingField']
+        received_date = received_date.split("/")
+        received_date.reverse()
+        received_date = "-".join(received_date)
         start_testing = start_testing.split("/")
         start_testing.reverse()
         start_testing = "-".join(start_testing)
@@ -530,6 +527,9 @@ def updateMeasuringFromStaffLab(request, id):
         try:
             findMeasuringById = MeasuringForm.objects.get(id_request__exact=id_request)
             findMeasuringById.id_recipient_lab_staff = staff_lab_name
+            findMeasuringById.receiving_date = received_date
+            findMeasuringById.receiving_time = received_time
+            findMeasuringById.shift = shift
             findMeasuringById.testing_start_date = start_testing
             findMeasuringById.testing_start_time = time_start_testing
             findMeasuringById.testing_end_date = end_testing

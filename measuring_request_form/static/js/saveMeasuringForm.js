@@ -31,20 +31,7 @@ class MeasuringRequestForm {
             const others_testing = document.getElementById("others_testing");
             const note_measuring = document.getElementById("note_measuring");
             const signature_staff = document.getElementById("signature_staff");
-            const signature_spv = document.getElementById("signature_spv");
             const staff_name = document.getElementById("staff_name");
-            const spv_name = document.getElementById("spv_name");
-            const signature_staff_lab = document.getElementById("signature_staff_lab");
-            const signature_spv_lab = document.getElementById("signature_spv_lab");
-            const staff_lab_name = document.getElementById("staff_lab_name");
-            const spv_lab_name = document.getElementById("spv_lab_name");
-            const receiving_date = document.getElementById("receiving_date");
-            const receiving_time = document.getElementById("receiving_time");
-            const shift = document.getElementById("shift");
-            const start_testing = document.getElementById("start_testing");
-            const time_start_testing = document.getElementById("time_start_testing");
-            const end_testing = document.getElementById("end_testing");
-            const time_end_testing = document.getElementById("time_end_testing");
             const search_email = document.getElementById("search_email");
             const send_request = document.getElementById("send_request");
             const email = document.getElementById("email");
@@ -55,14 +42,7 @@ class MeasuringRequestForm {
 
             send_request.onclick = (e) => {
                 e.preventDefault();
-                if(start_testing.value == "" && time_start_testing.value == "" && end_testing.value == "" && time_end_testing.value == "") {
-                    start_testing.value = "01/01/2001";
-                    time_start_testing.value = "12:00";
-                    end_testing.value = "01/01/2001";
-                    time_end_testing.value = "12:00";
-                }
-
-                if(signature_staff.value == "" || staff_name.value == "" || receiving_date.value == "" || receiving_time.value == "" || email.value == "") {
+                if(signature_staff.value == "" || staff_name.value == "" || email.value == "") {
                     alert("Tidak dapat di proses. Silahkan cek kembali data inputan kamu yaa :)");
                 } else {
                     const dataTestLab = {
@@ -95,20 +75,7 @@ class MeasuringRequestForm {
                         others_testingField: others_testing.value,
                         note_measuringField: note_measuring.value,
                         signature_staffField: signature_staff.value,
-                        signature_spvField: signature_spv.value,
                         staff_nameField: staff_name.value,
-                        spv_nameField: spv_name.value,
-                        signature_staff_labField: signature_staff_lab.value,
-                        signature_spv_labField: signature_spv_lab.value,
-                        staff_lab_nameField: staff_lab_name.value,
-                        spv_lab_nameField: spv_lab_name.value,
-                        receiving_dateField: receiving_date.value,
-                        receiving_timeField: receiving_time.value,
-                        shiftField: shift.value,
-                        start_testingField: start_testing.value,
-                        time_start_testingField: time_start_testing.value,
-                        end_testingField: end_testing.value,
-                        time_end_testingField: time_end_testing.value,
                         emailField: email.value
                     };
 
@@ -153,20 +120,7 @@ class MeasuringRequestForm {
                     others_testingField: dataTestLab.others_testingField,
                     note_measuringField: dataTestLab.note_measuringField,
                     signature_staffField: dataTestLab.signature_staffField,
-                    signature_spvField: dataTestLab.signature_spvField,
                     staff_nameField: dataTestLab.staff_nameField,
-                    spv_nameField: dataTestLab.spv_nameField,
-                    signature_staff_labField: dataTestLab.signature_staff_labField,
-                    signature_spv_labField: dataTestLab.signature_spv_labField,
-                    staff_lab_nameField: dataTestLab.staff_lab_nameField,
-                    spv_lab_nameField: dataTestLab.spv_lab_nameField,
-                    receiving_dateField: dataTestLab.receiving_dateField,
-                    receiving_timeField: dataTestLab.receiving_timeField,
-                    shiftField: dataTestLab.shiftField,
-                    start_testingField: dataTestLab.start_testingField,
-                    time_start_testingField: dataTestLab.time_start_testingField,
-                    end_testingField: dataTestLab.end_testingField,
-                    time_end_testingField: dataTestLab.time_end_testingField,
                     emailField: dataTestLab.emailField
                 },
 
@@ -223,18 +177,6 @@ class MeasuringRequestForm {
                     document.getElementById("note_measuring").value = "";
                     document.getElementById("signature_staff").value = "";
                     document.getElementById("signature-staff").innerHTML = "";
-                    document.getElementById("signature_spv").value = "";
-                    document.getElementById("signature-spv").innerHTML = "";
-                    document.getElementById("signature_staff_lab").value = "";
-                    document.getElementById("signature_spv_lab").value = "";
-                    document.getElementById("signature-staff-lab").innerHTML = "";
-                    document.getElementById("signature-spv-lab").innerHTML = "";
-                    document.getElementById("receiving_date").value = "";
-                    document.getElementById("receiving_time").value = "";
-                    document.getElementById("start_testing").value = "";
-                    document.getElementById("time_start_testing").value = "";
-                    document.getElementById("end_testing").value = "";
-                    document.getElementById("time_end_testing").value = "";
                     document.getElementById("other_value").style.display = "none";
                     document.getElementById("other_complementary").value = "";
                     document.getElementById("other_value_part_status").style.display = "none";

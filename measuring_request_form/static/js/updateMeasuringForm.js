@@ -16,6 +16,9 @@ class UpdateMeasuringForm {
             const id_applicant_spv = document.getElementById("id_applicant_spv");
             const id_recipient_lab_staff = document.getElementById("id_recipient_lab_staff");
             const id_recipient_lab_spv = document.getElementById("id_recipient_lab_spv");
+            const receiving_date = document.getElementById("receiving_date");
+            const receiving_time = document.getElementById("receiving_time");
+            const shift = document.getElementById("shift");
             const start_testing = document.getElementById("start_testing");
             const time_start_testing = document.getElementById("time_start_testing");
             const end_testing = document.getElementById("end_testing");
@@ -50,6 +53,9 @@ class UpdateMeasuringForm {
                             signature_staff_labField: signature_staff_lab.value,
                             emailField: email.value,
                             staff_lab_nameField: staff_lab_name.value,
+                            receiving_dateField: receiving_date.value,
+                            receiving_timeField: receiving_time.value,
+                            shiftField: shift.value,
                             start_testingField: start_testing.value,
                             time_start_testingField: time_start_testing.value,
                             end_testingField: end_testing.value,
@@ -128,6 +134,9 @@ class UpdateMeasuringForm {
                     signature_staff_labField: dataTestLabFromStaffLab.signature_staff_labField,
                     emailField: dataTestLabFromStaffLab.emailField,
                     staff_lab_nameField: dataTestLabFromStaffLab.staff_lab_nameField,
+                    receiving_dateField: dataTestLabFromStaffLab.receiving_dateField,
+                    receiving_timeField: dataTestLabFromStaffLab.receiving_timeField,
+                    shiftField: dataTestLabFromStaffLab.shiftField,
                     start_testingField: dataTestLabFromStaffLab.start_testingField,
                     time_start_testingField: dataTestLabFromStaffLab.time_start_testingField,
                     end_testingField: dataTestLabFromStaffLab.end_testingField,

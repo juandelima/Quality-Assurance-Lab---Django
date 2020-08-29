@@ -301,11 +301,10 @@
                             <td id="signature-staff">
 
                             </td>
-                            <td id="signature-spv">
+                            <td id="signature-spv-not-empty">
 
                             </td>
                         </tr>
-
                         <tr>
                            <td>
                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
@@ -319,7 +318,7 @@
                            <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name">
+                                        <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name" disabled>
                                             <option value="">Search your name</option>
                                         </select>
                                     </div>
@@ -363,10 +362,10 @@
                         <tr style="height: 85px;">
                             <input type="hidden" name="signature_staff_lab" id="signature_staff_lab"/>
                             <input type="hidden" name="signature_spv_lab" id="signature_spv_lab"/>
-                            <td id="signature-staff-lab">
+                            <td id="signature-staff-lab-not-none">
 
                             </td>
-                            <td id="signature-spv-lab">
+                            <td id="signature-spv-lab-not-none">
 
                             </td>
                         </tr>
@@ -374,7 +373,7 @@
                             <td>
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name">
+                                        <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name" disabled>
                                             <option value="">Search your name</option>
                                         </select>
                                     </div>
@@ -383,7 +382,7 @@
                             <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
+                                        <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name" disabled>
                                             <option value="">Search your name</option>
                                         </select>
                                     </div>
@@ -417,114 +416,8 @@
                     </table>
                 </div>
 
-                <div>
-                    <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
-                            <label for="receiving_date" class="col-form-label">Receiving Date</label>
-                        </div>
-                        <div class="col-sm-7" id="simple-date2">
-                            <div class="input-group input-group-sm date">
-                                <input type="text" name="receiving_date" class="form-control" placeholder="01/06/2020" id="receiving_date" required>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
-                            <label for="receiving_time" class="col-form-label">Time</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="input-group clockpicker" id="time_receiving">
-                                <input type="text" name="receiving_time" class="form-control form-control-sm input-sm" placeholder="12:30" id="receiving_time" required>                     
-                                <div class="input-group-append">
-                                  <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                </div>                      
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
-                            <label for="shift" class="col-form-label">Shift</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <select class="select2-single-placeholder11 form-control" name="shift" id="shift" required>
-                                <option value="">Select a Shift</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                                <option value="5">5</option>
-                                <option value="6">6</option>
-                            </select>
-                        </div>
-                    </div>
-                    <hr />
-                    <p class="text-left font-weight-bold">Estimated Testing Time (SST & CASS Test Only)**</p>
-                    <div class="d-sm-flex flex-sm-row justify-content-between">
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-5">
-                                <label for="start_testing" class="col-form-label">Testing Start</label>
-                            </div>
-                            <div class="col-sm-7" id="testing_start">
-                                <div class="input-group input-group-sm date">
-                                    <input type="text" name="test_start" class="form-control" placeholder="01/06/2020" id="start_testing">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-4">
-                                <label for="time_start_testing" class="col-form-label">Time</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="input-group clockpicker" id="time_testing_start">
-                                    <input type="text" name="time_testing_start" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_start_testing">                     
-                                    <div class="input-group-append">
-                                      <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                    </div>                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-sm-flex flex-sm-row justify-content-between">
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-5">                            
-                                <label for="end_testing" class="col-form-label">Testing End&nbsp;&nbsp;</label>
-                            </div>
-                            <div class="col-sm-7" id="testing_end">
-                                <div class="input-group input-group-sm date">
-                                    <input type="text" name="testing_end" class="form-control" placeholder="01/06/2020" id="end_testing">
-                                    <div class="input-group-prepend">
-                                        <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-4">
-                                <label for="time_end_testing" class="col-form-label">Time</label>
-                            </div>
-                            <div class="col-sm-8">
-                                <div class="input-group clockpicker" id="time_end">
-                                    <input type="text" name="time_end" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_end_testing">                     
-                                    <div class="input-group-append">
-                                      <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                    </div>                      
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <br/>
-                    <p class="text-left font-weight-bold">
-                        ** filled by laboratory staff
-                    </p>
+                <div style="width: 50%;">
+                    
                 </div>
             </div>
             <hr />

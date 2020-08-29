@@ -104,9 +104,9 @@ def get_task_management(request):
     try:
         get_task_management = TaskManagement.objects.all().order_by('-id_task')
         for i in get_task_management:
-            cekPart = DataPart.objects.filter(id_part=i.id_part).exists()
+            cekPart = Material.objects.filter(material_code=i.id_part).exists()
             employee = Employee.objects.get(id_employee__exact=i.id_employee)
-            if cekPart:
+            if not cekPart:
                 data_part = DataPart.objects.get(id_part__exact=i.id_part)
                 customer = Customer.objects.get(id_customer__exact=data_part.id_customer)
                 nama_part = data_part.nama_part

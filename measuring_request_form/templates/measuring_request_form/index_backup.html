@@ -39,8 +39,6 @@
         </div>
 
         <form>
-            <div class="alert alert-success alert-dismissible" role="alert" id="info-measuring">  
-            </div>
             {% csrf_token %}
             <div class="form-group row">
                 <div class="col-sm-3">
@@ -396,16 +394,14 @@
                              <td>
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                       <div class="col-sm-12">
-                                          <input type="text" class="form-control form-control-sm"
-                                              placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
+                                          <input type="text" class="form-control form-control-sm" id="staff_lab_dept" placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
                                       </div>
                                   </div>
                              </td>
                              <td>
                                   <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                       <div class="col-sm-12">
-                                          <input type="text" class="form-control form-control-sm"
-                                              placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
+                                          <input type="text" class="form-control form-control-sm" id="spv_lab_dept" placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
                                       </div>
                                   </div>
                              </td>
@@ -525,6 +521,10 @@
                             </div>
                         </div>
                     </div>
+                    <br/>
+                    <p class="text-left font-weight-bold">
+                        ** filled by laboratory staff
+                    </p>
                 </div>
             </div>
             <hr />

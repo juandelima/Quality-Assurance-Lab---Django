@@ -45,7 +45,6 @@ class TaskManagement {
                this.hide_btn_task();
                this.show_load_button();
            },
-
            success: (response) => {
                 if(response['message'] == 'Success') {
                     setTimeout(() => {
@@ -106,7 +105,7 @@ class TaskManagement {
     }
 
     show_toast() {
-        let x = document.getElementById("toast")
+        let x = document.getElementById("toast");
         x.className = "show";
         setTimeout(() => { 
             x.className = x.className.replace("show", ""); 

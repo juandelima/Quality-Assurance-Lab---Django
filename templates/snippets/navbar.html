@@ -20,6 +20,13 @@
       <span>Task Management</span>
     </a>
   </li>
+  <hr class="sidebar-divider">
+  <li class="nav-item {{activeClassMeasuring}}">
+    <a class="nav-link" href="{% url 'measuring-request' %}">
+      <i class="fa fa-file"></i>
+      <span>Measuring Request <span id="new_measuring"></span></span>
+    </a>
+  </li>
   {% comment %} <hr class="sidebar-divider">
   <li class="nav-item">
     <a class="nav-link" href="#">

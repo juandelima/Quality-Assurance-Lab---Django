@@ -86,8 +86,8 @@ def detail_info_notif_by_id(request, id_request_form):
     try:
         notif = Notification.objects.get(id_request_form__exact=id_request_form)
         get_measuring_form = MeasuringForm.objects.get(id_request__exact=notif.id_request_form)
-        cek_data_part = DataPart.objects.filter(id_part=get_measuring_form.id_part).exists()
-        if cek_data_part:
+        cek_data_part = Material.objects.filter(material_code=get_measuring_form.id_part).exists()
+        if not cek_data_part:
             data_part = DataPart.objects.get(id_part__exact=get_measuring_form.id_part)
             customer = Customer.objects.get(id_customer__exact=data_part.id_customer)
             id_part = data_part.id_part
@@ -98,7 +98,7 @@ def detail_info_notif_by_id(request, id_request_form):
             material = Material.objects.get(material_code__exact=get_measuring_form.id_part)
             vendor = Vendor.objects.get(code_vendor__exact=material.code_vendor)
             id_part = material.material_code
-            nama_part = data_part.material_name
+            nama_part = material.material_name
             nama_customer = vendor.vendor_name
             id_request_form = notif.id_request_form
 

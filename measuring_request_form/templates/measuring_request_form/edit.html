@@ -363,149 +363,202 @@
                     </table>
                 </div>
 
-                <div>
-                    <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
-                            <label for="receiving_date" class="col-form-label">Receiving Date</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="input-group input-group-sm date">
-                                <input type="text" name="receiving_date" class="form-control" placeholder="01/06/2020" value="{{measuring_form.receiving_date}}" id="receiving_date" required readonly>
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                {% if is_received_date and is_received_time and getSpv == None %}
+                    <div style="width: 50%;">
+                        
+                    </div>
+                {% else %}
+                    <div>
+                        {% if is_received_date and is_received_time %}
+                            <div class="d-sm-flex flex-sm-row align-items-center">
+                                <div class="col-sm-5">
+                                    <label for="receiving_date" class="col-form-label">Receiving Date</label>
                                 </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
-                            <label for="receiving_time" class="col-form-label">Time</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <div class="input-group clockpicker">
-                                <input type="text" name="receiving_time" class="form-control form-control-sm input-sm" value="{{measuring_form.receiving_time}}" placeholder="12:30" id="receiving_time" required readonly>                     
-                                <div class="input-group-append">
-                                  <span class="input-group-text"><i class="fas fa-clock"></i></span>
-                                </div>                      
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="d-sm-flex flex-sm-row align-items-center">
-                        <div class="col-sm-5">
-                            <label for="shift" class="col-form-label">Shift</label>
-                        </div>
-                        <div class="col-sm-7">
-                            <select class="select2-single-placeholder11 form-control" name="shift" id="shift" required disabled>
-                                <option value="{{measuring_form.shift}}">{{measuring_form.shift}}</option>
-                            </select>
-                        </div>
-                    </div>
-                    <hr />
-                    <p class="text-left font-weight-bold">Estimated Testing Time (SST & CASS Test Only)**</p>
-                    <div class="d-sm-flex flex-sm-row justify-content-between">
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-5">
-                                <label for="start_testing" class="col-form-label">Testing Start</label>
-                            </div>
-                            {% if is_start_date_null %}
-                                <div class="col-sm-7" id="testing_start">
+                                <div class="col-sm-7" id="simple-date2">
                                     <div class="input-group input-group-sm date">
-                                        <input type="text" name="test_start" class="form-control" placeholder="01/06/2020" id="start_testing">
+                                        <input type="text" name="receiving_date" class="form-control" placeholder="01/06/2020" id="receiving_date" required>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                         </div>
                                     </div>
                                 </div>
-                            {% else %}
+                            </div>
+
+                            <div class="d-sm-flex flex-sm-row align-items-center">
+                                <div class="col-sm-5">
+                                    <label for="receiving_time" class="col-form-label">Time</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="input-group clockpicker" id="time_receiving">
+                                        <input type="text" name="receiving_time" class="form-control form-control-sm input-sm" placeholder="12:30" id="receiving_time" required>                     
+                                        <div class="input-group-append">
+                                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                        </div>                      
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-sm-flex flex-sm-row align-items-center">
+                                <div class="col-sm-5">
+                                    <label for="shift" class="col-form-label">Shift</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <select class="select2-single-placeholder11 form-control" name="shift" id="shift" required>
+                                        <option value="">Select a Shift</option>
+                                        <option value="1">1</option>
+                                        <option value="2">2</option>
+                                        <option value="3">3</option>
+                                        <option value="4">4</option>
+                                        <option value="5">5</option>
+                                        <option value="6">6</option>
+                                    </select>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="d-sm-flex flex-sm-row align-items-center">
+                                <div class="col-sm-5">
+                                    <label for="receiving_date" class="col-form-label">Receiving Date</label>
+                                </div>
                                 <div class="col-sm-7">
                                     <div class="input-group input-group-sm date">
-                                        <input type="text" value="{{measuring_form.testing_start_date}}" name="test_start" class="form-control" placeholder="01/06/2020" id="start_testing" readonly>
+                                        <input type="text" name="receiving_date" class="form-control" placeholder="01/06/2020" value="{{measuring_form.receiving_date}}" id="receiving_date" required readonly>
                                         <div class="input-group-prepend">
                                             <span class="input-group-text"><i class="fas fa-calendar"></i></span>
                                         </div>
                                     </div>
                                 </div>
-                            {% endif %}
-                        </div>
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-4">
-                                <label for="time_start_testing" class="col-form-label">Time</label>
                             </div>
-                            <div class="col-sm-8">
-                                {% if is_start_time_null %}
-                                    <div class="input-group clockpicker" id="time_testing_start">
-                                        <input type="text" name="time_testing_start" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_start_testing">                     
+
+                            <div class="d-sm-flex flex-sm-row align-items-center">
+                                <div class="col-sm-5">
+                                    <label for="receiving_time" class="col-form-label">Time</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <div class="input-group clockpicker">
+                                        <input type="text" name="receiving_time" class="form-control form-control-sm input-sm" value="{{measuring_form.receiving_time}}" placeholder="12:30" id="receiving_time" required readonly>                     
                                         <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                        </div>                      
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="d-sm-flex flex-sm-row align-items-center">
+                                <div class="col-sm-5">
+                                    <label for="shift" class="col-form-label">Shift</label>
+                                </div>
+                                <div class="col-sm-7">
+                                    <select class="select2-single-placeholder11 form-control" name="shift" id="shift" required disabled>
+                                        <option value="{{measuring_form.shift}}">{{measuring_form.shift}}</option>
+                                    </select>
+                                </div>
+                            </div>
+                        {% endif %}
+                        <hr />
+                        <p class="text-left font-weight-bold">Estimated Testing Time (SST & CASS Test Only)**</p>
+                        <div class="d-sm-flex flex-sm-row justify-content-between">
+                            <div class="d-sm-flex flex-sm-row">
+                                <div class="col-sm-5">
+                                    <label for="start_testing" class="col-form-label">Testing Start</label>
+                                </div>
+                                {% if is_start_date_null %}
+                                    <div class="col-sm-7" id="testing_start">
+                                        <div class="input-group input-group-sm date">
+                                            <input type="text" name="test_start" class="form-control" placeholder="01/06/2020" id="start_testing">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                            </div>
                                         </div>
                                     </div>
                                 {% else %}
-                                    <div class="input-group clockpicker">
-                                        <input type="text" value="{{measuring_form.testing_start_time}}" name="time_testing_start" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_start_testing" readonly>                     
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    <div class="col-sm-7">
+                                        <div class="input-group input-group-sm date">
+                                            <input type="text" value="{{measuring_form.testing_start_date}}" name="test_start" class="form-control" placeholder="01/06/2020" id="start_testing" readonly>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                            </div>
                                         </div>
                                     </div>
                                 {% endif %}
                             </div>
+                            <div class="d-sm-flex flex-sm-row">
+                                <div class="col-sm-4">
+                                    <label for="time_start_testing" class="col-form-label">Time</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {% if is_start_time_null %}
+                                        <div class="input-group clockpicker" id="time_testing_start">
+                                            <input type="text" name="time_testing_start" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_start_testing">                     
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="input-group clockpicker">
+                                            <input type="text" value="{{measuring_form.testing_start_time}}" name="time_testing_start" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_start_testing" readonly>                     
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
-                    </div>
 
-                    <div class="d-sm-flex flex-sm-row justify-content-between">
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-5">                            
-                                <label for="end_testing" class="col-form-label">Testing End&nbsp;&nbsp;</label>
-                            </div>
-                            {% if is_end_date_null %}
-                                <div class="col-sm-7" id="testing_end">
-                                    <div class="input-group input-group-sm date">
-                                        <input type="text" name="testing_end" class="form-control" placeholder="01/06/2020" id="end_testing">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        </div>
-                                    </div>
+                        <div class="d-sm-flex flex-sm-row justify-content-between">
+                            <div class="d-sm-flex flex-sm-row">
+                                <div class="col-sm-5">                            
+                                    <label for="end_testing" class="col-form-label">Testing End&nbsp;&nbsp;</label>
                                 </div>
-                            {% else %}
-                                <div class="col-sm-7">
-                                    <div class="input-group input-group-sm date">
-                                        <input type="text" value="{{measuring_form.testing_end_date}}" name="testing_end" class="form-control" placeholder="01/06/2020" id="end_testing" readonly>
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text"><i class="fas fa-calendar"></i></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            {% endif %}
-                        </div>
-                        <div class="d-sm-flex flex-sm-row">
-                            <div class="col-sm-4">
-                                <label for="time_end_testing" class="col-form-label">Time</label>
-                            </div>
-                            <div class="col-sm-8">
-                                {% if is_end_time_null %}
-                                    <div class="input-group clockpicker" id="time_end">
-                                        <input type="text" name="time_end" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_end_testing">                     
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                {% if is_end_date_null %}
+                                    <div class="col-sm-7" id="testing_end">
+                                        <div class="input-group input-group-sm date">
+                                            <input type="text" name="testing_end" class="form-control" placeholder="01/06/2020" id="end_testing">
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                            </div>
                                         </div>
                                     </div>
                                 {% else %}
-                                    <div class="input-group clockpicker">
-                                        <input type="text" value="{{measuring_form.testing_end_time}}" name="time_end" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_end_testing" readonly>                     
-                                        <div class="input-group-append">
-                                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                    <div class="col-sm-7">
+                                        <div class="input-group input-group-sm date">
+                                            <input type="text" value="{{measuring_form.testing_end_date}}" name="testing_end" class="form-control" placeholder="01/06/2020" id="end_testing" readonly>
+                                            <div class="input-group-prepend">
+                                                <span class="input-group-text"><i class="fas fa-calendar"></i></span>
+                                            </div>
                                         </div>
                                     </div>
                                 {% endif %}
                             </div>
+                            <div class="d-sm-flex flex-sm-row">
+                                <div class="col-sm-4">
+                                    <label for="time_end_testing" class="col-form-label">Time</label>
+                                </div>
+                                <div class="col-sm-8">
+                                    {% if is_end_time_null %}
+                                        <div class="input-group clockpicker" id="time_end">
+                                            <input type="text" name="time_end" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_end_testing">                     
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    {% else %}
+                                        <div class="input-group clockpicker">
+                                            <input type="text" value="{{measuring_form.testing_end_time}}" name="time_end" class="form-control form-control-sm input-sm" placeholder="12:30" id="time_end_testing" readonly>                     
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                            </div>
+                                        </div>
+                                    {% endif %}
+                                </div>
+                            </div>
                         </div>
+                        <br/>
+                        <p class="text-left font-weight-bold">
+                            ** filled by laboratory staff
+                        </p>
                     </div>
-                    <br/>
-                    <p class="text-left font-weight-bold">
-                        ** filled by laboratory staff
-                    </p>
-                </div>
+                {% endif %}
             </div>
             <hr />
             <div class="d-sm-flex justify-content-center mb-5">
