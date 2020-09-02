@@ -19,7 +19,7 @@
                     <div class="row align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-uppercase mb-1">New</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">3</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="new_measuring">0</div>
                         </div>
                         <div class="col-auto">
                             <i class="fa fa-ellipsis-h fa-2x text-primary"></i>
@@ -35,7 +35,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-uppercase mb-1">In Progress</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">6</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="progress_measuring">0</div>
                         </div>
                         <div class="col-auto">
                             <i class="fa fa-bars fa-2x text-info"></i>
@@ -51,7 +51,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-uppercase mb-1">Approved</div>
-                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">10</div>
+                            <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800" id="approved_measuring">0</div>
                         </div>
                         <div class="col-auto">
                             <i class="fa fa-check fa-2x text-success"></i>
@@ -67,7 +67,7 @@
                     <div class="row no-gutters align-items-center">
                         <div class="col mr-2">
                             <div class="text-xs font-weight-bold text-uppercase mb-1">Rejected</div>
-                            <div class="h5 mb-0 font-weight-bold text-gray-800">18</div>
+                            <div class="h5 mb-0 font-weight-bold text-gray-800" id="rejected_measuring">0</div>
 
                         </div>
                         <div class="col-auto">
@@ -118,5 +118,6 @@
 {% endblock %}
 
 {% block app_scripts %}
+<script src="{% static "js/dashboard.js" %}"></script>
 <script src="{% static "js/demo-bar.js" %}"></script>
 {% endblock %}

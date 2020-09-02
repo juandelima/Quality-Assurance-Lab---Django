@@ -366,9 +366,7 @@ class Notifications {
                     <input type="text" name="customer" class="form-control form-control-sm" id="customer" value="${data['customer']}" readonly>
                 </div>
             </div>
-
             ${received_date}
-
             <div class="form-group row">
                 <input type="hidden" name="id_part" class="form-control form-control-sm" id="id_part" value="${data['id_part']}" readonly>
                 <label for="part_name" class="col-sm-4 col-form-label">Part Name</label>
@@ -376,9 +374,7 @@ class Notifications {
                     <input type="text" name="part_name" class="form-control form-control-sm" id="part_name" value="${data['part']}" readonly>
                 </div>
             </div>
-
             ${pic_operator}
-
             ${note}
         `;
     }

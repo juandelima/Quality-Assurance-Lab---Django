@@ -5,7 +5,7 @@ $(document).ready(function () {
         allowClear: true,
         width: '100%'
       });
-
+      
       $('.select2-single-placeholder8').select2({
         placeholder: "Select a Supplier",
         allowClear: true,

@@ -109,7 +109,7 @@
                             <label for="address" class="col-form-label">Address</label>
                         </div>
                         <div class="col-sm-12">
-                            <textarea name="address" id="address" class="form-control form-control-sm">{{measuring_form.address}}</textarea>
+                            <textarea name="address" id="address" class="form-control form-control-sm" readonly>{{measuring_form.address}}</textarea>
                         </div>
                     </div>
 
@@ -287,9 +287,15 @@
                                     <img class="disable" src="{{measuring_form.recipient_staff_signature}}" height="75" width="150">
                                 </td>
                             {% else %}
-                                <td id="signature-staff-lab">
+                                {% if getSpv == None %}
+                                    <td id="signature-staff-lab-none">
 
-                                </td>
+                                    </td>
+                                {% else %}
+                                    <td id="signature-staff-lab">
+
+                                    </td>
+                                {% endif %}
                             {% endif %}
                             
                             {% if measuring_form.recipient_spv_signature != "" %}
@@ -297,9 +303,15 @@
                                     <img class="disable" src="{{measuring_form.recipient_spv_signature}}" height="75" width="150">
                                 </td>
                             {% else %}
-                                <td id="signature-spv-lab">
+                                {% if getSpv == None or getLabStaff == None %}
+                                    <td id="signature-spv-lab-none">
 
-                                </td>
+                                    </td>
+                                {% else %}
+                                    <td id="signature-spv-lab">
+
+                                    </td>
+                                {% endif %}
                             {% endif %}
                             
                         </tr>
@@ -312,9 +324,15 @@
                                                 <option value="{{getLabStaff.nama}}">{{getLabStaff.nama}}</option>
                                             </select>
                                         {% else %}
-                                            <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name">
-                                                <option value="">Search your name</option>
-                                            </select>
+                                            {% if getSpv == None %}
+                                                <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name" disabled>
+                                                    <option value="">Search your name</option>
+                                                </select>
+                                            {% else %}
+                                                <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name">
+                                                    <option value="">Search your name</option>
+                                                </select>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>
@@ -326,11 +344,16 @@
                                             <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name" disabled>
                                                 <option value="{{getLabSpv.nama}}">{{getLabSpv.nama}}</option>
                                             </select>
-
                                         {% else %}
-                                            <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
-                                                <option value="">Search your name</option>
-                                            </select>
+                                            {% if getSpv == None or getLabStaff == None %}
+                                                <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name" disabled>
+                                                    <option value="">Search your name</option>
+                                                </select>
+                                            {% else %}
+                                                <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
+                                                    <option value="">Search your name</option>
+                                                </select>
+                                            {% endif %}
                                         {% endif %}
                                     </div>
                                 </div>

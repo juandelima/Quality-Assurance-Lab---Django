@@ -314,7 +314,7 @@ def saveRequestMeasuringForm(request):
                 applicant_staff_signature = signature_staff
             )
 
-        staffEmail(email)
+        #staffEmail(email)
 
         return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
 
@@ -391,7 +391,6 @@ def addSignature(request, id):
     else:
         getSpv = None
         getSpvDept = None
-    print(getSpv == None)
     if findByIdMeasuring.id_recipient_lab_staff != -1:
         getLabStaff = Employee.objects.get(id_employee__exact=findByIdMeasuring.id_recipient_lab_staff)
     else:
@@ -497,7 +496,7 @@ def updateMeasuringFromSpv(request, id):
             findMeasuringById.id_applicant_spv = spv_name
             findMeasuringById.applicant_spv_signature = signature_spv
             findMeasuringById.save()
-            spvEmail(email, id_request)
+            #spvEmail(email, id_request)
             return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
         except ObjectDoesNotExist:
             raise Http404
@@ -536,7 +535,7 @@ def updateMeasuringFromStaffLab(request, id):
             findMeasuringById.testing_end_time = time_end_testing
             findMeasuringById.recipient_staff_signature = signature_staff_lab
             findMeasuringById.save()
-            staffLabEmail(email, id_request)
+            #staffLabEmail(email, id_request)
             return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
         except ObjectDoesNotExist:
             raise Http404
@@ -825,8 +824,6 @@ def spvLabEmail(to, id_request):
 
     htmlTemplate = "email/request_form_email_from_spv_lab.html"
     html_message = render_to_string(htmlTemplate, context)
-    print(get_applicant_staff.email)
-    print(get_applicant_spv.email)
     email = EmailMessage(
         f'Quality Assurance Lab - Measuring Request Form {nama_part}',
         html_message,

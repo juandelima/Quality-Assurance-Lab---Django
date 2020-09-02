@@ -72,6 +72,22 @@ def info_notif(request):
     except ObjectDoesNotExist:
         raise Http404
 
+def cek_notif(request):
+    response_data = {}
+    has_fill_task = []
+    try:
+        notif = Notification.objects.all().order_by('-id_notif')
+        for i in notif:
+            if cek_task_manage(i.id_request_form):
+                has_fill_task.append(True)
+            else:
+                has_fill_task.append(False)
+        
+        response_data["has_fill_task"] = has_fill_task
+        return JsonResponse(response_data, safe = False)
+    except ObjectDoesNotExist:
+        raise Http404
+
 def update_is_read(id_notif):
     try:
         for i in id_notif:
