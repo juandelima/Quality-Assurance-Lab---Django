@@ -157,8 +157,8 @@ def saveRequestMeasuringForm(request):
         bending_test = request.POST['bending_testField']
         others_testing = request.POST['others_testingField']
         note_measuring = request.POST['note_measuringField']
-        signature_staff = request.POST['signature_staffField']
-        staff_name = request.POST['staff_nameField']
+        signature_spv = request.POST['signature_spvField']
+        spv_name = request.POST['spv_nameField']
         receiving_date = '01/01/2001'
         receiving_time = '12:00'
         shift = 0
@@ -184,8 +184,8 @@ def saveRequestMeasuringForm(request):
         part_status = []
         measuring_request = []
         testing_request = []
-        if staff_name == "":
-            staff_name = -1
+        if spv_name == "":
+            spv_name = -1
 
         if drawing != "" and drawing != "on":
             complementary_documents.append(drawing)
@@ -275,8 +275,8 @@ def saveRequestMeasuringForm(request):
                 measuring_request = measuring_request,
                 testing_request = testing_request,
                 note = note_measuring,
-                id_applicant_staff = staff_name,
-                id_applicant_spv = -1,
+                id_applicant_staff = -1,
+                id_applicant_spv = spv_name,
                 id_recipient_lab_staff = -1,
                 id_recipient_lab_spv = -1,
                 receiving_date = newReceiving_date,
@@ -286,7 +286,7 @@ def saveRequestMeasuringForm(request):
                 testing_start_time = time_start_testing,
                 testing_end_date = newEnd_testing,
                 testing_end_time = time_end_testing,
-                applicant_staff_signature = signature_staff
+                applicant_spv_signature = signature_spv
             )
         else:
             MeasuringForm.objects.create(
@@ -300,8 +300,8 @@ def saveRequestMeasuringForm(request):
                 measuring_request = measuring_request,
                 testing_request = testing_request,
                 note = note_measuring,
-                id_applicant_staff = staff_name,
-                id_applicant_spv = -1,
+                id_applicant_staff = -1,
+                id_applicant_spv = spv_name,
                 id_recipient_lab_staff = -1,
                 id_recipient_lab_spv = -1,
                 receiving_date = newReceiving_date,
@@ -311,10 +311,13 @@ def saveRequestMeasuringForm(request):
                 testing_start_time = time_start_testing,
                 testing_end_date = newEnd_testing,
                 testing_end_time = time_end_testing,
-                applicant_staff_signature = signature_staff
+                applicant_spv_signature = signature_spv
             )
 
-        #staffEmail(email)
+        if 'New Project / New Part' in part_status or 'Change Material' in part_status:
+            #staffEmail(email)
+            pass
+
 
         return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
 
@@ -546,12 +549,36 @@ def updateMeasuringFromSpvLab(request, id):
         signature_spv_lab = request.POST['signature_spv_labField']
         email = request.POST['emailField']
         spv_lab_name = request.POST['spv_lab_nameField']
+        receiving_date = request.POST['receiving_dateField']
+        receiving_time = request.POST['receiving_timeField']
+        shift = request.POST['shiftField']
+        start_testing = request.POST['start_testingField']
+        time_start_testing = request.POST['time_start_testingField']
+        end_testing = request.POST['end_testingField']
+        time_end_testing = request.POST['time_end_testingField']
+        receiving_date = receiving_date.split("/")
+        receiving_date.reverse()
+        receiving_date = "-".join(receiving_date)
+        start_testing = start_testing.split("/")
+        start_testing.reverse()
+        start_testing = "-".join(start_testing)
+        end_testing = end_testing.split("/")
+        end_testing.reverse()
+        end_testing = "-".join(end_testing)
         try:
             getAllDataPart = DataPart.objects.all()
             getAllMaterial = Material.objects.all()
             findMeasuringById = MeasuringForm.objects.get(id_request__exact=id_request)
             findMeasuringById.id_recipient_lab_spv = spv_lab_name
             findMeasuringById.recipient_spv_signature = signature_spv_lab
+            findMeasuringById.receiving_date = receiving_date
+            findMeasuringById.receiving_time = receiving_time
+            findMeasuringById.shift = shift
+            findMeasuringById.testing_start_date = start_testing
+            findMeasuringById.testing_start_time = time_start_testing
+            findMeasuringById.testing_end_date = end_testing
+            findMeasuringById.testing_end_time = time_end_testing
+
             get_lab_spv = Employee.objects.get(id_employee__exact=findMeasuringById.id_recipient_lab_spv)
             for i in getAllDataPart:
                 if findMeasuringById.id_part == str(i.id_part):
@@ -821,7 +848,7 @@ def spvLabEmail(to, id_request):
         'testing_end_time': findMeasuringById.testing_end_time,
         'id_request': id_request,
     }
-
+    
     htmlTemplate = "email/request_form_email_from_spv_lab.html"
     html_message = render_to_string(htmlTemplate, context)
     email = EmailMessage(

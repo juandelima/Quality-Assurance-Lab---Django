@@ -10,13 +10,7 @@ class Applicant {
 
     main() {
         document.addEventListener("DOMContentLoaded", () => {
-            const staffApplicant = document.getElementById("staff_name");
             const supervisorApplicant = document.getElementById("spv_name");
-            staffApplicant.onchange = (e) => {
-                let getId = e.target.value;
-                this.renderDeptStaff(getId);
-            }
-
             supervisorApplicant.onchange = (e) => {
                 let getId = e.target.value;
                 this.renderDeptSpv(getId);
@@ -45,16 +39,13 @@ class Applicant {
     }
 
     renderData() {
-        const staff_name = document.getElementById("staff_name");
         const spv_name = document.getElementById("spv_name");
         const id_employee = this.id_employee;
         const nama = this.nama;
         const email = this.email;
-        staff_name.innerHTML = "";
         spv_name.innerHTML = "";
         nama.forEach((name, index) => {
             if(email[index] !== null) {
-                staff_name[index+1] = new Option(name, id_employee[index]);
                 spv_name[index+1] = new Option(name, id_employee[index]);
             }
         });

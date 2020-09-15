@@ -42,3 +42,12 @@ class TaskManagement(models.Model):
     class Meta:
         db_table = 'task_management'
         managed = False
+
+class RubbersTolerance(models.Model):
+    id_rubber = models.IntegerField(primary_key=True)
+    inspection_items = models.CharField(max_length=10)
+    equip = models.CharField(max_length=20)
+    standard = models.CharField(max_length=10)
+    class Meta:
+        db_table = 'rubbers'
+        managed = False

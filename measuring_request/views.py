@@ -22,7 +22,7 @@ def notif_request_form(request):
         count = 0
         getRequestForm = MeasuringForm.objects.all()
         for i in getRequestForm:
-            if i.id_recipient_lab_staff != -1:
+            if i.id_recipient_lab_spv != -1:
                 count += 1
         response_data['message'] = "Success"
         response_data['count'] = count
@@ -44,7 +44,7 @@ def data_measuring_request(request):
                 data_part = Material.objects.get(material_code__exact=i.id_part)
                 part_name = data_part.material_name
 
-            if i.id_recipient_lab_staff != -1:
+            if i.id_recipient_lab_spv != -1:
                 data = {
                     'id_request': i.id_request,
                     'part_name': part_name,

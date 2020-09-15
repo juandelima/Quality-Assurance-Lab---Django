@@ -1,5 +1,4 @@
 class TaskManagement {
-
     main() {
        $(document).ready(() => {
            const save_task_management = document.getElementById("save_task_management");
@@ -160,10 +159,10 @@ class TaskManagement {
     
                                 <div class="col-sm-6">
                                     <div class="form-group row">
-                                        <label for="inputSupplier_${value.id_task}" class="col-sm-4 col-form-label">Supplier/Customer</label>
+                                        <label for="inputSupplier_${value.id_task}" class="col-sm-4 col-form-label">Supplier/Customer Name</label>
                                         <div class="col-sm-8">
                                             <input type="text" id="inputSupplier_${value.id_task}" name="supplier_name"
-                                                class="form-control form-control-sm" placeholder="Supp #1" readonly>
+                                                class="form-control form-control-sm" placeholder="Supp #1">
                                         </div>
                                     </div>
                                 </div>
@@ -192,6 +191,7 @@ class TaskManagement {
                                 </div>
                             </div>
     
+    
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group row">
@@ -208,13 +208,14 @@ class TaskManagement {
                                         <label for="inputPartName_${value.id_task}" class="col-sm-4 col-form-label">Part Name</label>
                                         <div class="col-sm-8">
                                             <input type="text" id="inputPartName_${value.id_task}" name="part_name"
-                                                class="form-control form-control-sm" placeholder="Mirror Assy Outer RH" readonly>
+                                                class="form-control form-control-sm" placeholder="Mirror Assy Outer RH">
                                         </div>
                                     </div>
                                 </div>
                             </div>
     
                             <div class="row">
+    
                                 <div class="col-sm-6">
                                     <div class="form-group row">
                                         <label for="inputMeasureMent_${value.id_task}" class="col-sm-4 col-form-label">Measurement
@@ -238,14 +239,16 @@ class TaskManagement {
                                         <label for="inputPartNumber_${value.id_task}" class="col-sm-4 col-form-label">Part Number</label>
                                         <div class="col-sm-8">
                                             <input type="text" id="inputPartNumber_${value.id_task}" name="part_number"
-                                                class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01" readonly>
+                                                class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01">
                                         </div>
                                     </div>
                                 </div>
+    
                             </div>
     
     
                             <div class="row">
+    
                                 <div class="col-sm-6">
                                     <div class="form-group row">
                                         <label for="inputStandart_${value.id_task}" class="col-sm-4 col-form-label">Standart
@@ -254,24 +257,37 @@ class TaskManagement {
                                             <select class="select2-single-placeholder6 form-control"
                                                 name="standart_tolerance" id="inputStandart_${value.id_task}">
                                                 <option value="">Select</option>
-                                                <option value="1">Tolerance
+                                                <option value="Tolerance Dimension TSZ 2205 G / DTSZ 2205 G">Tolerance
                                                     Dimension TSZ 2205 G / DTSZ 2205 G</option>
-                                                <option value="2">Plastic Molding (HES D0007
+                                                <option value="Plastic Molding (HES D0007 -08)">Plastic Molding (HES D0007
                                                     -08)</option>
-                                                <option value="3">Rubbers (HES D0020-73)</option>
-                                                <option value="4">Periodical</option>
-                                                <option value="5">Tolerance By HES D00008 - 08 (Pressing)</option>
+                                                <option value="Rubbers (HES D0020-73)">Rubbers (HES D0020-73)</option>
+                                                <option value="Periodical">Periodical</option>
+                                                <option value="Tolerance By HES D00008 - 08 (Pressing)">Tolerance By HES
+                                                    D00008 - 08 (Pressing)</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
+    
+                                <div class="col-sm-6">
+                                    <div class="form-group row">
+                                        <label for="inputPartType_${value.id_task}" class="col-sm-4 col-form-label">Part Type/Model</label>
+                                        <div class="col-sm-8">
+                                            <input type="text" id="inputPartType_${value.id_task}" name="part_type"
+                                                class="form-control form-control-sm" placeholder="KZRA">
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+    
                             <hr>
                             <h5 class="modal-title" id="myExtraLargeModalLabel">Measurement Results</h5>
                             <div class="row">
                                 <div class="col-sm-12">
                                     <div class="form-group row">
-                                        <label for="inputIlustration_${value.id_task}" class="col-sm-2 col-form-label">Image Ilustration</label>
+                                        <label for="inputIlustration_${value.id_task}" class="col-sm-2 col-form-label">Image
+                                            Ilustration</label>
                                         <div class="col-sm-4">
                                             <input type="file" id="inputIlustration_${value.id_task}" name="image_ilustration"
                                                 class="form-control">
@@ -279,18 +295,89 @@ class TaskManagement {
                                     </div>
                                 </div>
                             </div>
-                            <hr>
+    
                             <div class="row">
-                                <div class="table-responsive" id="template_by_tolerance_${value.id_task}">
-                                    
+                                <div class="table-responsive">
+                                    <table class="table align-items-center table-flush">
+                                        <thead class="thead-light">
+                                            <tr>
+                                                <th width="150">Inspection Item</th>
+                                                <th>Method/Equip</th>
+                                                <th>Sample 1</th>
+                                                <th>Sample 2</th>
+                                                <th>Sample 3</th>
+                                                <th>Sample 4</th>
+                                                <th>Sample 5</th>
+                                                <th>Standart</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+    
+                                        <tbody id="row_measurements_${value.id_task}">
+                                            <tr id="row_${value.id_task}">
+                                                <td>
+                                                    <input type="text" id="inpection_${value.id_task}" name="inpection_name"
+                                                        class="form-control form-control-sm" placeholder="Distance">
+                                                </td>
+    
+                                                <td>
+                                                    <input type="text" id="method_${value.id_task}" name="method_name"
+                                                        class="form-control form-control-sm" placeholder="CMM">
+                                                </td>
+    
+                                                <td>
+                                                    <input type="text" id="sample1_${value.id_task}" name="sample_${value.id_task}_name"
+                                                        class="form-control form-control-sm" placeholder="0" readonly>
+                                                </td>
+    
+                                                <td>
+                                                    <input type="text" id="sample2_${value.id_task}" name="sample_${value.id_task}_name"
+                                                        class="form-control form-control-sm" placeholder="0" readonly>
+                                                </td>
+    
+                                                <td>
+                                                    <input type="text" id="sample3_${value.id_task}" name="sample_${value.id_task}_name"
+                                                        class="form-control form-control-sm" placeholder="0" readonly>
+                                                </td>
+    
+                                                <td>
+                                                    <input type="text" id="sample4_${value.id_task}" name="sample_${value.id_task}_name"
+                                                        class="form-control form-control-sm" placeholder="0" readonly>
+                                                </td>
+    
+                                                <td>
+                                                    <input type="text" id="sample5_${value.id_task}" name="sample_${value.id_task}_name"
+                                                        class="form-control form-control-sm" placeholder="0" readonly>
+                                                </td>
+    
+                                                <td>
+                                                    <div class="row">
+                                                        <div class="col-sm-5">
+                                                            <input type="text" id="standart1_${value.id_task}" name="standart_${value.id_task}_name"
+                                                                class="form-control form-control-sm" placeholder="0">
+                                                        </div>
+                                                        <span>±</span>
+                                                        <div class="col-sm-5">
+                                                            <input type="text" id="standart2_${value.id_task}" name="standart_${value.id_task}_name"
+                                                                class="form-control form-control-sm" placeholder="0">
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td>
+    
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
                                 </div>
                             </div>
-
+                            <a href="#" class="btn btn-danger btn-sm btn-icon-split" id="tambah_row__${value.id_task}">
+                                <span class="icon text-white-50">
+                                    <i class="fa fa-plus"></i>
+                                </span>
+                                <span class="text">Tambah</span>
+                            </a>
                         </form>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button type="button" style="display: none;" id="simpan_general_${value.id_task}" class="btn btn-sm btn-primary">Simpan</button>
                     </div>
                 </div>
             </div>
@@ -319,264 +406,7 @@ class TaskManagement {
     }
 
     getDataDetailTask(id_task) {
-        fetch(`get-detail-task/${id_task}/`)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            this.render_data_task(id_task, data);
-        })
-        .catch(error => {
-            alert(error);
-        });
-    }
-
-    render_data_task(id_task, data) {
-        this.standard_tolerance(id_task);
-        const inputSupplier = document.getElementById(`inputSupplier_${id_task}`);
-        const inputReceived = document.getElementById(`inputReceived_${id_task}`);
-        const inputPartName = document.getElementById(`inputPartName_${id_task}`);
-        const inputPartNumber = document.getElementById(`inputPartNumber_${id_task}`);
-        inputSupplier.value = data.customer_or_supplier;
-        inputReceived.value = data.received;
-        inputPartName.value = data.part_name;
-        inputPartNumber.value = data.part_number;
-    }
-
-    standard_tolerance(id_task) {
-        const inputStandard = document.getElementById(`inputStandart_${id_task}`);
-        const template_by_tolerance = document.getElementById(`template_by_tolerance_${id_task}`);
-        inputStandard.onchange = () => {
-            const get_value = inputStandard.options[inputStandard.selectedIndex].value;
-            if(get_value === "1") {
-                alert("coming soon");
-                template_by_tolerance.innerHTML = '';
-            } else if(get_value === "2") {
-                alert("coming soon");
-                template_by_tolerance.innerHTML = '';
-            } else if(get_value === "3") {
-                this.get_rubbbers_tolerance(id_task);
-            } else if(get_value === "4") {
-                alert("coming soon");
-                template_by_tolerance.innerHTML = '';
-            } else if(get_value === "5") {
-                alert("coming soon");
-                template_by_tolerance.innerHTML = '';
-            }
-        };
-    }
-
-    get_rubbbers_tolerance(id_task) {
-        fetch(`get-rubbers-tolerance/`)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            this.render_template_tolerance(id_task, data['data']);
-        })
-        .catch(error => {
-            alert(error);
-        });
-    }
-
-    render_template_tolerance(id_task, data_tolerance) {
-        const template_by_tolerance = document.getElementById(`template_by_tolerance_${id_task}`);
-        const id_rubber = [];
-        template_by_tolerance.innerHTML = '';
-        template_by_tolerance.innerHTML = `
-            <table class="table align-items-center table-flush">
-                <thead class="thead-light">
-                    <tr>
-                        <th width="140">Inspection Item</th>
-                        <th width="150">Method/Equip</th>
-                        <th width="150">Standart</th>
-                        <th width="120">Sample 1</th>
-                        <th width="120">Sample 2</th>
-                        <th width="120">Sample 3</th>
-                        <th width="120">Sample 4</th>
-                        <th width="120">Sample 5</th>
-                        <th width="100">x</th>
-                        <th width="100">r</th>
-                        <th>result</th>
-                    </tr>
-                </thead>
-
-                <tbody id="row_measurements_${id_task}">
-
-                </tbody>
-            </table>
-        `;
-
-        const row_measurements = document.getElementById(`row_measurements_${id_task}`);
-        row_measurements.innerHTML = '';
-
-        data_tolerance.forEach((data, index) => {
-            id_rubber.push(data.id_rubber);
-            row_measurements.innerHTML += `
-                <tr id="row_${data.id_rubber}">
-                    <td>
-                        ${data.inspection_items}
-                    </td>
-
-                    <td>
-                        ${data.equip}
-                    </td>
-
-                    <td>
-                        ${data.standard1.toFixed(1)} ± ${data.standard2}
-                    </td>
-
-                    <td>
-                        <input type="number" step="0.01" id="sample1_${data.id_rubber}" name="sample1_name" class="form-control form-control-sm sample" placeholder="0" value="0">
-                    </td>
-
-                    <td>
-                        <input type="number" step="0.01" id="sample2_${data.id_rubber}" name="sample2_name" class="form-control form-control-sm sample" placeholder="0" value="0">
-                    </td>
-
-                    <td>
-                        <input type="number" step="0.01" id="sample3_${data.id_rubber}" name="sample3_name" class="form-control form-control-sm sample" placeholder="0" value="0">
-                    </td>
-
-                    <td>
-                        <input type="number" step="0.01" id="sample4_${data.id_rubber}" name="sample4_name" class="form-control form-control-sm sample" placeholder="0" value="0">
-                    </td>
-
-                    <td>
-                        <input type="number" step="0.01" id="sample5_${data.id_rubber}" name="sample5_name" class="form-control form-control-sm sample" placeholder="0" value="0">
-                    </td>
-
-                    <td>
-                        <input type="text" id="x_${data.id_rubber}" name="x_result" class="form-control form-control-sm" placeholder="0" readonly>
-                    </td>
-
-                    <td>
-                        <input type="text" id="r_${data.id_rubber}" name="y_result" class="form-control form-control-sm" placeholder="0" readonly>
-                    </td>
-
-                    <td>
-                        <input type="text" id="result_${data.id_rubber}" name="result" class="form-control form-control-sm" readonly>
-                    </td>
-                </tr>
-            `;
-
-        });
-
-        template_by_tolerance.innerHTML += `
-            <div class="float-right">
-                <button type="button" id="compute_rubber_${id_task}" class="btn btn-sm btn-danger compute_rubber">Compute</button>
-            </div>
-        `;
-
-        this.compute_rubber_tolerance(id_rubber, id_task);
-    }
-
-    compute_rubber_tolerance(id_rubber, id_task) {
-        const compute = document.getElementById(`compute_rubber_${id_task}`);
-
-        compute.onclick = () => {
-            id_rubber.forEach(data_id => {
-                var sample1 = document.getElementById(`sample1_${data_id}`);
-                var sample2 = document.getElementById(`sample2_${data_id}`);
-                var sample3 = document.getElementById(`sample3_${data_id}`);
-                var sample4 = document.getElementById(`sample4_${data_id}`);
-                var sample5 = document.getElementById(`sample5_${data_id}`);
-                this.calculate_rubber(data_id, sample1, sample2, sample3, sample4, sample5);
-            });
-        };
-    }
-
-    calculate_rubber(id_rubber, sample_1, sample_2, sample_3, sample_4, sample_5) {
-        fetch(`get-rubbers-tolerance/${id_rubber}/`)
-        .then(response => {
-            return response.json();
-        })
-        .then(data => {
-            this.result_render(data, sample_1.value, sample_2.value, sample_3.value, sample_4.value, sample_5.value);
-        })
-        .catch(error => {
-            alert(error);
-        });
-    }
-
-    result_render(data, sample_1, sample_2, sample_3, sample_4, sample_5) {
-        const sample1 = document.getElementById(`sample1_${data.id_rubber}`);
-        const sample2 = document.getElementById(`sample2_${data.id_rubber}`);
-        const sample3 = document.getElementById(`sample3_${data.id_rubber}`);
-        const sample4 = document.getElementById(`sample4_${data.id_rubber}`);
-        const sample5 = document.getElementById(`sample5_${data.id_rubber}`);
-        const x_result = document.getElementById(`x_${data.id_rubber}`);
-        const r_result = document.getElementById(`r_${data.id_rubber}`);
-        const result = document.getElementById(`result_${data.id_rubber}`);
-        const standard2 = data.standard2;
-        const standard2_min = -data.standard2;
-        if(sample_1 != "0" && sample_1 != "") {
-            const calculate_sample1 = sample_1 - data.standard1;
-            sample1.value = calculate_sample1.toFixed(2);
-            sample1.readOnly = true;
-        }
-
-        if(sample_2 != "0" && sample_2 != "") {
-            const calculate_sample2 = sample_2 - data.standard1;
-            sample2.value = calculate_sample2.toFixed(2);
-            sample2.readOnly = true;
-        }
-
-        if(sample_3 != "0" && sample_3 != "") {
-            const calculate_sample3 = sample_3 - data.standard1;
-            sample3.value = calculate_sample3.toFixed(2);
-            sample3.readOnly = true;
-        }
-
-        if(sample_4 != "0" && sample_4 != "") {
-            const calculate_sample4 = sample_4 - data.standard1;
-            sample4.value = calculate_sample4.toFixed(2);
-            sample4.readOnly = true;
-        }
-
-        if(sample_5 != "0" && sample_5 != "") {
-            const calculate_sample5 = sample_5 - data.standard1;
-            sample5.value = calculate_sample5.toFixed(2);
-            sample5.readOnly = true;
-        }
-
-        if(sample1.value != "0" && sample1.value != "" && sample2.value != "0" && sample2.value != "" && sample3.value != "0" && sample3.value != "" && sample4.value != "0" && sample4.value != "" && sample5.value != "0" && sample5.value != "") {
-            const calculate_x = (parseFloat(sample1.value) + parseFloat(sample2.value) + parseFloat(sample3.value) + parseFloat(sample4.value) + parseFloat(sample5.value)) / 5;
-            const find_max = Math.max(sample1.value, sample2.value, sample3.value, sample4.value, sample5.value);
-            const find_min = Math.min(sample1.value, sample2.value, sample3.value, sample4.value, sample5.value);
-            let result_1 = false;
-            let result_2 = false;
-            let result_3 = false;
-            let result_4 = false;
-            let result_5 = false;
-            x_result.value = calculate_x.toFixed(2);
-            r_result.value = (find_max - find_min).toFixed(2);
-            if(parseFloat(sample1.value) < standard2_min || parseFloat(sample1.value) > standard2) {
-                result_1 = true;
-            }
-
-            if(parseFloat(sample2.value) < standard2_min || parseFloat(sample2.value) > standard2) {
-                result_2 = true;
-            }
-
-            if(parseFloat(sample3.value) < standard2_min || parseFloat(sample3.value) > standard2) {
-                result_3 = true;
-            }
-
-            if(parseFloat(sample4.value) < standard2_min || parseFloat(sample4.value) > standard2) {
-                result_4 = true;
-            }
-
-            if(parseFloat(sample5.value) < standard2_min || parseFloat(sample5.value) > standard2) {
-                result_5 = true;
-            }
-
-            if(result_1 && result_2 && result_3 && result_4 && result_5) {
-                result.value = "X";
-            } else {
-                result.value = "O";
-            }
-        }
+        console.log(id_task);
     }
 
     hide_load_button() {

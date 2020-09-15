@@ -419,6 +419,7 @@ class Notifications {
         }); 
     }
 
+    
     clickNotif() {
         $(document).ready(() => {
             const click_notif = $(".new_task");

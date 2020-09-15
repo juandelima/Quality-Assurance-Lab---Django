@@ -296,29 +296,16 @@
                             <td colspan="2"><p class="font-weight-bolder text-center m-auto">Applicant</p></td>
                         </tr>
                         <tr style="height: 85px;">
-                            <input type="hidden" name="signature_staff" id="signature_staff"/>
                             <input type="hidden" name="signature_spv" id="signature_spv"/>
-                            <td id="signature-staff">
-
-                            </td>
-                            <td id="signature-spv-not-empty">
+                            <td id="signature-spv">
 
                             </td>
                         </tr>
                         <tr>
                            <td>
-                               <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                    <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="staff_name" id="staff_name">
-                                            <option value="">Search your name</option>
-                                        </select>
-                                    </div>
-                                </div>
-                           </td>
-                           <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name" disabled>
+                                        <select class="select2-single-placeholder12 form-control" name="spv_name" id="spv_name">
                                             <option value="">Search your name</option>
                                         </select>
                                     </div>
@@ -326,14 +313,6 @@
                            </td> 
                         </tr>
                         <tr>
-                            <td>
-                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                     <div class="col-sm-12">
-                                         <input type="text" class="form-control form-control-sm small"
-                                             placeholder="Dept name" id="staff_dept_name" readonly>
-                                     </div>
-                                 </div>
-                            </td>
                             <td>
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                      <div class="col-sm-12">
@@ -344,9 +323,6 @@
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <p class="font-weight-bolder text-center m-auto">Staff</p>
-                            </td>
                             <td>
                                 <p class="font-weight-bolder text-center m-auto">Supervisor</p>
                             </td>
@@ -360,25 +336,12 @@
                             <td colspan="2"><p class="font-weight-bolder text-center m-auto">Recipient</p></td>
                         </tr>
                         <tr style="height: 85px;">
-                            <input type="hidden" name="signature_staff_lab" id="signature_staff_lab"/>
                             <input type="hidden" name="signature_spv_lab" id="signature_spv_lab"/>
-                            <td id="signature-staff-lab-not-none">
-
-                            </td>
                             <td id="signature-spv-lab-not-none">
 
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                    <div class="col-sm-12">
-                                        <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name" disabled>
-                                            <option value="">Search your name</option>
-                                        </select>
-                                    </div>
-                                </div>
-                            </td>
                             <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
@@ -388,30 +351,20 @@
                                     </div>
                                 </div>
                             </td> 
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
+                                    <div class="col-sm-12">
+                                        <input type="text" class="form-control form-control-sm" id="spv_lab_dept" placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
+                                    </div>
+                                </div>
+                            </td>
                          </tr>
                          <tr>
-                             <td>
-                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                      <div class="col-sm-12">
-                                          <input type="text" class="form-control form-control-sm" id="staff_lab_dept" placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
-                                      </div>
-                                  </div>
-                             </td>
-                             <td>
-                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                      <div class="col-sm-12">
-                                          <input type="text" class="form-control form-control-sm" id="spv_lab_dept" placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
-                                      </div>
-                                  </div>
-                             </td>
-                         </tr>
-                         <tr>
-                             <td>
-                                 <p class="font-weight-bolder text-center m-auto">Lab. Staff</p>
-                             </td>
-                             <td>
-                                 <p class="font-weight-bolder text-center m-auto">Lab. Supervisor</p>
-                             </td>
+                            <td>
+                                <p class="font-weight-bolder text-center m-auto">Lab. Supervisor</p>
+                            </td>
                          </tr>
                     </table>
                 </div>

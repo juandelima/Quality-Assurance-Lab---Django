@@ -19,15 +19,14 @@ class Recipient {
     }
 
     renderData(data) {
-        const staff_lab_name = document.getElementById("staff_lab_name");
         const spv_lab_name = document.getElementById("spv_lab_name");
         let id_employee = data.id_employee;
         let nama = data.nama;
         let dept = data.dept;
         nama.forEach((name, index) => {
-            if(dept[index] == "QUALITY ASSURANCE") {
-                staff_lab_name[index+1] = new Option(name, id_employee[index]);
+            if(dept[index] == "QUALITY ASSURANCE" && name == "KINASTRYAN JITA KRODA") {
                 spv_lab_name[index+1] = new Option(name, id_employee[index]);
+                return;
             }
         });
     }

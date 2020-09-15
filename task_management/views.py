@@ -116,13 +116,14 @@ def get_task_management(request):
                 vendor = Vendor.objects.get(code_vendor__exact=data_part.code_vendor)
                 nama_part = data_part.material_name
                 customer_name = vendor.vendor_name
+
             data = {
                 'id_task': i.id_task,
                 'alert': '<i class="fa fa-circle text-success"></i>',
                 'part_name': nama_part,
                 'request_form': customer_name,
                 'pic': employee.nama,
-                'task': f'<a href="#" class="btn btn-info btn-sm" data-toggle="modal" data-target="#general_information_{i.id_task}" id="#modalScroll_{i.id_task}"> Action</a>',
+                'task': f'<a href="#" class="btn btn-info btn-sm click_task" data-toggle="modal" data-target="#general_information_{i.id_task}" id="#modalScroll_{i.id_task}"> Action</a>',
                 'inspected': '-',
                 'checked': '-',
                 'approved': '-',
@@ -135,8 +136,72 @@ def get_task_management(request):
         raise Http404
 
 
+def get_detail_task(request, id_task):
+    try:
+        get_task_by_id = TaskManagement.objects.get(id_task__exact=id_task)
+        id_request_form = get_task_by_id.id_request
+        get_request_form_by_id = MeasuringForm.objects.get(id_request__exact=id_request_form)
+        get_id_part = get_request_form_by_id.id_part
+        cek_data_part = Material.objects.filter(material_code=get_id_part).exists()
+        if not cek_data_part:
+            data_part = DataPart.objects.get(id_part__exact=get_id_part)
+            customer = Customer.objects.get(id_customer__exact=data_part.id_customer)
+            id_part = data_part.id_part
+            nama_part = data_part.nama_part
+            nama_customer = customer.nama_customer
+            no_part = data_part.no_sap
+        else:
+            material = Material.objects.get(material_code__exact=get_id_part)
+            vendor = Vendor.objects.get(code_vendor__exact=material.code_vendor)
+            id_part = material.material_code
+            nama_part = material.material_name
+            nama_customer = vendor.vendor_name
+            no_part = material.material_code
+        
+        data = {
+            'customer_or_supplier': nama_customer,
+            'received': get_task_by_id.received_date,
+            'part_name': nama_part,
+            'part_number': no_part
+        }
+        return JsonResponse(data, safe = False)
+    except ObjectDoesNotExist:
+        raise Http404
+
 def convert_date(created_at):
     split_date = str(created_at).split('-')
     split_date[2] = split_date[2].split(' ')[0]
     x = datetime(int(split_date[0]), int(split_date[1]), int(split_date[2]))
     return x.strftime("%d-%B-%Y")
+
+def rubbers_tolerance(request):
+    response_data = {}
+    response_data["data"] = []
+    try:
+        get_rubbers_tolerance = RubbersTolerance.objects.all()
+        for i in get_rubbers_tolerance:
+            standard = i.standard.split('-')
+            data = {
+                'id_rubber': i.id_rubber,
+                'inspection_items': i.inspection_items,
+                'equip': i.equip,
+                'standard1': float(standard[0]),
+                'standard2': float(standard[1])
+            }
+            response_data["data"].append(data)
+        return JsonResponse(response_data, safe = False)
+    except ObjectDoesNotExist:
+        raise Http404
+
+def rubbers_tolerance_by_id(request, id_rubber):
+    try:
+        get_rubber_tolerance = RubbersTolerance.objects.get(id_rubber__exact=id_rubber)
+        standard = get_rubber_tolerance.standard.split('-')
+        data = {
+            'id_rubber': get_rubber_tolerance.id_rubber,
+            'standard1': float(standard[0]),
+            'standard2': float(standard[1])
+        }
+        return JsonResponse(data, safe = False)
+    except ObjectDoesNotExist:
+        raise Http404

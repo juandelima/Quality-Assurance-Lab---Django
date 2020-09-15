@@ -42,8 +42,6 @@
             {% csrf_token %}
             <hr>
             <input type="hidden" id="id_request" name="id_request" value="{{measuring_form.id_request}}"/>
-            <input type="hidden" id="id_applicant_spv" name="id_applicant_spv" value="{{measuring_form.id_applicant_spv}}"/>
-            <input type="hidden" id="id_recipient_lab_staff" name="id_recipient_lab_staff" value="{{measuring_form.id_recipient_lab_staff}}"/>
             <input type="hidden" id="id_recipient_lab_spv" name="id_recipient_lab_spv" value="{{measuring_form.id_recipient_lab_spv}}"/>
             <div class="d-sm-flex justify-content-between">
                 <div>
@@ -176,18 +174,7 @@
                             <td colspan="2"><p class="font-weight-bolder text-center m-auto">Applicant</p></td>
                         </tr>
                         <tr style="height: 85px;">
-                            <input type="hidden" name="signature_staff" id="signature_staff"/>
                             <input type="hidden" name="signature_spv" id="signature_spv"/>
-                            {% if measuring_form.applicant_staff_signature != "" %}
-                                <td id="signature-staff-not-empty" class="disabled">
-                                    <img class="disabled" src="{{measuring_form.applicant_staff_signature}}" height="75" width="150">
-                                </td>
-                            {% else %}
-                                <td id="signature-staff">
-                                
-                                </td>
-                            {% endif %}
-
                             {% if measuring_form.applicant_spv_signature != "" %}
                                 <td id="signature-spv-not-empty">
                                     <img class="disabled" src="{{measuring_form.applicant_spv_signature}}" height="75" width="150">
@@ -200,22 +187,6 @@
                         </tr>
 
                         <tr>
-                           <td>
-                               <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                    <div class="col-sm-12">
-                                        {% if getStaff != None %}
-                                            <select class="select2-single-placeholder12 form-control" name="staff_name" id="staff_name" disabled>
-                                                <option value="{{getStaff.nama}}">{{getStaff.nama}}</option>
-                                            </select>
-
-                                        {% else %}
-                                            <select class="select2-single-placeholder12 form-control" name="staff_name" id="staff_name">
-                                                <option value=""></option>
-                                            </select>
-                                        {% endif %}
-                                    </div>
-                                </div>
-                           </td>
                            <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
@@ -234,21 +205,6 @@
                         </tr>
                         <tr>
                             <td>
-                                <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                     <div class="col-sm-12">
-                                        {% if getStaffDept != None %}
-                                            <input type="text" class="form-control form-control-sm small"
-                                             placeholder="Dept name" id="staff_dept_name" value="{{getStaffDept.dept_name}}" readonly>
-
-                                        {% else %}
-                                            <input type="text" class="form-control form-control-sm small"
-                                             placeholder="Dept name" id="staff_dept_name" readonly>
-                                        {% endif %}
-                                         
-                                     </div>
-                                 </div>
-                            </td>
-                            <td>
                                  <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                      <div class="col-sm-12">
                                         {% if getSpvDept != None %}
@@ -258,15 +214,11 @@
                                             <input type="text" class="form-control form-control-sm small"
                                              placeholder="Dept name" id="spv_dept_name" readonly>
                                         {% endif %}
-                                         
                                      </div>
                                  </div>
                             </td>
                         </tr>
                         <tr>
-                            <td>
-                                <p class="font-weight-bolder text-center m-auto">Staff</p>
-                            </td>
                             <td>
                                 <p class="font-weight-bolder text-center m-auto">Supervisor</p>
                             </td>
@@ -280,93 +232,29 @@
                             <td colspan="2"><p class="font-weight-bolder text-center m-auto">Recipient</p></td>
                         </tr>
                         <tr style="height: 85px;">
-                            <input type="hidden" name="signature_staff_lab" id="signature_staff_lab"/>
                             <input type="hidden" name="signature_spv_lab" id="signature_spv_lab"/>
-                            {% if measuring_form.recipient_staff_signature != "" %}
-                                <td id="signature-staff-lab-not-none">
-                                    <img class="disable" src="{{measuring_form.recipient_staff_signature}}" height="75" width="150">
-                                </td>
-                            {% else %}
-                                {% if getSpv == None %}
-                                    <td id="signature-staff-lab-none">
-
-                                    </td>
-                                {% else %}
-                                    <td id="signature-staff-lab">
-
-                                    </td>
-                                {% endif %}
-                            {% endif %}
-                            
                             {% if measuring_form.recipient_spv_signature != "" %}
                                 <td id="signature-spv-lab-not-none">
                                     <img class="disable" src="{{measuring_form.recipient_spv_signature}}" height="75" width="150">
                                 </td>
                             {% else %}
-                                {% if getSpv == None or getLabStaff == None %}
-                                    <td id="signature-spv-lab-none">
+                                <td id="signature-spv-lab">
 
-                                    </td>
-                                {% else %}
-                                    <td id="signature-spv-lab">
-
-                                    </td>
-                                {% endif %}
+                                </td>
                             {% endif %}
-                            
                         </tr>
                         <tr>
                             <td>
-                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                    <div class="col-sm-12">
-                                        {% if getLabStaff != None %}
-                                            <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name" disabled>
-                                                <option value="{{getLabStaff.nama}}">{{getLabStaff.nama}}</option>
-                                            </select>
-                                        {% else %}
-                                            {% if getSpv == None %}
-                                                <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name" disabled>
-                                                    <option value="">Search your name</option>
-                                                </select>
-                                            {% else %}
-                                                <select class="select2-single-placeholder12 form-control" name="staff_lab_name" id="staff_lab_name">
-                                                    <option value="">Search your name</option>
-                                                </select>
-                                            {% endif %}
-                                        {% endif %}
-                                    </div>
-                                </div>
-                            </td>
-                            <td>
                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                     <div class="col-sm-12">
-                                        {% if getLabSpv != None %}
-                                            <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name" disabled>
-                                                <option value="{{getLabSpv.nama}}">{{getLabSpv.nama}}</option>
-                                            </select>
-                                        {% else %}
-                                            {% if getSpv == None or getLabStaff == None %}
-                                                <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name" disabled>
-                                                    <option value="">Search your name</option>
-                                                </select>
-                                            {% else %}
-                                                <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
-                                                    <option value="">Search your name</option>
-                                                </select>
-                                            {% endif %}
-                                        {% endif %}
+                                        <select class="select2-single-placeholder12 form-control" name="spv_lab_name" id="spv_lab_name">
+                                            <option value="">Search your name</option>
+                                        </select>
                                     </div>
                                 </div>
                             </td> 
                          </tr>
                          <tr>
-                             <td>
-                                 <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
-                                      <div class="col-sm-12">
-                                          <input type="text" class="form-control form-control-sm" id="staff_lab_dept" placeholder="Dept name" value="QUALITY ASSURANCE" readonly>
-                                      </div>
-                                  </div>
-                             </td>
                              <td>
                                   <div class="d-sm-flex flex-sm-row justify-content-center align-items-center">
                                       <div class="col-sm-12">
@@ -376,9 +264,6 @@
                              </td>
                          </tr>
                          <tr>
-                             <td>
-                                 <p class="font-weight-bolder text-center m-auto">Lab. Staff</p>
-                             </td>
                              <td>
                                  <p class="font-weight-bolder text-center m-auto">Lab. Supervisor</p>
                              </td>
@@ -460,7 +345,7 @@
                                     <div class="input-group clockpicker">
                                         <input type="text" name="receiving_time" class="form-control form-control-sm input-sm" value="{{measuring_form.receiving_time}}" placeholder="12:30" id="receiving_time" required readonly>                     
                                         <div class="input-group-append">
-                                        <span class="input-group-text"><i class="fas fa-clock"></i></span>
+                                            <span class="input-group-text"><i class="fas fa-clock"></i></span>
                                         </div>                      
                                     </div>
                                 </div>

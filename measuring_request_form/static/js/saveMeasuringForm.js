@@ -30,8 +30,8 @@ class MeasuringRequestForm {
             const bending_test = document.getElementById("bending_test");
             const others_testing = document.getElementById("others_testing");
             const note_measuring = document.getElementById("note_measuring");
-            const signature_staff = document.getElementById("signature_staff");
-            const staff_name = document.getElementById("staff_name");
+            const signature_spv = document.getElementById("signature_spv");
+            const spv_name = document.getElementById("spv_name");
             const search_email = document.getElementById("search_email");
             const send_request = document.getElementById("send_request");
             const email = document.getElementById("email");
@@ -42,7 +42,7 @@ class MeasuringRequestForm {
 
             send_request.onclick = (e) => {
                 e.preventDefault();
-                if(signature_staff.value == "" || staff_name.value == "" || email.value == "") {
+                if(signature_spv.value == "" || spv_name.value == "" || email.value == "") {
                     alert("Tidak dapat di proses. Silahkan cek kembali data inputan kamu yaa :)");
                 } else {
                     const dataTestLab = {
@@ -74,8 +74,8 @@ class MeasuringRequestForm {
                         bending_testField: bending_test.value,
                         others_testingField: others_testing.value,
                         note_measuringField: note_measuring.value,
-                        signature_staffField: signature_staff.value,
-                        staff_nameField: staff_name.value,
+                        signature_spvField: signature_spv.value,
+                        spv_nameField: spv_name.value,
                         emailField: email.value
                     };
 
@@ -119,8 +119,8 @@ class MeasuringRequestForm {
                     bending_testField: dataTestLab.bending_testField,
                     others_testingField: dataTestLab.others_testingField,
                     note_measuringField: dataTestLab.note_measuringField,
-                    signature_staffField: dataTestLab.signature_staffField,
-                    staff_nameField: dataTestLab.staff_nameField,
+                    signature_spvField: dataTestLab.signature_spvField,
+                    spv_nameField: dataTestLab.spv_nameField,
                     emailField: dataTestLab.emailField
                 },
 
@@ -175,8 +175,8 @@ class MeasuringRequestForm {
                     document.getElementById("bending_test").checked = false;
                     document.getElementById("other_testing").checked = false;
                     document.getElementById("note_measuring").value = "";
-                    document.getElementById("signature_staff").value = "";
-                    document.getElementById("signature-staff").innerHTML = "";
+                    document.getElementById("signature_spv").value = "";
+                    document.getElementById("signature-spv").innerHTML = "";
                     document.getElementById("other_value").style.display = "none";
                     document.getElementById("other_complementary").value = "";
                     document.getElementById("other_value_part_status").style.display = "none";
@@ -185,7 +185,6 @@ class MeasuringRequestForm {
                     document.getElementById("others_measuring").value = "";
                     document.getElementById("other_value_testing").style.display = "none";
                     document.getElementById("others_testing").value = "";
-                    document.getElementById("staff_dept_name").value = "";
                     document.getElementById("spv_dept_name").value = "";
                     document.getElementById("email").value = "";
                 },

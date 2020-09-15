@@ -257,9 +257,7 @@ class Signature {
     }
     
     main() {
-        this.staff();
         this.spv();
-        this.staffLab();
         this.spvLab();
     }
 }
