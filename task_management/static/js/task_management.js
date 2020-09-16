@@ -285,7 +285,6 @@ class TaskManagement {
                                     
                                 </div>
                             </div>
-
                         </form>
                     </div>
 
@@ -297,7 +296,6 @@ class TaskManagement {
             </div>
             `;
         });
-
         this.clickTask();
     }
 
@@ -349,18 +347,14 @@ class TaskManagement {
         inputStandard.onchange = () => {
             const get_value = inputStandard.options[inputStandard.selectedIndex].value;
             if(get_value === "1") {
-                alert("coming soon");
                 template_by_tolerance.innerHTML = '';
             } else if(get_value === "2") {
-                alert("coming soon");
                 template_by_tolerance.innerHTML = '';
             } else if(get_value === "3") {
                 this.get_rubbbers_tolerance(id_task);
             } else if(get_value === "4") {
-                alert("coming soon");
                 template_by_tolerance.innerHTML = '';
             } else if(get_value === "5") {
-                alert("coming soon");
                 template_by_tolerance.innerHTML = '';
             }
         };
@@ -464,7 +458,8 @@ class TaskManagement {
 
         template_by_tolerance.innerHTML += `
             <div class="float-right">
-                <button type="button" id="compute_rubber_${id_task}" class="btn btn-sm btn-danger compute_rubber">Compute</button>
+                <button type="button" id="compute_rubber_${id_task}" class="btn btn-sm btn-info compute_rubber">Compute</button>
+                <button type="button" id="reset_rubber_${id_task}" style="display: none;" class="btn btn-sm btn-danger">Reset</button>
             </div>
         `;
 
@@ -473,8 +468,12 @@ class TaskManagement {
 
     compute_rubber_tolerance(id_rubber, id_task) {
         const compute = document.getElementById(`compute_rubber_${id_task}`);
-
+        const reset_rubber = document.getElementById(`reset_rubber_${id_task}`);
+        const simpan_general = document.getElementById(`simpan_general_${id_task}`);
         compute.onclick = () => {
+            compute.style.display = 'none';
+            simpan_general.style.display = 'block';
+            reset_rubber.style.display = 'block';
             id_rubber.forEach(data_id => {
                 var sample1 = document.getElementById(`sample1_${data_id}`);
                 var sample2 = document.getElementById(`sample2_${data_id}`);
@@ -484,6 +483,35 @@ class TaskManagement {
                 this.calculate_rubber(data_id, sample1, sample2, sample3, sample4, sample5);
             });
         };
+
+        reset_rubber.onclick = () => {
+            reset_rubber.style.display = 'none';
+            compute.style.display = 'block';
+            simpan_general.style.display = 'none';
+            id_rubber.forEach(data_id => {
+                var sample1 = document.getElementById(`sample1_${data_id}`);
+                var sample2 = document.getElementById(`sample2_${data_id}`);
+                var sample3 = document.getElementById(`sample3_${data_id}`);
+                var sample4 = document.getElementById(`sample4_${data_id}`);
+                var sample5 = document.getElementById(`sample5_${data_id}`);
+                var x_result = document.getElementById(`x_${data_id}`);
+                var r_result = document.getElementById(`r_${data_id}`);
+                var result = document.getElementById(`result_${data_id}`);
+                sample1.value = "0";
+                sample1.readOnly = false;
+                sample2.value = "0";
+                sample2.readOnly = false;
+                sample3.value = "0";
+                sample3.readOnly = false;
+                sample4.value = "0";
+                sample4.readOnly = false;
+                sample5.value = "0";
+                sample5.readOnly = false;
+                x_result.value = "0";
+                r_result.value = "0";
+                result.value = "";
+            });
+        }
     }
 
     calculate_rubber(id_rubber, sample_1, sample_2, sample_3, sample_4, sample_5) {
