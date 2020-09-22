@@ -120,6 +120,7 @@ def get_task_management(request):
             data = {
                 'id_task': i.id_task,
                 'alert': '<i class="fa fa-circle text-success"></i>',
+                'id_part': i.id_part,
                 'part_name': nama_part,
                 'request_form': customer_name,
                 'pic': employee.nama,
@@ -129,7 +130,6 @@ def get_task_management(request):
                 'approved': '-',
                 'created_at': convert_date(i.created_at)
             }
-            
             response_data["data"].append(data)
         return JsonResponse(response_data, safe = False)
     except ObjectDoesNotExist:
@@ -205,3 +205,131 @@ def rubbers_tolerance_by_id(request, id_rubber):
         return JsonResponse(data, safe = False)
     except ObjectDoesNotExist:
         raise Http404
+
+def save_measurement_rubbers(request):
+    if request.method == 'POST':
+        cekGeneral = GeneralInformation.objects.all().exists()
+        req_number = request.POST['req_number']
+        qty = request.POST['qty']
+        thl = request.POST['thl']
+        measurement_type = request.POST['measurement_type']
+        standard_tolerance = request.POST['standard_tolerance']
+        id_part = request.POST['id_part']
+        samples = []
+        sample1 = []
+        sample2 = []
+        sample3 = []
+        sample4 = []
+        sample5 = []
+        sample6 = []
+
+        sample1_1 = request.POST['sample1_1']
+        sample2_1 = request.POST['sample2_1']
+        sample3_1 = request.POST['sample3_1']
+        sample4_1 = request.POST['sample4_1']
+        sample5_1 = request.POST['sample5_1']
+        sample1.append(sample1_1)
+        sample1.append(sample2_1)
+        sample1.append(sample3_1)
+        sample1.append(sample4_1)
+        sample1.append(sample5_1)
+
+        sample1_2 = request.POST['sample1_2']
+        sample2_2 = request.POST['sample2_2']
+        sample3_2 = request.POST['sample3_2']
+        sample4_2 = request.POST['sample4_2']
+        sample5_2 = request.POST['sample5_2']
+        sample2.append(sample1_2)
+        sample2.append(sample2_2)
+        sample2.append(sample3_2)
+        sample2.append(sample4_2)
+        sample2.append(sample5_2)
+
+        sample1_3 = request.POST['sample1_3']
+        sample2_3 = request.POST['sample2_3']
+        sample3_3 = request.POST['sample3_3']
+        sample4_3 = request.POST['sample4_3']
+        sample5_3 = request.POST['sample5_3']
+        sample3.append(sample1_3)
+        sample3.append(sample2_3)
+        sample3.append(sample3_3)
+        sample3.append(sample4_3)
+        sample3.append(sample5_3)
+
+        sample1_4 = request.POST['sample1_4']
+        sample2_4 = request.POST['sample2_4']
+        sample3_4 = request.POST['sample3_4']
+        sample4_4 = request.POST['sample4_4']
+        sample5_4 = request.POST['sample5_4']
+        sample4.append(sample1_4)
+        sample4.append(sample2_4)
+        sample4.append(sample3_4)
+        sample4.append(sample4_4)
+        sample4.append(sample5_4)
+
+        sample1_5 = request.POST['sample1_5']
+        sample2_5 = request.POST['sample2_5']
+        sample3_5 = request.POST['sample3_5']
+        sample4_5 = request.POST['sample4_5']
+        sample5_5 = request.POST['sample5_5']
+        sample5.append(sample1_5)
+        sample5.append(sample2_5)
+        sample5.append(sample3_5)
+        sample5.append(sample4_5)
+        sample5.append(sample5_5)
+
+        sample1_6 = request.POST['sample1_6']
+        sample2_6 = request.POST['sample2_6']
+        sample3_6 = request.POST['sample3_6']
+        sample4_6 = request.POST['sample4_6']
+        sample5_6 = request.POST['sample5_6']
+        sample6.append(sample1_6)
+        sample6.append(sample2_6)
+        sample6.append(sample3_6)
+        sample6.append(sample4_6)
+        sample6.append(sample5_6)
+
+        samples.append(sample1)
+        samples.append(sample2)
+        samples.append(sample3)
+        samples.append(sample4)
+        samples.append(sample5)
+        samples.append(sample6)
+        try:
+            if cekGeneral:
+                lastRecord = GeneralInformation.objects.latest('id_general')
+                id_general = lastRecord.id_general + 1
+            else:
+                id_general = 1
+            
+            GeneralInformation.objects.create(
+                id_general = id_general,
+                req_number = req_number,
+                qty = qty,
+                thl = thl,
+                measurement_type = measurement_type,
+                standard_tolerance = standard_tolerance,
+                id_part = id_part
+            )
+
+            lastRecord = GeneralInformation.objects.latest('id_general')
+            last_id_general = lastRecord.id_general
+            for i in samples:
+                cekMeasurement = Measurement.objects.all().exists()
+                if cekMeasurement:
+                    lastRecord = Measurement.objects.latest('id_measurement')
+                    id_measurement = lastRecord.id_measurement + 1
+                else:
+                    id_measurement = 1
+                Measurement.objects.create(
+                    id_measurement = id_measurement,
+                    sample_1 = i[0],
+                    sample_2 = i[1],
+                    sample_3 = i[2],
+                    sample_4 = i[3],
+                    sample_5 = i[4],
+                    id_general = last_id_general
+                )
+            return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
+        except ObjectDoesNotExist:
+            raise Http404

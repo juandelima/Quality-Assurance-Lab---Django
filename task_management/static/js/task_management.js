@@ -1,5 +1,9 @@
 class TaskManagement {
 
+    constructor() {
+        this.count_measurement = 0;
+    }
+
     main() {
        $(document).ready(() => {
            const save_task_management = document.getElementById("save_task_management");
@@ -146,7 +150,8 @@ class TaskManagement {
                     </div>
     
                     <div class="modal-body">
-                        <form>
+                        <form enctype="multipart/form-data" id="id_ajax_upload_form_${value.id_task}" method="POST" novalidate="">
+                            <input type="hidden" id="id_part_${value.id_task}" value="${value.id_part}">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group row">
@@ -462,7 +467,6 @@ class TaskManagement {
                 <button type="button" id="reset_rubber_${id_task}" style="display: none;" class="btn btn-sm btn-danger">Reset</button>
             </div>
         `;
-
         this.compute_rubber_tolerance(id_rubber, id_task);
     }
 
@@ -482,6 +486,24 @@ class TaskManagement {
                 var sample5 = document.getElementById(`sample5_${data_id}`);
                 this.calculate_rubber(data_id, sample1, sample2, sample3, sample4, sample5);
             });
+        };
+
+        simpan_general.onclick = () => {
+            const id_part = document.getElementById(`id_part_${id_task}`);
+            const inputReg = document.getElementById(`inputReg__${id_task}`);
+            const inputQuantity = document.getElementById(`inputQuantity_${id_task}`);
+            const inputTemp = document.getElementById(`inputTemp_${id_task}`);
+            const inputMeasureMent = document.getElementById(`inputMeasureMent_${id_task}`);
+            const inputStandart = document.getElementById(`inputStandart_${id_task}`);
+            const data_general = {
+                part_id: id_part.value,
+                req_number: inputReg.value,
+                qty: inputQuantity.value,
+                thl: inputTemp.value,
+                measurement_type: inputMeasureMent.value,
+                standard_tolerance: inputStandart.value
+            };
+            this.save_general_information(data_general, id_rubber, id_task);
         };
 
         reset_rubber.onclick = () => {
@@ -542,30 +564,40 @@ class TaskManagement {
             const calculate_sample1 = sample_1 - data.standard1;
             sample1.value = calculate_sample1.toFixed(2);
             sample1.readOnly = true;
+        } else {
+            sample1.value = 0;
         }
 
         if(sample_2 != "0" && sample_2 != "") {
             const calculate_sample2 = sample_2 - data.standard1;
             sample2.value = calculate_sample2.toFixed(2);
             sample2.readOnly = true;
+        } else {
+            sample2.value = 0;
         }
 
         if(sample_3 != "0" && sample_3 != "") {
             const calculate_sample3 = sample_3 - data.standard1;
             sample3.value = calculate_sample3.toFixed(2);
             sample3.readOnly = true;
+        } else {
+            sample3.value = 0;
         }
 
         if(sample_4 != "0" && sample_4 != "") {
             const calculate_sample4 = sample_4 - data.standard1;
             sample4.value = calculate_sample4.toFixed(2);
             sample4.readOnly = true;
+        } else {
+            sample4.value = 0;
         }
 
         if(sample_5 != "0" && sample_5 != "") {
             const calculate_sample5 = sample_5 - data.standard1;
             sample5.value = calculate_sample5.toFixed(2);
             sample5.readOnly = true;
+        } else {
+            sample5.value = 0;
         }
 
         if(sample1.value != "0" && sample1.value != "" && sample2.value != "0" && sample2.value != "" && sample3.value != "0" && sample3.value != "" && sample4.value != "0" && sample4.value != "" && sample5.value != "0" && sample5.value != "") {
@@ -605,6 +637,116 @@ class TaskManagement {
                 result.value = "O";
             }
         }
+    }
+
+    save_general_information(data, id_rubber, id_task) {
+        const data_measurement = [];
+        id_rubber.forEach(data_id => {
+            const temp = {
+                sample1: document.getElementById(`sample1_${data_id}`).value,
+                sample2: document.getElementById(`sample2_${data_id}`).value,
+                sample3: document.getElementById(`sample3_${data_id}`).value,
+                sample4: document.getElementById(`sample4_${data_id}`).value,
+                sample5: document.getElementById(`sample5_${data_id}`).value
+            };
+            data_measurement.push(temp);
+        });
+
+        $.ajax({
+            type: "POST",
+            url: `save-measurement-rubbers/`,
+            data: {
+                csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+                req_number: data.req_number,
+                qty: data.qty,
+                thl: data.thl,
+                measurement_type: data.measurement_type,
+                standard_tolerance: data.standard_tolerance,
+                id_part: data.part_id,
+                sample1_1: document.getElementById(`sample1_1`).value,
+                sample2_1: document.getElementById(`sample2_1`).value,
+                sample3_1: document.getElementById(`sample3_1`).value,
+                sample4_1: document.getElementById(`sample4_1`).value,
+                sample5_1: document.getElementById(`sample5_1`).value,
+
+                sample1_2: document.getElementById(`sample1_2`).value,
+                sample2_2: document.getElementById(`sample2_2`).value,
+                sample3_2: document.getElementById(`sample3_2`).value,
+                sample4_2: document.getElementById(`sample4_2`).value,
+                sample5_2: document.getElementById(`sample5_2`).value,
+
+                sample1_3: document.getElementById(`sample1_3`).value,
+                sample2_3: document.getElementById(`sample2_3`).value,
+                sample3_3: document.getElementById(`sample3_3`).value,
+                sample4_3: document.getElementById(`sample4_3`).value,
+                sample5_3: document.getElementById(`sample5_3`).value,
+
+                sample1_4: document.getElementById(`sample1_4`).value,
+                sample2_4: document.getElementById(`sample2_4`).value,
+                sample3_4: document.getElementById(`sample3_4`).value,
+                sample4_4: document.getElementById(`sample4_4`).value,
+                sample5_4: document.getElementById(`sample5_4`).value,
+
+                sample1_5: document.getElementById(`sample1_5`).value,
+                sample2_5: document.getElementById(`sample2_5`).value,
+                sample3_5: document.getElementById(`sample3_5`).value,
+                sample4_5: document.getElementById(`sample4_5`).value,
+                sample5_5: document.getElementById(`sample5_5`).value,
+
+                sample1_6: document.getElementById(`sample1_6`).value,
+                sample2_6: document.getElementById(`sample2_6`).value,
+                sample3_6: document.getElementById(`sample3_6`).value,
+                sample4_6: document.getElementById(`sample4_6`).value,
+                sample5_6: document.getElementById(`sample5_6`).value
+            },
+            beforeSend: () => {
+
+            },
+            success: (response) => {
+                if(response['message'] === 'Success') {
+                    $(`#general_information_${id_task}`).modal('hide');
+                }
+            },
+            error: (xhr, status, error) => {
+                alert(xhr.responseText);
+            },
+        });
+    }
+
+    save_measurement(id_general, id_rubber, id_task) {
+        id_rubber.forEach(data_id => {
+            $.ajax({
+                type: "POST",
+                url: "save-measurement/",
+                data: {
+                    csrfmiddlewaretoken: document.getElementsByName('csrfmiddlewaretoken')[0].value,
+                    sample1: document.getElementById(`sample1_${data_id}`).value,
+                    sample2: document.getElementById(`sample2_${data_id}`).value,
+                    sample3: document.getElementById(`sample3_${data_id}`).value,
+                    sample4: document.getElementById(`sample4_${data_id}`).value,
+                    sample5: document.getElementById(`sample5_${data_id}`).value,
+                    id_general: id_general
+                },
+                beforeSend: () => {
+
+                },
+                success: (response) => {
+                    if(response['message'] === 'Success') {
+                        setTimeout(() => {
+                            $(`#general_information_${id_task}`).modal('hide');
+                            this.show_toast();
+                            this.show_btn_task();
+                            this.hide_load_button();
+                            this.render_data();
+                            this.get_data_task_management();
+                        }, 1000);
+                    }
+                },
+                error: (xhr, status, error) => {
+                    alert(xhr.responseText);
+                },
+            });   
+        });
     }
 
     hide_load_button() {

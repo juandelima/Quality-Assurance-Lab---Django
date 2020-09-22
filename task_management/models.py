@@ -51,3 +51,29 @@ class RubbersTolerance(models.Model):
     class Meta:
         db_table = 'rubbers'
         managed = False
+
+
+class GeneralInformation(models.Model):
+    id_general = models.IntegerField(primary_key=True)
+    req_number = models.CharField(max_length=20)
+    qty = models.IntegerField(primary_key=False)
+    thl = models.CharField(max_length=25)
+    measurement_type = models.CharField(max_length=25)
+    standard_tolerance = models.IntegerField(primary_key=False)
+    id_part = models.CharField(max_length=25)
+    class Meta:
+        db_table = 'general_information'
+        managed = False
+
+
+class Measurement(models.Model):
+    id_measurement = models.IntegerField(primary_key=True)
+    sample_1 = models.FloatField()
+    sample_2 = models.FloatField()
+    sample_3 = models.FloatField()
+    sample_4 = models.FloatField()
+    sample_5 = models.FloatField()
+    id_general = models.IntegerField(primary_key=False)
+    class Meta:
+        db_table = 'measurement'
+        managed = False
