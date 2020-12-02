@@ -44,7 +44,7 @@ class TaskManagement(models.Model):
         managed = False
 
 class RubbersTolerance(models.Model):
-    id_rubber = models.IntegerField(primary_key=True)
+    id = models.IntegerField(primary_key=True)
     inspection_items = models.CharField(max_length=10)
     equip = models.CharField(max_length=20)
     standard = models.CharField(max_length=10)
@@ -60,7 +60,7 @@ class GeneralInformation(models.Model):
     thl = models.CharField(max_length=25)
     measurement_type = models.CharField(max_length=25)
     standard_tolerance = models.IntegerField(primary_key=False)
-    id_part = models.CharField(max_length=25)
+    id_task = models.CharField(max_length=25)
     class Meta:
         db_table = 'general_information'
         managed = False
@@ -76,4 +76,11 @@ class Measurement(models.Model):
     id_general = models.IntegerField(primary_key=False)
     class Meta:
         db_table = 'measurement'
+        managed = False
+
+class StandardTolerance(models.Model):
+    id_tolerance = models.IntegerField(primary_key=True)
+    tolerance_name = models.CharField(max_length=50)
+    class Meta:
+        db_table = 'standard_tolerance'
         managed = False

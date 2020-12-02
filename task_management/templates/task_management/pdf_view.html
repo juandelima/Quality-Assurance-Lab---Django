@@ -1,0 +1,191 @@
+{% extends "base_pdf.html" %}
+{% load static %}
+
+{% block page_content %}
+<div class="container-fluid" id="container-wrapper">
+    <div class="d-sm-flex flex-column" id="print-this">
+        <div class="d-sm-flex justify-content-between align-items-center mt-2 mb-3 p-3 border-bottom-dark">
+            <div class="d-sm-flex flex-column">
+                <img src="{% static "img/logo.png" %}" class="logo-measuring">
+                <small>PT. Astra Komponen Indonesia</small>
+            </div>
+
+            <div>
+                <h3 style="text-align: center;">PT. ASTRA KOMPONEN INDONESIA</h3>
+                <p style="text-align: center;"><b>QUALITY ASSURANCE</b></p>
+                <p style="text-align: center;">
+                    Jl. Mayor Oking Jayaatmaja Km 2.2 No. 1 Kel. Karang Asem Barat Kec. Citeureup<br/>
+                    Kabupaten Bogor, Telp. 021 - 87919122
+                </p>
+            </div>
+
+            <div class="d-sm-flex flex-column">
+                <img src="{% static "img/qa-logo.PNG" %}">
+            </div>
+        </div>
+
+        <table>
+            <tr>
+                <td rowspan="2" colspan="2"><h3 style="text-align: center;">MEASURING REPORT<h3></td>
+                <td colspan="3"><p style="text-align: center;">REGISTRATION NO</p></td>
+            </tr>
+
+            <tr>
+                <td colspan="3"><p style="text-align: center;">{{get_general.req_number}}</p></td>
+            </tr>
+
+            <tr>
+                <td>Customer/Supplier</td>
+                <td>{{nama_customer}}</td>
+                <td><p style="text-align: center;">INSPECTED</p></td>
+                <td><p style="text-align: center;">CHECKED</p></td>
+                <td><p style="text-align: center;">APPROVED</p></td>
+            </tr>
+
+            <tr>
+                <td>Customer/Supplier Address</td>
+                <td>{{get_measuring_form.address}}</td>
+                <td rowspan="4"></td>
+                <td rowspan="4"></td>
+                <td rowspan="4"></td>
+            </tr>
+
+            <tr>
+                <td>Part Name</td>
+                <td>{{nama_part}}</td>
+            </tr>
+
+            <tr>
+                <td>Part No</td>
+                <td>{{no_part}}</td>
+            </tr>
+
+            <tr>
+                <td>Quantity</td>
+                <td>{{get_measuring_form.qty_part}} PCS</td>
+            </tr>
+
+            <tr>
+                <td>Receiving Date</td>
+                <td>{{get_task.received_date}}</td>
+                <td><p style="text-align: center;">Praztowo H</p></td>
+                <td><p style="text-align: center;">Satriyo U</p></td>
+                <td><p style="text-align: center;">Gannet H.W</p></td>
+            </tr>
+
+            <tr>
+                <td>Measuring Date</td>
+                <td>{{get_measuring_form.testing_start_date}}</td>
+                <td colspan="3"><b><p style="text-align: center;">{{standard_tolerance}}</p></b></td>
+            </tr>
+
+            <tr>
+                <td>Temp/Humidity Condition/Lightness</td>
+                <td>{{get_general.thl}}</td>
+                <td colspan="3"><b><p style="text-align: center;">Tolerance (Grade II)</p></b></td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">Background</td>
+                <td rowspan="2">{{get_general.measurement_type}}</td>
+                <td><p style="text-align: center;">Nominal Dimensi</p></td>
+                <td><p style="text-align: center;">General</p></td>
+                <td><p style="text-align: center;">For R</p></td>
+            </tr>
+
+            <tr>
+                <td><p style="text-align: center;">Over 0,5 - 5</p></td>
+                <td><p style="text-align: center;">&plusmn; 0,2</p></td>
+                <td><p style="text-align: center;">&plusmn; 0,2</p></td>
+            </tr>
+
+            <tr>
+                <td rowspan="2">Purpose</td>
+                <td rowspan="2">{{get_task.note}}</td>
+                <td><p style="text-align: center;">Over 5 - 10</p></td>
+                <td><p style="text-align: center;">&plusmn; 0,4</p></td>
+                <td><p style="text-align: center;">&plusmn; 1</p></td>
+            </tr>
+
+            <tr>
+                <td><p style="text-align: center;">Over 10 - 30</p></td>
+                <td><p style="text-align: center;">&plusmn; 0,5</p></td>
+                <td><p style="text-align: center;">&plusmn; 3</p></td>
+            </tr>
+
+            <tr>
+                <td colspan="2">Items Testing Request:</td>
+                <td><p style="text-align: center;">Over 30 - 100</p></td>
+                <td><p style="text-align: center;">&plusmn; 1,0</p></td>
+                <td><p style="text-align: center;">&plusmn; 10</p></td>
+            </tr>
+
+            <tr>
+                <td rowspan="2" colspan="2">
+                    <b>
+                        {{get_measuring_form.complementary_documents}},
+                        {{get_measuring_form.part_status}},
+                        {{get_measuring_form.measuring_request}},
+                        {{get_measuring_form.testing_request}}
+                    </b>
+                </td>
+                <td><p style="text-align: center;">Over 100 - 200</p></td>
+                <td><p style="text-align: center;">&plusmn; 1,5</p></td>
+                <td><p style="text-align: center;">&plusmn; 20</p></td>
+            </tr>
+
+            <tr>
+                <td><p style="text-align: center;">Over 200 - 400</p></td>
+                <td><p style="text-align: center;">&plusmn; 2,0</p></td>
+                <td><p style="text-align: center;">&plusmn; 40</p></td>
+            </tr>
+        </table>
+
+        <table id="measuring" style="margin-top: 5rem;">
+            <thead>
+                <tr>
+                    <th><p style="text-align: center;">NO</p></th>
+                    <th><p style="text-align: center;">INSPECTION ITEMS</p></th>
+                    <th><p style="text-align: center;">INSPECTION METHOD/EQUIP</p></th>
+                    <th><p style="text-align: center;">STANDARD</p></th>
+                    <th><p style="text-align: center;">SAMPLE 1</p></th>
+                    <th><p style="text-align: center;">SAMPLE 2</p></th>
+                    <th><p style="text-align: center;">SAMPLE 3</p></th>
+                    <th><p style="text-align: center;">SAMPLE 4</p></th>
+                    <th><p style="text-align: center;">SAMPLE 5</p></th>
+                    <th><p style="text-align: center;">X</p></th>
+                    <th><p style="text-align: center;">Y</p></th>
+                    <th><p style="text-align: center;">RESULT</p></th>
+                </tr>
+            </thead>
+            
+            <tbody>
+                {% for i in measurements %}
+                <tr>
+                    <td><p style="text-align: center;">{{i.id_rubber}}</p></td>
+                    <td>{{i.inspection_items}}</td>
+                    <td>{{i.equip}}</td>
+                    <td>
+                        <p style="text-align: center;">
+                            {{i.standard1}} &plusmn; {{i.standard2}}
+                        </p>
+                    </td>
+                    <td>{{i.sample_1}}</td>
+                    <td>{{i.sample_2}}</td>
+                    <td>{{i.sample_3}}</td>
+                    <td>{{i.sample_4}}</td>
+                    <td>{{i.sample_5}}</td>
+                    <td>{{i.x_result}}</td>
+                    <td>{{i.r_result}}</td>
+                    <td>
+                        <p style="text-align: center;">
+                            {{i.result}}
+                        </p>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}

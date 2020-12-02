@@ -71,8 +71,8 @@ class TaskManagement {
                         $("#create_new_task").modal("hide");
                         this.show_toast();
                         this.show_btn_task();
-                        this.hide_load_button();
                         this.render_data();
+                        this.hide_load_button();
                         this.get_data_task_management();
                     }, 1000);
                 }
@@ -83,6 +83,7 @@ class TaskManagement {
            },
        });
     }
+
 
     render_data() {
         $('#dataTableTask').DataTable({
@@ -151,14 +152,13 @@ class TaskManagement {
     
                     <div class="modal-body">
                         <form enctype="multipart/form-data" id="id_ajax_upload_form_${value.id_task}" method="POST" novalidate="">
-                            <input type="hidden" id="id_part_${value.id_task}" value="${value.id_part}">
+                            <input type="hidden" id="id_task_${value.id_task}" value="${value.id_task}">
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group row">
                                         <label for="inputReg__${value.id_task}" class="col-sm-4 col-form-label">Registration Number</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="inputReg__${value.id_task}" name="registration_number"
-                                                class="form-control form-control-sm" placeholder="003/QA-0994/3/13">
+                                            <input type="text" id="inputReg__${value.id_task}" name="registration_number" class="form-control form-control-sm" placeholder="003/QA-0994/3/13">
                                         </div>
                                     </div>
                                 </div>
@@ -167,8 +167,7 @@ class TaskManagement {
                                     <div class="form-group row">
                                         <label for="inputSupplier_${value.id_task}" class="col-sm-4 col-form-label">Supplier/Customer</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="inputSupplier_${value.id_task}" name="supplier_name"
-                                                class="form-control form-control-sm" placeholder="Supp #1" readonly>
+                                            <input type="text" id="inputSupplier_${value.id_task}" name="supplier_name" class="form-control form-control-sm" placeholder="Supp #1" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -202,8 +201,7 @@ class TaskManagement {
                                     <div class="form-group row">
                                         <label for="inputTemp_${value.id_task}" class="col-sm-4 col-form-label">Temp/Hum/Lightness</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="inputTemp_${value.id_task}" name="temp_hum_lightness"
-                                                class="form-control form-control-sm" placeholder="50C/55%/1128 lux">
+                                            <input type="text" id="inputTemp_${value.id_task}" name="temp_hum_lightness" class="form-control form-control-sm" placeholder="50C/55%/1128 lux">
                                         </div>
                                     </div>
                                 </div>
@@ -212,8 +210,7 @@ class TaskManagement {
                                     <div class="form-group row">
                                         <label for="inputPartName_${value.id_task}" class="col-sm-4 col-form-label">Part Name</label>
                                         <div class="col-sm-8">
-                                            <input type="text" id="inputPartName_${value.id_task}" name="part_name"
-                                                class="form-control form-control-sm" placeholder="Mirror Assy Outer RH" readonly>
+                                            <input type="text" id="inputPartName_${value.id_task}" name="part_name" class="form-control form-control-sm" placeholder="Mirror Assy Outer RH" readonly>
                                         </div>
                                     </div>
                                 </div>
@@ -256,13 +253,10 @@ class TaskManagement {
                                         <label for="inputStandart_${value.id_task}" class="col-sm-4 col-form-label">Standart
                                             Tolerance</label>
                                         <div class="col-sm-8">
-                                            <select class="select2-single-placeholder6 form-control"
-                                                name="standart_tolerance" id="inputStandart_${value.id_task}">
+                                            <select class="select2-single-placeholder6 form-control" name="standart_tolerance" id="inputStandart_${value.id_task}">
                                                 <option value="">Select</option>
-                                                <option value="1">Tolerance
-                                                    Dimension TSZ 2205 G / DTSZ 2205 G</option>
-                                                <option value="2">Plastic Molding (HES D0007
-                                                    -08)</option>
+                                                <option value="1">Tolerance Dimension TSZ 2205 G / DTSZ 2205 G</option>
+                                                <option value="2">Plastic Molding (HES D0007-08)</option>
                                                 <option value="3">Rubbers (HES D0020-73)</option>
                                                 <option value="4">Periodical</option>
                                                 <option value="5">Tolerance By HES D00008 - 08 (Pressing)</option>
@@ -272,18 +266,7 @@ class TaskManagement {
                                 </div>
                             </div>
                             <hr>
-                            <h5 class="modal-title" id="myExtraLargeModalLabel">Measurement Results</h5>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group row">
-                                        <label for="inputIlustration_${value.id_task}" class="col-sm-2 col-form-label">Image Ilustration</label>
-                                        <div class="col-sm-4">
-                                            <input type="file" id="inputIlustration_${value.id_task}" name="image_ilustration"
-                                                class="form-control">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            <h5 class="modal-title" id="myExtraLargeModalLabel__${value.id_task}">Measurement Results</h5>
                             <hr>
                             <div class="row">
                                 <div class="table-responsive" id="template_by_tolerance_${value.id_task}">
@@ -302,23 +285,37 @@ class TaskManagement {
             `;
         });
         this.clickTask();
+        this.clickInspected();
     }
 
     clickTask() {
-        $(document).ready(() => {
-            const click_task = $('.click_task');
-            click_task.click(function(e) {
-                e.preventDefault();
-                const get_id = $(this).attr('id');
-                const split_id = get_id.split("_");
-                const id_task = split_id[split_id.length - 1];
-                detailTask(id_task);
-            });
-
-            const detailTask = id_task => {
-                this.getDataDetailTask(id_task);
-            };
+        const click_task = $('.click_task');
+        click_task.click(function(e) {
+            e.preventDefault();
+            const get_id = $(this).attr('id');
+            const split_id = get_id.split("_");
+            const id_task = split_id[split_id.length - 1];
+            detailTask(id_task);
         });
+
+        const detailTask = id_task => {
+            this.getDataDetailTask(id_task);
+        };
+    }
+
+    clickInspected() {
+        const click_inspected = $('.click_inspected');
+        click_inspected.click(function(e) {
+            e.preventDefault();
+            const get_id = $(this).attr('id');
+            const split_id = get_id.split("_");
+            const id_task = split_id[split_id.length - 1];
+            detailInspected(id_task);
+        });
+        
+        const detailInspected = id_task => {
+            this.getDetailInpected(id_task);
+        };
     }
 
     getDataDetailTask(id_task) {
@@ -328,6 +325,19 @@ class TaskManagement {
         })
         .then(data => {
             this.render_data_task(id_task, data);
+        })
+        .catch(error => {
+            alert(error);
+        });
+    }
+
+    getDetailInpected(id_task) {
+        fetch(`get-measurement-rubbers/${id_task}/`)
+        .then(response => {
+            return response.json();
+        })
+        .then(data => {
+            this.render_data_inspected(data);
         })
         .catch(error => {
             alert(error);
@@ -344,6 +354,227 @@ class TaskManagement {
         inputReceived.value = data.received;
         inputPartName.value = data.part_name;
         inputPartNumber.value = data.part_number;
+    }
+
+    render_data_inspected(data) {
+        const modal_inspected = document.getElementById("modal-inspected");
+        modal_inspected.innerHTML = '';
+        modal_inspected.innerHTML = `
+            <div class="modal fade bd-example-modal-xl" id="inspected_${data.id_task}" tabindex="-1" role="dialog" aria-labelledby="myInspected_${data.id_general}" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="myInspected_${data.id_general}">Inspected</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+
+                        <div class="modal-body">
+                            <form enctype="multipart/form-data" id="approved_inspected_${data.id_general}" method="POST" novalidate="">
+                                <input type="hidden" id="id_part_${data.id_general}" value="${data.id_general}">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputRegInspected__${data.id_general}" class="col-sm-4 col-form-label">Registration Number</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputRegInspected__${data.id_general}" name="registration_number" class="form-control form-control-sm" placeholder="003/QA-0994/3/13" value="${data.req_number}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputSupplierInpected_${data.id_general}" class="col-sm-4 col-form-label">Supplier/Customer</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputSupplierInpected_${data.id_general}" name="supplier_name" class="form-control form-control-sm" value="${data.customer}" placeholder="Supp #1" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputQuantityInpec_${data.id_general}" class="col-sm-4 col-form-label">Quantity</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputQuantityInpect_${data.id_general}" name="quantity" class="form-control form-control-sm" value="${data.qty}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputReceivedInspect_${data.id_general}" class="col-sm-4 col-form-label">Received</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputReceivedInspect_${data.id_general}" name="received" class="form-control form-control-sm" placeholder="20 Juni 2020" value="${data.received}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputTempInspect_${data.id_general}" class="col-sm-4 col-form-label">Temp/Hum/Lightness</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputTempInspect_${data.id_general}" name="temp_hum_lightness" class="form-control form-control-sm" placeholder="50C/55%/1128 lux" value="${data.thl}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputPartNameInspect_${data.id_general}" class="col-sm-4 col-form-label">Part Name</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputPartNameInspect_${data.id_general}" name="part_name" class="form-control form-control-sm" placeholder="Mirror Assy Outer RH" value="${data.part_name}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputMeasureMentInspect_${data.id_general}" class="col-sm-4 col-form-label">Measurement Type</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputMeasureMentInspect_${data.id_general}" name="part_name" class="form-control form-control-sm" placeholder="Mirror Assy Outer RH" value="${data.measurement_type}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputPartNumberInspect_${data.id_general}" class="col-sm-4 col-form-label">Part Number</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputPartNumberInspect_${data.id_general}" name="part_number" class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01" value="${data.no_part}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group row">
+                                            <label for="inputStandartInspect_${data.id_general}" class="col-sm-4 col-form-label">Standart Tolerance</label>
+                                            <div class="col-sm-8">
+                                                <input type="text" id="inputStandartInspect_${data.id_general}" name="part_number" class="form-control form-control-sm" placeholder="QB2MRR-GANTZRBK01" value="${data.standard_tolerance}" readonly>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <h5 class="modal-title" id="myExtraLargeModalInspect_${data.id_general}">Measurement Results</h5>
+                                <hr>
+                                <div class="row">
+                                    <div class="table-responsive" id="template_by_tolerance_inspect_${data.id_general}">
+
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="modal-footer">
+                            <a href="/task-management/measuring-report/${data.id_general}" target="__blank" class="btn btn-sm btn-primary">Download PDF</a>
+                            <button type="button" id="reject_rubbers_${data.id_general}" class="btn btn-sm btn-danger">Reject</button>
+                            <button type="button" id="acc_rubbers_${data.id_general}" class="btn btn-sm btn-success">Approved</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        const template_by_tolerance_inspect = document.getElementById(`template_by_tolerance_inspect_${data.id_general}`);
+        template_by_tolerance_inspect.innerHTML = '';
+        template_by_tolerance_inspect.innerHTML = `
+            <table class="table align-items-center table-flush">
+                <thead class="thead-light">
+                    <tr>
+                        <th width="140">Inspection Item</th>
+                        <th width="150">Method/Equip</th>
+                        <th width="150">Standart</th>
+                        <th width="120">Sample 1</th>
+                        <th width="120">Sample 2</th>
+                        <th width="120">Sample 3</th>
+                        <th width="120">Sample 4</th>
+                        <th width="120">Sample 5</th>
+                        <th width="100">x</th>
+                        <th width="100">r</th>
+                        <th>result</th>
+                    </tr>
+                </thead>
+
+                <tbody id="row_measurements_inspect_${data.id_general}">
+
+                </tbody>
+            </table>
+        `;
+        const row_measurements_inspect = document.getElementById(`row_measurements_inspect_${data.id_general}`);
+        row_measurements_inspect.innerHTML = '';
+        data.measurements.forEach((data, index) => {
+            row_measurements_inspect.innerHTML += `
+                <tr id="row_${data.id_rubber}">
+                    <td>
+                        ${data.inspection_items}
+                    </td>
+
+                    <td>
+                        ${data.equip}
+                    </td>
+
+                    <td>
+                        ${data.standard1.toFixed(1)} ± ${data.standard2}
+                    </td>
+
+                    <td>
+                        ${data.sample_1.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${data.sample_2.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${data.sample_3.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${data.sample_4.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${data.sample_5.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${data.x_result.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${data.r_result.toFixed(2)}
+                    </td>
+
+                    <td>
+                        ${data.result}
+                    </td>
+                </tr>
+            `;
+        });
+        $(`#inspected_${data.id_task}`).modal('show');
+
+        this.printPdf(data.id_general);
+
+    }
+
+    printPdf(id_general) {
+        const cetak_pdf = $(`#cetak_pdf_${id_general}`);
+        cetak_pdf.click(() => {
+            $(`#approved_inspected_${id_general}`).printThis({
+                importCSS: true,
+                pageTitle: "",
+                header: null,
+                footer: null 
+            })
+        });
     }
 
     standard_tolerance(id_task) {
@@ -401,7 +632,6 @@ class TaskManagement {
                 </thead>
 
                 <tbody id="row_measurements_${id_task}">
-
                 </tbody>
             </table>
         `;
@@ -458,7 +688,6 @@ class TaskManagement {
                     </td>
                 </tr>
             `;
-
         });
 
         template_by_tolerance.innerHTML += `
@@ -489,14 +718,14 @@ class TaskManagement {
         };
 
         simpan_general.onclick = () => {
-            const id_part = document.getElementById(`id_part_${id_task}`);
+            const id_tasks = document.getElementById(`id_task_${id_task}`);
             const inputReg = document.getElementById(`inputReg__${id_task}`);
             const inputQuantity = document.getElementById(`inputQuantity_${id_task}`);
             const inputTemp = document.getElementById(`inputTemp_${id_task}`);
             const inputMeasureMent = document.getElementById(`inputMeasureMent_${id_task}`);
             const inputStandart = document.getElementById(`inputStandart_${id_task}`);
             const data_general = {
-                part_id: id_part.value,
+                task_id: id_tasks.value,
                 req_number: inputReg.value,
                 qty: inputQuantity.value,
                 thl: inputTemp.value,
@@ -662,7 +891,7 @@ class TaskManagement {
                 thl: data.thl,
                 measurement_type: data.measurement_type,
                 standard_tolerance: data.standard_tolerance,
-                id_part: data.part_id,
+                id_tasks: data.task_id,
                 sample1_1: document.getElementById(`sample1_1`).value,
                 sample2_1: document.getElementById(`sample2_1`).value,
                 sample3_1: document.getElementById(`sample3_1`).value,
@@ -699,12 +928,18 @@ class TaskManagement {
                 sample4_6: document.getElementById(`sample4_6`).value,
                 sample5_6: document.getElementById(`sample5_6`).value
             },
+
             beforeSend: () => {
 
             },
+
             success: (response) => {
                 if(response['message'] === 'Success') {
-                    $(`#general_information_${id_task}`).modal('hide');
+                    setTimeout(() => {
+                        $(`#general_information_${id_task}`).modal('hide');
+                        this.show_toast();
+                        this.render_data();
+                    }, 500);
                 }
             },
             error: (xhr, status, error) => {
@@ -735,10 +970,6 @@ class TaskManagement {
                         setTimeout(() => {
                             $(`#general_information_${id_task}`).modal('hide');
                             this.show_toast();
-                            this.show_btn_task();
-                            this.hide_load_button();
-                            this.render_data();
-                            this.get_data_task_management();
                         }, 1000);
                     }
                 },

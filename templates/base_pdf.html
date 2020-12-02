@@ -1,0 +1,37 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    {% include "snippets/head.html" %}
+    <style>
+      table {
+        border-collapse: collapse;
+        border-spacing: 0;
+        width: 100%;
+        border: 1px solid #ddd;
+      }
+  
+        th, td {
+            text-align: left;
+            padding: 8px;
+            width: 5px;
+            height: 30;
+            border: 1px solid #ddd;
+        }
+    </style>
+</head>
+
+<body id="page-top">
+  <div id="wrapper">
+    <div id="content-wrapper" class="d-flex flex-column" style="background-color: #ffffff;">
+        <div id="content">
+            {% block page_content %}
+
+            {% endblock %}
+        </div>
+    </div>
+  </div>
+
+  {% include "snippets/script_print_pdf.html" %}
+</body>
+</html>

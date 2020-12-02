@@ -11,4 +11,6 @@ urlpatterns = [
     path("get-detail-task/<int:id_task>/", views.get_detail_task, name="get-detail-task"),
     path("get-rubbers-tolerance/", views.rubbers_tolerance, name="get-rubbers-tolerance"),
     path("get-rubbers-tolerance/<int:id_rubber>/", views.rubbers_tolerance_by_id, name="tolerance-by-id"),
+    path("get-measurement-rubbers/<int:id_task>/", views.get_measurement_rubbers, name="get-measurement-rubbers"),
+    path("measuring-report/<int:id_general>/", views.pdf_view_rubbers_tolerance, name="measuring-report"),
 ]

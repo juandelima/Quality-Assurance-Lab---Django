@@ -315,9 +315,23 @@ def saveRequestMeasuringForm(request):
             )
 
         if 'New Project / New Part' in part_status or 'Change Material' in part_status:
-            #staffEmail(email)
+            #spvLabEmail(email)
             pass
-
+        else:
+            lastRecord = MeasuringForm.objects.latest('id_request')
+            cekPart = Material.objects.filter(material_code=lastRecord.id_part).exists()
+            if not cekPart:
+                data_part = DataPart.objects.get(id_part__exact=lastRecord.id_part)
+                nama_part = data_part.nama_part
+            else:
+                data_part = Material.objects.get(material_code__exact=lastRecord.id_part)
+                nama_part = data_part.material_name
+            id_request = lastRecord.id_request
+            id_employee = lastRecord.id_applicant_spv
+            id_part = lastRecord.id_part
+            employee = Employee.objects.get(id_employee__exact=id_employee)
+            info_notif = f'{employee.nama} Melakukan Measuring Request Form Untuk Part {nama_part}.'
+            createNotification(id_request, info_notif)
 
         return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
 
@@ -606,7 +620,7 @@ def updateMeasuringFromSpvLab(request, id):
             raise Http404
 
 
-def staffEmail(to):
+def spvLabEmail(to):
     getLastRecord = MeasuringForm.objects.all().last()
     getAllDataPart = DataPart.objects.all()
     getAllMaterial = Material.objects.all()
@@ -650,9 +664,6 @@ def staffEmail(to):
         'measuring_request': ", ".join(getLastRecord.measuring_request),
         'testing_request': ", ".join(getLastRecord.testing_request),
         'note': getLastRecord.note,
-        'receiving_date': getLastRecord.receiving_date,
-        'receiving_time': getLastRecord.receiving_time,
-        'shift': getLastRecord.shift,
         'id_request': getLastRecord.id_request
     }
 
@@ -795,7 +806,7 @@ def staffLabEmail(to, id_request):
     email.send()
 
 
-def spvLabEmail(to, id_request):
+def spvLabEmailTemp(to, id_request):
     findMeasuringById = MeasuringForm.objects.get(id_request__exact=id_request)
     getAllDataPart = DataPart.objects.all()
     getAllMaterial = Material.objects.all()
