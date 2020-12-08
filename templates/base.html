@@ -26,6 +26,10 @@
             {% block modal_new_task %}
               {% include "snippets/modal-task-management.html" %}
             {% endblock %}
+
+            {% block modal_report_signature %}
+              {% include "snippets/modal-report-signature.html" %}
+            {% endblock %}
         </div>
     </div>
   </div>
@@ -37,6 +41,8 @@
   </a>
   {% include "snippets/scripts.html" %}
   {% block app_scripts %}
+    <script src="{% static "js/signature_pad.umd.js" %}"></script>
+    <script src="{% static "js/signature.js" %}"></script>
   {% endblock %}
 </body>
 </html>

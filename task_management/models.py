@@ -61,6 +61,9 @@ class GeneralInformation(models.Model):
     measurement_type = models.CharField(max_length=25)
     standard_tolerance = models.IntegerField(primary_key=False)
     id_task = models.CharField(max_length=25)
+    signature_inspected = models.TextField()
+    signature_checked = models.TextField()
+    signature_approved = models.TextField()
     class Meta:
         db_table = 'general_information'
         managed = False

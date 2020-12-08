@@ -119,6 +119,24 @@ def get_task_management(request):
                 customer_name = vendor.vendor_name
 
             if cekGeneral:
+                getGeneralById = GeneralInformation.objects.get(id_task__exact=i.id_task)
+                if getGeneralById.signature_inspected != "" and getGeneralById.signature_checked != "" and getGeneralById.signature_approved != "":
+                     inspected = '√'
+                     checked =  '√'
+                     approved = '√'
+                elif getGeneralById.signature_inspected != "" and getGeneralById.signature_checked != "":
+                    inspected = '√'
+                    checked =  '√'
+                    approved = f'<a href="#" class="btn btn-info btn-sm click_inspected" data-toggle="modal" id="#modalScroll_{i.id_task}"> Action</a>'
+                elif getGeneralById.signature_inspected != "":
+                    inspected = '√'
+                    checked = f'<a href="#" class="btn btn-info btn-sm click_inspected" data-toggle="modal" id="#modalScroll_{i.id_task}"> Action</a>'
+                    approved = '-'
+                else:
+                    inspected = f'<a href="#" class="btn btn-info btn-sm click_inspected" data-toggle="modal" id="#modalScroll_{i.id_task}"> Action</a>'
+                    checked =  '-'
+                    approved = '-'
+
                 data = {
                     'id_task': i.id_task,
                     'alert': '<i class="fa fa-circle text-success"></i>',
@@ -127,9 +145,9 @@ def get_task_management(request):
                     'request_form': customer_name,
                     'pic': employee.nama,
                     'task': '√',
-                    'inspected': f'<a href="#" class="btn btn-info btn-sm click_inspected" data-toggle="modal" id="#modalScroll_{i.id_task}"> Action</a>',
-                    'checked': '-',
-                    'approved': '-',
+                    'inspected': inspected,
+                    'checked':checked,
+                    'approved': approved,
                     'created_at': convert_date(i.created_at)
                 }
             else:
@@ -211,7 +229,7 @@ def rubbers_tolerance(request):
 
 def rubbers_tolerance_by_id(request, id_rubber):
     try:
-        get_rubber_tolerance = RubbersTolerance.objects.get(id_rubber__exact=id_rubber)
+        get_rubber_tolerance = RubbersTolerance.objects.get(id__exact=id_rubber)
         standard = get_rubber_tolerance.standard.split('-')
         data = {
             'id_rubber': get_rubber_tolerance.id,
@@ -500,7 +518,9 @@ def pdf_view_rubbers_tolerance(request, id_general):
             sample_4 = data_measurement[i][3]
             sample_5 = data_measurement[i][4]
             standard = standard_tolerance_type[i].standard.split('-')
-            if sample_1 != 0 and sample_2 != 0 and sample_3 != 0 and sample_4 != 0 and sample_5 != 0:
+            x_result = 0.0
+            r_result = 0.0
+            if sample_1 != 0 or sample_2 != 0 or sample_3 != 0 or sample_4 != 0 or sample_5 != 0:
                 calculate_x = (sample_1 + sample_2 + sample_3 + sample_4 + sample_5) / 5
                 find_max = max(sample_1, sample_2, sample_3, sample_4, sample_5)
                 find_min = min(sample_1, sample_2, sample_3, sample_4, sample_5)
@@ -548,9 +568,6 @@ def pdf_view_rubbers_tolerance(request, id_general):
             }
 
             measurements.append(data)
-        
-        for i in measurements:
-            print(i)
 
         data = {
             'get_general': get_general,
@@ -569,4 +586,36 @@ def pdf_view_rubbers_tolerance(request, id_general):
         return render(request, 'task_management/pdf_view.html', data)
     except ObjectDoesNotExist:
         raise Http404
-    
+
+
+def getGeneralById(request, id_general):
+    try:
+        get_general = GeneralInformation.objects.get(id_general__exact=id_general)
+        data = {
+            'signature_inspected': get_general.signature_inspected,
+            'signature_checked': get_general.signature_checked,
+            'signature_approved': get_general.signature_approved
+        }
+        return JsonResponse(data, safe = False)
+    except ObjectDoesNotExist:
+        raise Http404
+
+def updateGeneralById(request, id_general):
+    try:
+        signature = request.POST['signature']
+        if request.method == 'POST':
+            get_general = GeneralInformation.objects.get(id_general__exact=id_general)
+            signature_inspected = get_general.signature_inspected
+            signature_checked = get_general.signature_checked
+            signature_approved = get_general.signature_approved
+            if signature_inspected == "":
+                get_general.signature_inspected = signature
+            elif signature_checked == "":
+                get_general.signature_checked = signature
+            elif signature_approved == "":
+                get_general.signature_approved = signature
+            get_general.save()
+
+            return HttpResponse(json.dumps({"message": "Success"}), content_type="application/json")
+    except ObjectDoesNotExist:
+        raise Http404

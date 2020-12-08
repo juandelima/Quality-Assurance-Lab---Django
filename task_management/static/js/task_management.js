@@ -364,7 +364,7 @@ class TaskManagement {
                 <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="myInspected_${data.id_general}">Inspected</h5>
+                            <h5 class="modal-title" id="myInspected_${data.id_general}">General Information</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
@@ -475,9 +475,9 @@ class TaskManagement {
                         </div>
 
                         <div class="modal-footer">
-                            <a href="/task-management/measuring-report/${data.id_general}" target="__blank" class="btn btn-sm btn-primary">Download PDF</a>
-                            <button type="button" id="reject_rubbers_${data.id_general}" class="btn btn-sm btn-danger">Reject</button>
-                            <button type="button" id="acc_rubbers_${data.id_general}" class="btn btn-sm btn-success">Approved</button>
+                            <a href="/task-management/measuring-report/${data.id_general}" target="__blank" class="btn btn-sm btn-primary">View PDF</a>
+                            <button type="button" id="reject_${data.id_general}" class="btn btn-sm btn-danger">Reject</button>
+                            <button type="button" id="acc_${data.id_general}" class="btn btn-sm btn-success btn-approved">Approved</button>
                         </div>
                     </div>
                 </div>
@@ -508,6 +508,7 @@ class TaskManagement {
                 </tbody>
             </table>
         `;
+
         const row_measurements_inspect = document.getElementById(`row_measurements_inspect_${data.id_general}`);
         row_measurements_inspect.innerHTML = '';
         data.measurements.forEach((data, index) => {
@@ -560,21 +561,22 @@ class TaskManagement {
             `;
         });
         $(`#inspected_${data.id_task}`).modal('show');
-
-        this.printPdf(data.id_general);
-
+        this.approved(data.id_general, data.id_task);
     }
 
-    printPdf(id_general) {
-        const cetak_pdf = $(`#cetak_pdf_${id_general}`);
-        cetak_pdf.click(() => {
-            $(`#approved_inspected_${id_general}`).printThis({
-                importCSS: true,
-                pageTitle: "",
-                header: null,
-                footer: null 
-            })
+    approved(id_general, id_task) {
+        const acc_ = $(`#acc_${id_general}`);
+        acc_.click(function() {
+            const getId = $(this).attr('id');
+            const split_id = getId.split('_');
+            const id_gen = split_id[split_id.length - 1];
+            $(`#inspected_${id_task}`).modal('hide');
+            $(`#modal__signature`).modal('show');
         });
+    }
+
+    signature() {
+
     }
 
     standard_tolerance(id_task) {
